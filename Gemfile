@@ -1,44 +1,42 @@
 source 'https://rubygems.org'
+ruby '2.3.5'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
-gem 'bootstrap-sass', '~> 3.3.7'
-gem 'font-awesome-rails', '4.7.0.1'
+gem 'devise'
+gem 'figaro'
+gem 'jbuilder', '~> 2.0'
+gem 'pg', '~> 0.18'
+gem 'puma'
+gem 'rails', '5.1.4'
+gem 'redis'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass', '~> 4.7.0'
+gem 'sass-rails'
+gem 'simple_form'
+gem 'uglifier'
+gem 'webpacker'
+gem 'time_difference'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.4'
+# The gems bellow were installad by us after Le Wagon template:
 
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+#   This gem treats money as cents in integer with the respective currency
+gem 'money-rails', '~> 1' #https://github.com/RubyMoney/money-rails
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+#   This gem is used to make nested-models forms, e.x: the form of operation has the intallments obejtcs inside https://github.com/nathanvda/cocoon
+gem 'cocoon'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+#   This gem is used to upload documents using a form
+gem "paperclip", "~> 5.0.0"
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+group :development do
+  gem 'web-console', '>= 3.3.0'
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+group :development, :test do
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'listen', '~> 3.0.5'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
