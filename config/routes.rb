@@ -1,7 +1,7 @@
 Myapp::Application.routes.draw do
 
   devise_for :users
-  # You can have the root of your site routed with "root"
+
   root to: 'landing#index'
 
   get "landing/index"
@@ -13,6 +13,7 @@ Myapp::Application.routes.draw do
   get "dashboards/dashboard_4"
   get "dashboards/dashboard_4_1"
   get "dashboards/dashboard_5"
+  get "dashboard", to: "dashboards#dashboard_advalori"
 
   get "layoutsoptions/index"
   get "layoutsoptions/off_canvas"

@@ -6,6 +6,21 @@ Myapp::Application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  sprockets_env = nil
+  config.assets.configure do |env|
+    sprockets_env = env
+
+    # Sprockets environment configuration goes here
+    # env.js_compressor  = :uglifier # or :closure, :yui
+    # env.css_compressor = :sass   # or :yui
+  end
+
+  if config.cache_classes
+    config.after_initialize do
+      Rails.application.assets = sprockets_env
+    end
+  end
+
   # Do not eager load code on boot.
   config.eager_load = false
 
