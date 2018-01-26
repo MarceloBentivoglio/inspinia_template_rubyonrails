@@ -1,0 +1,15 @@
+<div class="container">
+  <%= @seller.company_name %>
+
+  <% @invoices.each do |invoice| %>
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Invoice <%= invoice.invoice_number %> <%= invoice.total_value %> <%= invoice.average_outstanding_days %></p>
+        <p>Installments</p>
+        <% invoice.installments.each do |installment| %>
+          <p><%= installment.number %> <%= installment.value %> <%= installment.due_date %> <%= installment.outstanding_days %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
