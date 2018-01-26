@@ -1,4 +1,4 @@
-Myapp::Application.routes.draw do
+Rails.application.routes.draw do
 
   devise_for :users
   resources :invoices, only: [:new, :create, :show]
