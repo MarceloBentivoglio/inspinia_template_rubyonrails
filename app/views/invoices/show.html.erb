@@ -1,0 +1,99 @@
+<div class="row">
+<div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content p-xl">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>Cedente:</h5>
+                    <address>
+                        <strong><%= @seller.company_name %></strong><br>
+                        <%= @seller.address %>, <%= @seller.address_number %><br>
+                        <%= @seller.city %>, <%= @seller.state %> <%= @seller.zip_code %><br>
+                        <abbr title="Phone">P:</abbr> (123) 601-4590
+                    </address>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                    <h4>Nota Fiscal</h4>
+                    <h4 class="text-navy"><%= @invoice.invoice_number %></h4>
+                    <span>To:</span>
+                    <address>
+                        <strong>Corporate, Inc.</strong><br>
+                        112 Street Avenu, 1080<br>
+                        Miami, CT 445611<br>
+                        <abbr title="Phone">P:</abbr> (120) 9000-4321
+                    </address>
+                    <p>
+                        <span><strong>Data da Operacao</strong>  <%= Time.now.strftime("%d/%m/%Y") %> </span><br />
+                        <span><strong>Prazo Medio de Vencimento</strong> <%= @invoice.average_outstanding_days %></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="table-responsive m-t">
+                <table class="table invoice-table">
+                    <thead>
+                    <tr>
+                        <th>Parcelas</th>
+                        <th>Número</th>
+                        <th>Vencimento</th>
+                        <th>Dias</th>
+                        <th>Fator</th>
+                        <th>Advalorem</th>
+                        <th>Valor de Face</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% @installment.each do |installment| %>
+                        <tr>
+                            <td>
+                                <div><strong>Sacado: <%= @payer.company_name %></strong></div>
+                                <small>Opera Performada, Confirmada e Notificada.</small>
+                            </td>
+                            <td><%= installment.number %></td>
+                            <td><%= installment.due_date.strftime("%d/%m/%Y") %></td>
+                            <td><%= installment.outstanding_days %></td>
+                            <td><%= installment.interest_cents %></td>
+                            <td><%= installment.ad_valorem_cents %></td>
+                            <td><%= installment.value %></td>
+                        </tr>
+
+
+                      <% end %>
+                    </tbody>
+                </table>
+            </div><!-- /table-responsive -->
+
+            <table class="table invoice-total">
+                <tbody>
+                <tr>
+                    <td><strong>Sub Total :</strong></td>
+                    <td>R$ <%= @invoice.total_value_cents / 100 %></td>
+                </tr>
+                <tr>
+                    <td><strong>Fator +Ad :</strong></td>
+                    <td>R$ <%= @invoice.average_interest_cents + @invoice.average_ad_valorem_cents %></td>
+                </tr>
+                <tr>
+                    <td><strong>IOF :</strong></td>
+                    <td>R$ <%= 175.98 %></td>
+                </tr>
+                <tr>
+                    <td><strong>TOTAL FINAL :</strong></td>
+                    <td>R$ <%= (@invoice.total_value_cents / 100) - (@invoice.average_interest_cents + @invoice.average_ad_valorem_cents) - 175.98 %></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <button class="btn btn-primary">R$ Comprar Operação</button>
+            </div>
+
+            <div class="well m-t">
+                <strong>Comentários</strong>
+                Esse espaço poderá ser utilizado para informações do Cedente e/ou Sacado, como por exemplo: "Cedente AAA, alta demanda por NFs"
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

@@ -6,6 +6,14 @@ class InvoicesController < ApplicationController
     @invoice.build_operation
   end
 
+  def show
+    @invoice = Invoice.find(params[:id])
+    @seller = @invoice.operation.seller
+    @payer = @invoice.payer
+    @installment = @invoice.installments
+  end
+
+
   def load_invoice_from_xml
     if params[:invoice][:xml_file].present?
       @invoice = Invoice.from_file(params[:invoice][:xml_file])
