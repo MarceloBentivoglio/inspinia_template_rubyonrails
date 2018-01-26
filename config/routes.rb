@@ -1,6 +1,13 @@
 Myapp::Application.routes.draw do
 
   devise_for :users
+  resources :invoices, only: [:new, :create]
+  resources :sellers, only: [:new, :create]
+  resources :payers, only: [:new, :create]
+  resources :operations, only: [:new, :show]
+
+  post '/invoices/load_xml', to: 'invoices#load_invoice_from_xml'
+  post '/cnpj_check', to: 'cnpj_checks#fetch_information'
 
   root to: 'landing#index'
 
