@@ -20,6 +20,6 @@ class DashboardsController < ApplicationController
   end
 
   def dashboard_advalori
-    render :layout => "layout_advalori"
+    render layout: "layout_advalori"
   end
 end

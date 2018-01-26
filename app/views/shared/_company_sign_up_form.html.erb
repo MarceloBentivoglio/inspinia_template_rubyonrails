@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= simple_form_for(company, url: redirect_path) do |f| %>
+        <%= f.hidden_field :identification_number %>
+        <%= f.input :company_name %>
+        <%= f.input :company_nickname %>
+        <%= f.input :business_entity %>
+        <%= f.input :registration_number %>
+        <%= f.input :nire %>
+        <%= f.input :incorporation_date %>
+        <%= f.input :zip_code %>
+        <%= f.input :address %>
+        <%= f.input :address_number %>
+        <%= f.input :neighborhood %>
+        <%= f.input :address_2 %>
+        <%= f.input :state %>
+        <%= f.input :city %>
+        <%= f.input :corporate_capital %>
+        <%= f.input :activity %>
+        <%= f.input :cnae %>
+        <%= f.input :tax_option %>
+        <%= f.submit "Salvar informações", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
