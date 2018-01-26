@@ -22,5 +22,4 @@ class GraphsController < ApplicationController
 
   def c3charts
   end
-
 end

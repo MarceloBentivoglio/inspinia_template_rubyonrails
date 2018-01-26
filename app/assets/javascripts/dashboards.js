@@ -9,3 +9,11 @@
 //= require jvectormap/jquery-jvectormap-2.0.2.min.js
 //= require jvectormap/jquery-jvectormap-world-mill-en.js
 //= require toastr/toastr.min.js
+
+//= require morris/raphael-2.1.0.min.js
+//= require morris/morris.js
+//= require rickshaw/vendor/d3.v3.js
+//= require rickshaw/rickshaw.min.js
+//= require chartist/chartist.min.js
+//= require d3/d3.min.js
+//= require c3/c3.min.js
