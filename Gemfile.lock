@@ -216,12 +216,12 @@ DEPENDENCIES
   cocoon
   devise
   figaro
-  font-awesome-sass (~> 4.7.0)
+  font-awesome-sass
   jbuilder (~> 2.0)
   listen (~> 3.0.5)
   money-rails (~> 1)
-  paperclip (~> 5.0.0)
-  pg (~> 0.18)
+  paperclip
+  pg (~> 0.21)
   pry-byebug
   pry-rails
   puma
