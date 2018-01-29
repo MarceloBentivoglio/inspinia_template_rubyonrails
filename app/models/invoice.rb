@@ -16,7 +16,7 @@ class Invoice < ApplicationRecord
   has_attached_file :xml_file
 
   # We need this so that the program understands that total_value is a Money object
-  monetize :total_value_cents, with_model_currency: :currency
+  monetize :total_value_cents, :average_interest_cents, :average_ad_valorem_cents, with_model_currency: :currency
 
 
   def self.from_file(file)

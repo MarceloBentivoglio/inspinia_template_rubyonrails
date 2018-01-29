@@ -5,6 +5,11 @@ class Seller < ApplicationRecord
   has_many :sellers_concentrations
   has_many :operations
   has_many :invoices, through: :operations
+  has_many :financials
+  has_many :debts
+  has_many :season_sales
+  has_many :revenues
+  has_many :qualitative_information
 
   validates :identification_number, uniqueness: true
 end

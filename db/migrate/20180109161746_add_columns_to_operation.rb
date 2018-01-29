@@ -2,7 +2,7 @@ class AddColumnsToOperation < ActiveRecord::Migration[5.1]
   def change
     add_monetize :operations, :average_interest
     add_monetize :operations, :average_ad_valorem
-    add_monetize :operations, :average_outstanding_days
+    add_column :operations, :average_outstanding_days, :integer
     add_monetize :operations, :fee_instrucoes_bancarias_em_titulos
     add_monetize :operations, :fee_aditivo
     add_monetize :operations, :fee_cobranca_custodia_cheques
