@@ -1,0 +1,74 @@
+<div class="wrapper wrapper-content">
+  <div class="row animated fadeInRight">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5><%= invoice.operation.seller.company_name %></h5>
+      </div>
+      <div class="ibox-content">
+        <p>Aqui vai a descricao da empresa, o que vende, como vende, resumo das atividades.</p>
+        <h4><strong>Nota Fiscal <%= invoice.invoice_number %></strong></h4>
+        <p><i class="fa fa-file-text-o"></i> <%= invoice.installments.count %> Parcelas</p>
+        <h5><%= invoice.payer.company_name %></h5>
+        <% invoice.installments.each do |i| %>
+        <p>Vencimento <%= i.due_date.strftime("%d/%m/%y") %> | Valor R$ <%= i.value_cents %> | Fator R$<%= i.interest_cents %> | Ad+ R$<%= i.ad_valorem_cents %> | Comissão R$<%= 0.01*(i.interest_cents) %> </p>
+        <% end %>
+        <div class="row m-t-lg">
+          <div class="col-md-3">
+            <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
+            <h5><strong><%= @invoices.where(payer_id: invoice.payer).count %></strong> Operacões Vendidas</h5>
+          </div>
+          <div class="col-md-3">
+            <span class="line">5,3,9,6,5,9,7,3,5,2</span>
+            <h5><strong>R$ <%= @invoices.where(payer_id: invoice.payer).sum("total_value_cents") %></strong> Liquidado</h5>
+          </div>
+          <div class="col-md-3">
+            <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
+            <h5><strong><%= @invoices.where(payer_id: invoice.payer).count %></strong> Operacões em Aberto</h5>
+          </div>
+          <div class="col-md-3">
+            <span class="line">5,3,9,6,5,9,7,3,5,2</span>
+            <h5><strong>R$ <%= @invoices.where(payer_id: invoice.payer).sum("total_value_cents") %></strong> a Liquidar</h5>
+          </div>
+        </div>
+        <div class="user-button">
+          <div class="row">
+            <div class="col-md-6">
+              <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-folder-open-o"></i>  Informacões Cedente</button>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-exchange"></i>  Comprar Operacão</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+
+    $("span.pie").peity("pie", {
+        fill: ['#1ab394', '#d7d7d7', '#ffffff']
+    })
+
+    $(".line").peity("line", {
+        fill: '#1ab394',
+        stroke: '#169c81',
+    })
+
+    $(".bar").peity("bar", {
+        fill: ["#1ab394", "#d7d7d7"]
+    })
+
+
+});
+
+</script>
+
+<% end %>
