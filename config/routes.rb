@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :invoices, only: [:new, :create, :show]
-  resources :sellers, only: [:new, :create]
+  resources :sellers, only: [:new, :create, :show]
   resources :payers, only: [:new, :create]
   resources :operations, only: [:new, :show]
 
