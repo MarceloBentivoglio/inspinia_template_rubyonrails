@@ -11,7 +11,7 @@
                         <strong><%= @seller.company_name %></strong><br>
                         <%= @seller.address %>, <%= @seller.address_number %><br>
                         <%= @seller.city %>, <%= @seller.state %> <%= @seller.zip_code %><br>
-                        <abbr title="Phone">P:</abbr> (123) 601-4590
+                        <abbr title="Phone">P:</abbr> (123) 601-459
                     </address>
                 </div>
 
@@ -87,7 +87,7 @@
                 </tbody>
             </table>
             <div class="text-right">
-                <button class="btn btn-primary">R$ Comprar Operação</button>
+                <%= link_to("R$ Comprar Operação", seller_path, method: :get, class: "btn btn-primary") %>
             </div>
 
             <div class="well m-t">
