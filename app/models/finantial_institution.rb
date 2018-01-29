@@ -1,0 +1,2 @@
+class FinantialInstitution < ApplicationRecord
+end
