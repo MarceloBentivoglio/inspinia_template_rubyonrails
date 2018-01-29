@@ -1,0 +1,8 @@
+<div class="row">
+  <% @invoices.each do |invoice| %>
+    <div class="col-xs-12 col-md-6">
+      <%= render 'invoice_card', invoice: invoice %>
+    </div>
+  <% end %>
+</div>
+

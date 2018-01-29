@@ -1,4 +1,9 @@
 class InvoicesController < ApplicationController
+  def index
+    @invoices = Invoice.all
+    @installments = Installment.all
+  end
+
   def new
     @invoice = Invoice.new
     @invoice.installments.build
@@ -49,10 +54,14 @@ class InvoicesController < ApplicationController
     invoice.installments.each do |i|
       i.outstanding_days = TimeDifference.between(i.due_date, DateTime.now).in_days # TODO: Datetime.now will change to creation Operation date
       average += i.outstanding_days
+      i.interest_cents = ((1.049 ** (i.outstanding_days / 30)) - 1 )* invoice.total_value
+      i.ad_valorem_cents = ((1.001 ** (i.outstanding_days / 30)) - 1 ) * invoice.total_value
     end
     invoice.save!
     if invoice.save!
       invoice.average_outstanding_days = (average / invoice.installments.count) # TODO: Refactor to bring these lines above
+      invoice.average_interest_cents = ((1.049 ** (invoice.average_outstanding_days / 30)) - 1) * invoice.total_value
+      invoice.average_ad_valorem_cents = ((1.001 ** (invoice.average_outstanding_days / 30)) - 1) * invoice.total_value
       invoice.save!
       redirect_to root_path
     else
