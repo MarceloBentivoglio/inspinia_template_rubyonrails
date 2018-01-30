@@ -1,1 +1,186 @@
-<h1>show do seller</h1>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="widget lazur-bg p-xl">
+        <h2><%= @seller.company_nickname %></h2>
+        <small><%= @seller.company_name %></small>
+        <ul class="list-unstyled m-t-md">
+          <li>
+            <span class="fa fa-envelope m-r-xs"></span>
+            <label>E-mail:</label>
+            <%= @seller.email %>
+          </li>
+          <li>
+            <span class="fa fa-home m-r-xs"></span>
+            <label>Endereço:</label>
+            <%= "#{@seller.address}, #{@seller.address_number}" %>
+             <%= " | #{@seller.address_2}" if @seller.address_2.present? %>
+          </li>
+          <li>
+            <span class="fa fa-phone m-r-xs"></span>
+            <label>Contato:</label>
+            <%= "#{@seller.phone_number}" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Institucional </h5>
+        </div>
+        <div class="ibox-content">
+
+            <ul class="list-unstyled m-t-md">
+              <li>
+                <span class="fa fa-birthday-cake m-r-xs"></span>
+                <label>Ano de fundação:</label>
+                <%= @seller.incorporation_date %>
+              </li>
+              <li>
+                <span class="fa fa-industry m-r-xs"></span>
+                <label>Descrição da produção:</label>
+                <%= @finantial.production_economics_cycle_description %>
+              </li>
+            </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Receita em <%= @year %> </h5>
+        </div>
+        <div class="ibox-content">
+          <div>
+            <canvas id="barChart" height="114"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Receita média mensal</h5>
+            </div>
+            <div class="ibox-content">
+              <h1 class="no-margins">R$ 300 mil</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Crescimento anual</h5>
+            </div>
+            <div class="ibox-content">
+              <h1 class="text-navy no-margins">
+                <i class="fa fa-play fa-rotate-270"></i> 5%
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Sasonalidade da receita</h5>
+            </div>
+            <div class="ibox-content">
+              <div>
+                <canvas id="barChartSeason" height="35"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<% content_for :javascript do %>
+
+
+<!-- TODO bring real data to the graph -->
+<script type="text/javascript">
+
+  $(function() {
+
+    var barData = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      datasets: [
+      {
+        label: "Receita em [mil R$] ",
+        backgroundColor: 'rgba(26,179,148,0.5)',
+        borderColor: "rgba(26,179,148,0.7)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: [1000, 800, 300, 200, 0, 400, 500, 200, 1000, 900, 600]
+      }
+      ]
+    };
+
+    var barOptions = {
+      responsive: true
+    };
+
+    var ctx2 = document.getElementById("barChart").getContext("2d");
+    new Chart(ctx2, {type: 'bar', data: barData, options:barOptions});
+
+    var barDataSeason = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      datasets: [
+      {
+        label: false,
+        backgroundColor: 'rgba(26,179,148,0.5)',
+        borderColor: "rgba(26,179,148,0.7)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: [1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0]
+      }
+      ]
+    };
+
+    var barOptionsSeason = {
+      responsive: true,
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display:false,
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display:false,
+            drawBorder: false
+          },
+          ticks: {
+            display: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        enabled: false
+      },
+    };
+
+    var ctx3 = document.getElementById("barChartSeason").getContext("2d");
+    new Chart(ctx3, {type: 'bar', data: barDataSeason, options:barOptionsSeason});
+
+  });
+
+</script>
+
+<% end %>
+

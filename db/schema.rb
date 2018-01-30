@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129164309) do
+ActiveRecord::Schema.define(version: 20180130162428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,6 +216,8 @@ ActiveRecord::Schema.define(version: 20180129164309) do
     t.string "tax_option"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "phone_number"
   end
 
   create_table "payers_concentrations", force: :cascade do |t|
@@ -332,7 +334,7 @@ ActiveRecord::Schema.define(version: 20180129164309) do
     t.string "business_entity"
     t.string "registration_number"
     t.string "nire"
-    t.datetime "incorporation_date"
+    t.string "incorporation_date"
     t.string "zip_code"
     t.string "address"
     t.string "address_number"
@@ -347,6 +349,8 @@ ActiveRecord::Schema.define(version: 20180129164309) do
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "phone_number"
     t.index ["client_id"], name: "index_sellers_on_client_id"
   end
 
