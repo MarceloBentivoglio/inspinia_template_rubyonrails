@@ -28,7 +28,7 @@ puts 'Creating new User...'
 user = User.create!(client: client, email: 'test@email.com', password: '123456')
 
 puts 'Creating new Sellers...'
-seller1 = Seller.create!(identification_number: "12254565000198", company_name: "Le Wagon School", client: client)
+seller1 = Seller.create!(identification_number: "12254565000198", company_nickname: "Le Wagon", company_name: "Fast Food Ensinos Computacionais Limitada", client: client, email: contato@me.com.br, address: "Rua Mourato Coelho", address_number: "1438", address_2: "Bairro: Vila Madalena", phone_number: "+ 55 11 99830-8090", incorporation_date: "2016")
 seller2 = Seller.create!(identification_number: "25462169000165", company_name: "Enterprise RH Ltda", client: client)
 
 
@@ -66,6 +66,7 @@ puts 'Creating Debt Types...'
 debt_types = [
   'Empréstimo de longo prazo',
   'Crédito de para capital de giro',
+  'Adiantamento de recebíveis'
 ]
 
 debt_types.each do |debt_type|
