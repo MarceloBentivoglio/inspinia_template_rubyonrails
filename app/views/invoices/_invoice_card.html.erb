@@ -2,16 +2,45 @@
   <div class="row animated fadeInRight">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-        <h5><%= invoice.operation.seller.company_name %></h5>
+        <h5 style="margin: 0">Cedente: <%= invoice.operation.seller.company_name %></h5>
+        <br>
+        <p>Aqui vai a descricao da empresa, o que vende, como vende, resumo das atividades.</p>
+      </div>
+      <div class="ibox-title">
+          <h4 style="display: inline;">Sacado: <%= invoice.payer.company_name %></h4>
+          <p style="display: inline; position: relative; left: 10px;">
+            Nota Fiscal <%= invoice.invoice_number %>
+          </p>
+          <p style="display: inline; position: relative; left: 20px;">
+            <i class="fa fa-file-text-o"></i> <%= invoice.installments.count %> Parcelas
+          </p>
       </div>
       <div class="ibox-content">
-        <p>Aqui vai a descricao da empresa, o que vende, como vende, resumo das atividades.</p>
-        <h4><strong>Nota Fiscal <%= invoice.invoice_number %></strong></h4>
-        <p><i class="fa fa-file-text-o"></i> <%= invoice.installments.count %> Parcelas</p>
-        <h5><%= invoice.payer.company_name %></h5>
-        <% invoice.installments.each do |i| %>
-        <p>Vencimento <%= i.due_date.strftime("%d/%m/%y") %> | Valor R$ <%= i.value_cents %> | Fator R$<%= i.interest_cents %> | Ad+ R$<%= i.ad_valorem_cents %> | Comissão R$<%= 0.01*(i.interest_cents) %> </p>
-        <% end %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Vencimento</th>
+              <th>Dias</th>
+              <th>Valor R$</th>
+              <th>Fator R$</th>
+              <th>Ad+ R$</th>
+              <th>Comissão R$</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% invoice.installments.each do |i| %>
+              <tr>
+                <td><%= i.due_date.strftime("%d/%m/%y") %></td>
+                <td><%= i.outstanding_days %></td>
+                <td><%= humanized_money i.value %></td>
+                <td><%= humanized_money i.interest %></td>
+                <td><%= humanized_money i.ad_valorem %></td>
+                <td><%= 0.1*(i.interest) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
         <div class="row m-t-lg">
           <div class="col-md-3">
             <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
@@ -22,21 +51,18 @@
             <h5><strong>R$ <%= @invoices.where(payer_id: invoice.payer).sum("total_value_cents") %></strong> Liquidado</h5>
           </div>
           <div class="col-md-3">
-            <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
+            <span class="bar2">5,3,9,6,5,9,7,3,5,2</span>
             <h5><strong><%= @invoices.where(payer_id: invoice.payer).count %></strong> Operacões em Aberto</h5>
           </div>
           <div class="col-md-3">
-            <span class="line">5,3,9,6,5,9,7,3,5,2</span>
+            <span class="line2">5,3,9,6,5,9,7,3,5,2</span>
             <h5><strong>R$ <%= @invoices.where(payer_id: invoice.payer).sum("total_value_cents") %></strong> a Liquidar</h5>
           </div>
         </div>
         <div class="user-button">
           <div class="row">
-            <div class="col-md-6">
-              <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-folder-open-o"></i>  Informacões Cedente</button>
-            </div>
-            <div class="col-md-6">
-              <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-exchange"></i>  Comprar Operacão</button>
+            <div class="col-md-6 col-md-offset-6">
+              <%= link_to "Comprar Operação", invoice_path(invoice), class: 'btn btn-primary btn-sm btn-block' %>
             </div>
           </div>
         </div>
@@ -54,16 +80,25 @@
 $(function() {
 
     $("span.pie").peity("pie", {
-        fill: ['#1ab394', '#d7d7d7', '#ffffff']
+      fill: ['#7698C2', '#d7d7d7', '#ffffff']
     })
 
     $(".line").peity("line", {
-        fill: '#1ab394',
-        stroke: '#169c81',
+      fill: '#7698C2',
+      stroke: '#D7D8DB',
+    })
+
+    $(".line2").peity("line", {
+      fill: '#CC4B5A',
+      stroke: '#D7D8DB',
     })
 
     $(".bar").peity("bar", {
-        fill: ["#1ab394", "#d7d7d7"]
+      fill: ["#7698C2", "#d7d7d7"]
+    })
+
+    $(".bar2").peity("bar", {
+      fill: ["#CC4B5A", "#d7d7d7"]
     })
 
 
