@@ -22,20 +22,184 @@ Client.destroy_all
 
 
 puts 'Creating new Client...'
-client = Client.create!(name: 'MVP Invest', cnpj: '23198636000195', available_funds: Money.new(1000000))
+client = Client.create!(
+  type: 'Factoring',
+  name: 'MVP Invest',
+  cnpj: '23198636000195',
+  available_funds: Money.new(1000000)
+  )
 
 puts 'Creating new User...'
-user = User.create!(client: client, email: 'test@email.com', password: '123456')
+user = User.create!(email: 'test@email.com', password: '123456', client: client)
+
+puts 'Creating Finantial Institutions...'
+f1 = FinantialInstitution.create!(name: 'Itaú')
+f2 = FinantialInstitution.create!(name: 'Bradesco')
+f3 = FinantialInstitution.create!(name: 'Caixa Econômica Federal')
+f4 = FinantialInstitution.create!(name: 'Banco do Brasil')
+f5 = FinantialInstitution.create!(name: 'BNDES')
+f6 = FinantialInstitution.create!(name: 'Santander')
+f7 = FinantialInstitution.create!(name: 'Receita Federal')
+f8 = FinantialInstitution.create!(name: 'MVP Fomento Mercantil')
+f9 = FinantialInstitution.create!(name: 'Sabia Fomento Mercantil')
+f10 = FinantialInstitution.create!(name: 'FIDC Federal Invest')
+
+puts 'Creating Debt Types...'
+d1 = DebtType.create!(name: 'Financiamento Imobiliario')
+d2 = DebtType.create!(name: 'Financiamento Automotivo')
+d3 = DebtType.create!(name: 'Capital de Giro')
+d4 = DebtType.create!(name: 'Refis')
+d5 = DebtType.create!(name: 'Antecipação de Recebíveis')
+
 
 puts 'Creating new Sellers...'
-seller1 = Seller.create!(identification_number: "12254565000198", company_nickname: "Le Wagon", company_name: "Fast Food Ensinos Computacionais Limitada", client: client, email: contato@me.com.br, address: "Rua Mourato Coelho", address_number: "1438", address_2: "Bairro: Vila Madalena", phone_number: "+ 55 11 99830-8090", incorporation_date: "2016")
-seller2 = Seller.create!(identification_number: "25462169000165", company_name: "Enterprise RH Ltda", client: client)
+seller1 = Seller.create!(
+  identification_number: "08588244000149",
+  company_name: "Biort Comércio de Produtos Médicos e Cirúrgicos Eireli EPP",
+  company_nickname: "Biort",
+  business_entity: "Eireli EPP",
+  registration_number: "816882174",
+  nire: "35601949637",
+  incorporation_date: "2006",
+  zip_code: "09580300",
+  address: "Rua dos Meninos",
+  address_number: "431",
+  neighborhood: "Nova Gerty",
+  address_2: "",
+  state: "SP",
+  city: "São Caetano do Sul",
+  corporate_capital: "10000",
+  activity: "Comercio de Instrumentos e Materiais para uso Médico",
+  cnae: "4645101",
+  tax_option: "",
+  client: client,
+  email: "contato@biort.com.br",
+  phone_number: "+ 55 11 26775249-8090",
+  )
 
+puts 'Creating finantials for seller1...'
+finantial1 = Finantial.create!(
+  seller: seller1,
+  production_economics_cycle_description: 'Biort distribui produtos hospitalares para os maiores hospitais de São Paulo. Possui como principais clientes, Rede Dor São Luiz, Cruzeiro do Sul, Christóvão da Gama, entre outros.',
+  employee_quantity: 16,
+  total_wages_cost: Money.new(85000),
+  rent_cost: Money.new(7000),
+  relevant_fixed_cost: Money.new(15000),
+  cost_of_goods_sold: Money.new(150000),
+  information_year: '2017',
+  )
+puts 'Creating debts for seller1...'
+debt1 = Debt.create!(
+  seller: seller1,
+  finantial_institution: 1,
+  debt_type: 1,
+  total_amount: Money.new(250000),
+  balance_amount: Money.new(150000),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
+
+puts 'Creating Qualitative Informations for seller1...'
+qi = QualitativeInformation.create!(
+  seller: seller1,
+  address_verification: true,
+  address_verification_observation: 'Escritório bem localizado e bem organizado.'
+  law_suits_quantity: 0,
+  law_suits_amount: Money.new(0),
+  website: 'não possui',
+  google: 'pouca informação',
+  linkedin: 'não possui',
+  facebook: 'não possui',
+  corporate_email: '@biort.com.br',
+  reclame_aqui: 'não possui reclamações',
+  reclame_aqui_complaints_quantity: 0,
+  reclame_aqui_answered_complaints: 0,
+  google_maps: 'atualizado',
+  information_year: '2017'
+  )
+
+puts 'Creating Season Sales for seller1...'
+season = SeasonSale.create!(
+  seller: seller1,
+  jan: false,
+  feb: false,
+  mar: false,
+  apr: true,
+  may: true,
+  jun: false,
+  jul: false,
+  aug: false,
+  sep: false,
+  oct: true,
+  nov: true,
+  dec: true
+  )
+
+
+seller2 = Seller.create!(
+  identification_number: "12254565000198",
+  company_name: "Fast Food Ensinos Computacionais Limitada",
+  company_nickname: "Le Wagon",
+  business_entity: "TBD",
+  registration_number: "45646546546",
+  nire: "4564654654",
+  incorporation_date: "2016",
+  zip_code: "4564564",
+  address: "Rua Mourato Coelho",
+  address_number: "1438",
+  neighborhood: "Vila Madalena",
+  address_2: "Apart 35",
+  state: "SP",
+  city: "São Paulo",
+  corporate_capital: "5000000",
+  activity: "",
+  cnae: "",
+  tax_option: "",
+  client: client,
+  email: "contato@me.com.br",
+  phone_number: "+ 55 11 99830-8090",
+  )
+
+puts 'Creating new Payers...'
+payer1 = Payer.create!(
+  identification_number: "23156412000156",
+  company_nickname: "Ge Force GTX",
+  company_name: "Nvidia Geforce gtx 970m Ltda",
+  email: "contato@nvidia.com.br",
+  address: "Rua Bandeira Paulista",
+  address_number: "140",
+  neighborhood: "Vila Olimpia",
+  phone_number: "+ 55 11 4411-5050",
+  incorporation_date: "1975"
+  )
+payer2 = Payer.create!(
+  identification_number: "25144236000166",
+  company_nickname: "BenQ",
+  company_name: "BenQ Monitors and Equips SA.",
+  email: "contato@benq.com.br",
+  address: "Alameda Santos",
+  address_number: "1550",
+  neighborhood: "Cerqueira Cesar",
+  phone_number: "+ 55 11 95587-2363",
+  incorporation_date: "1992"
+  )
 
 puts 'Creating new Operation...'
 operation = Operation.create!(seller: seller1, closure_date: Time.now, total_value: Money.new(12000), average_outstanding_days: 38)
 
-# puts 'Creating new Invoices...'
+puts 'Creating new Invoices...'
+invoice = Invoice.create!(operation: operation, payer: payer1, invoice_number: "40012", status: "disponivel", delivery_status: true, confirmed: true, notified: true, average_outstanding_days: 38, total_value: Money.new(10000))
+invoice2 = Invoice.create!(operation: operation, payer: payer2, invoice_number: "40015", status: "disponivel", delivery_status: true, confirmed: true, notified: true, average_outstanding_days: 24, total_value: Money.new(4000))
+
+
+puts 'Creating new Installments...'
+i = Installment.create!(invoice: invoice, number: "40012/1", value: Money.new(5000), due_date: Time.now + 30)
+i2 = Installment.create!(invoice: invoice, number: "40012/2", value: Money.new(5000), due_date: Time.now + 58)
+i3 = Installment.create!(invoice: invoice2, number: "40015/1", value: Money.new(1000), due_date: Time.now + 30)
+i4 = Installment.create!(invoice: invoice2, number: "40015/2", value: Money.new(1000), due_date: Time.now + 58)
+i5 = Installment.create!(invoice: invoice2, number: "40015/3", value: Money.new(1000), due_date: Time.now + 88)
+i6 = Installment.create!(invoice: invoice2, number: "40015/4", value: Money.new(1000), due_date: Time.now + 102)
+
 
 puts 'Creating Finantials...'
 finantials2017 = Finantial.create!(
