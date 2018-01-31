@@ -10,6 +10,7 @@ class Seller < ApplicationRecord
   has_many :season_sales
   has_many :revenues
   has_many :qualitative_information
+  has_many :legals
 
   validates :identification_number, uniqueness: true
 end

@@ -28,7 +28,18 @@ puts 'Creating new User...'
 user = User.create!(client: client, email: 'test@email.com', password: '123456')
 
 puts 'Creating new Sellers...'
-seller1 = Seller.create!(identification_number: "12254565000198", company_nickname: "Le Wagon", company_name: "Fast Food Ensinos Computacionais Limitada", client: client, email: contato@me.com.br, address: "Rua Mourato Coelho", address_number: "1438", address_2: "Bairro: Vila Madalena", phone_number: "+ 55 11 99830-8090", incorporation_date: "2016")
+seller1 = Seller.create!(
+  identification_number: "12254565000198",
+  company_nickname: "Le Wagon",
+  company_name: "Fast Food Ensinos Computacionais Limitada",
+  client: client,
+  email: contato@me.com.br,
+  address: "Rua Mourato Coelho",
+  address_number: "1438",
+  address_2: "Bairro: Vila Madalena",
+  phone_number: "+ 55 11 99830-8090",
+  incorporation_date: "2016",
+)
 seller2 = Seller.create!(identification_number: "25462169000165", company_name: "Enterprise RH Ltda", client: client)
 
 
@@ -126,8 +137,6 @@ qualitative_information_2017 = QualitativeInformation.create!(
   seller: seller1,
   address_verification: true,
   address_verification_observation: "visita ao local",
-  law_suits_quantity: 3,
-  law_suits_amount: Money.new(100000),
   website: 'https://www.lewagon.com',
   google: 'https://www.google.com.br/search?q=lewagon&oq=lewagon&aqs=chrome..69i57j69i60l3j69i65l2.3825j0j1&sourceid=chrome&ie=UTF-8',
   linkedin: 'https://www.linkedin.com/school/5046700/',
@@ -137,6 +146,22 @@ qualitative_information_2017 = QualitativeInformation.create!(
   reclame_aqui_complaints_quantity: 0,
   reclame_aqui_answered_complaints: 0,
   google_maps: 'https://www.google.com.br/maps/place/Le+Wagon+S%C3%A3o+Paulo+Coding+Bootcamp/@-23.555991,-46.6946815,17z/data=!3m1!4b1!4m5!3m4!1s0x94ce57bc5392ac8f:0x39c0e547e7b82d85!8m2!3d-23.555991!4d-46.6924928?hl=en',
+  information_year: '2017',
+)
+
+puts 'Creating Legals...'
+legal_2017 = Legal.create!(
+  seller: seller1,
+  civil_suits_quantity: 1,
+  civil_suits_amount: Money.new(100000),
+  labor_suits_quantity: 2,
+  labor_suits_amount: Money.new(200000),
+  penal_suits_quantity: 3,
+  penal_suits_amount: Money.new(300000),
+  fiscal_suits_quantity: 4,
+  fiscal_suits_amount: Money.new(400000),
+  enforcement_monition_suits_quantity: nil,
+  enforcement_monition_suits_amount: nil,
   information_year: '2017',
 )
 
