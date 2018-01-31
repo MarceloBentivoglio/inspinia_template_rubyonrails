@@ -88,6 +88,7 @@ finantial1 = Finantial.create!(
   cost_of_goods_sold: Money.new(150000),
   information_year: '2017',
   )
+
 puts 'Creating debts for seller1...'
 debt1 = Debt.create!(
   seller: seller1,
@@ -203,7 +204,7 @@ i6 = Installment.create!(invoice: invoice2, number: "40015/4", value: Money.new(
 
 puts 'Creating Finantials...'
 finantials2017 = Finantial.create!(
-  seller: seller1,
+  seller: seller2,
   production_economics_cycle_description: "Ensino de programação para público em geral. Trabalha com batch de alunos. Alunos pagam em parcelas. Cada batch dura 2 meses e o parcelamento é feito dentro deste período. 3 Batchs por ano",
   employee_quantity: 3,
   total_wages_cost: Money.new(5000),
@@ -214,62 +215,11 @@ finantials2017 = Finantial.create!(
   information_year: "2017",
 )
 
-puts 'Creating Finantial Institutions...'
-finantial_institutions = [
-  'Banco do Brasil',
-  'Itaú',
-  'Santander',
-  'Original',
-]
 
-finantial_institutions.each do |finantial_institution|
-  FinantialInstitution.create!(name: finantial_institution)
-end
-
-puts 'Creating Debt Types...'
-debt_types = [
-  'Empréstimo de longo prazo',
-  'Crédito de para capital de giro',
-  'Adiantamento de recebíveis'
-]
-
-debt_types.each do |debt_type|
-  DebtType.create!(name: debt_type)
-end
-
-
-puts 'Creating Debts...'
-debts_2017 = Debt.create!(
-  seller: seller1,
-  finantial_institution: FinantialInstitution.last,
-  debt_type: DebtType.last,
-  total_amount: Money.new(-10000),
-  balance_amount: Money.new(-4000),
-  installments_quantity: Money.new(12),
-  information_year: "2017",
-)
-
-puts 'Creating Season Sales...'
-season_sales_2017 = SeasonSale.create!(
-  seller: seller1,
-  jan: true,
-  feb: true,
-  mar: false,
-  apr: false,
-  may: true,
-  jun: true,
-  jul: false,
-  aug: false,
-  sep: true,
-  oct: true,
-  nov: false,
-  dec: false,
-  information_year: "2017",
-)
 
 puts 'Creating Revenues...'
 revenues_2017 = Revenue.create!(
-  seller: seller1,
+  seller: seller2,
   jan: Money.new(100000),
   feb: Money.new(100000),
   mar: Money.new(0),
@@ -287,11 +237,9 @@ revenues_2017 = Revenue.create!(
 
 puts 'Creating Qualitative Information...'
 qualitative_information_2017 = QualitativeInformation.create!(
-  seller: seller1,
+  seller: seller2,
   address_verification: true,
   address_verification_observation: "visita ao local",
-  law_suits_quantity: 3,
-  law_suits_amount: Money.new(100000),
   website: 'https://www.lewagon.com',
   google: 'https://www.google.com.br/search?q=lewagon&oq=lewagon&aqs=chrome..69i57j69i60l3j69i65l2.3825j0j1&sourceid=chrome&ie=UTF-8',
   linkedin: 'https://www.linkedin.com/school/5046700/',
@@ -301,6 +249,33 @@ qualitative_information_2017 = QualitativeInformation.create!(
   reclame_aqui_complaints_quantity: 0,
   reclame_aqui_answered_complaints: 0,
   google_maps: 'https://www.google.com.br/maps/place/Le+Wagon+S%C3%A3o+Paulo+Coding+Bootcamp/@-23.555991,-46.6946815,17z/data=!3m1!4b1!4m5!3m4!1s0x94ce57bc5392ac8f:0x39c0e547e7b82d85!8m2!3d-23.555991!4d-46.6924928?hl=en',
+  information_year: '2017',
+)
+
+puts 'Creating Debts to seller2...'
+debt2 = Debt.create!(
+  seller: seller2,
+  finantial_institution: 3,
+  debt_type: 2,
+  total_amount: Money.new(250000),
+  balance_amount: Money.new(150000),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
+
+puts 'Creating Legals...'
+legal_2017 = Legal.create!(
+  seller: seller2,
+  civil_suits_quantity: 1,
+  civil_suits_amount: Money.new(100000),
+  labor_suits_quantity: 2,
+  labor_suits_amount: Money.new(200000),
+  penal_suits_quantity: 3,
+  penal_suits_amount: Money.new(300000),
+  fiscal_suits_quantity: 4,
+  fiscal_suits_amount: Money.new(400000),
+  enforcement_monition_suits_quantity: nil,
+  enforcement_monition_suits_amount: nil,
   information_year: '2017',
 )
 

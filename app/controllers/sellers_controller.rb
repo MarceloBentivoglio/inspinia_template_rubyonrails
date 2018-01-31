@@ -22,6 +22,9 @@ class SellersController < ApplicationController
     year_revenue = @seller.revenues.first
     @year = year_revenue.information_year
     @revenue = extract_revenue_in_integer(year_revenue)
+    #TODO get the legal from the year that the user wants
+    @year_legal = @seller.legals.first
+
 
   end
 

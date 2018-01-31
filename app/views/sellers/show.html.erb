@@ -1,4 +1,5 @@
 <div class="wrapper wrapper-content animated fadeInRight">
+  <!-- Institutional -->
   <div class="row">
     <div class="col-lg-6">
       <div class="widget lazur-bg p-xl">
@@ -28,6 +29,14 @@
       <div class="ibox float-e-margins">
         <div class="ibox-title">
           <h5>Institucional </h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
         </div>
         <div class="ibox-content">
 
@@ -39,7 +48,7 @@
               </li>
               <li>
                 <span class="fa fa-industry m-r-xs"></span>
-                <label>Descrição da produção:</label>
+                <label>Descrição do negócio:</label>
                 <%= @finantial.production_economics_cycle_description %>
               </li>
             </ul>
@@ -48,15 +57,24 @@
       </div>
     </div>
   </div>
+  <!-- Revenue -->
   <div class="row">
     <div class="col-lg-6">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
           <h5>Receita em <%= @year %> </h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
         </div>
         <div class="ibox-content">
           <div>
-            <canvas id="barChart" height="114"></canvas>
+            <canvas id="barChart" height="90"></canvas>
           </div>
         </div>
       </div>
@@ -67,6 +85,14 @@
           <div class="ibox float-e-margins">
             <div class="ibox-title">
               <h5>Receita média mensal</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
             </div>
             <div class="ibox-content">
               <h1 class="no-margins">R$ 300 mil</h1>
@@ -77,6 +103,14 @@
           <div class="ibox float-e-margins">
             <div class="ibox-title">
               <h5>Crescimento anual</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
             </div>
             <div class="ibox-content">
               <h1 class="text-navy no-margins">
@@ -91,6 +125,14 @@
           <div class="ibox float-e-margins">
             <div class="ibox-title">
               <h5>Sasonalidade da receita</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
             </div>
             <div class="ibox-content">
               <div>
@@ -98,6 +140,142 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Costs -->
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Endividamento total de R$ 100 mil</h5>
+        </div>
+        <div class="ibox-content">
+          <div>
+            <canvas id="doughnutChart" height="140"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Alavancangem total de R$ 50 mil</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div>
+            <canvas id="doughnutChart2" height="140"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Custos fixos mensais total de R$ 95 mil</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <ul class="list-unstyled m-t-md">
+            <li>
+              <span class="fa fa-handshake-o m-r-xs"></span>
+              <label>Salários:</label>
+              R$ 50 mil
+            </li>
+            <li>
+              <span class="fa fa-users m-r-xs"></span>
+              <label>Número de funcionários:</label>
+              10
+            </li>
+            <li>
+              <span class="fa fa-university m-r-xs"></span>
+              <label>Aluguel:</label>
+              R$ 4 mil
+            </li>
+            <li>
+              <span class="fa fa-gift m-r-xs"></span>
+              <label>Custo da mercadoria vendida:</label>
+              R$ 35 mil
+            </li>
+            <li>
+              <span class="fa fa-money m-r-xs"></span>
+              <label>Outros custos fixos relevantes:</label>
+              R$ 6 mil
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Legal -->
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Processos jurídicos</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <ul class="list-unstyled m-t-md">
+            <% if @year_legal.civil_suits_quantity.present? %>
+              <li>
+                <span class="fa fa-gavel m-r-xs"></span>
+                <label>Civil:</label>
+                <%= "#{@year_legal.civil_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.civil_suits_amount}" %>
+              </li>
+            <% end %>
+            <% if @year_legal.labor_suits_quantity.present? %>
+              <li>
+                <span class="fa fa-gavel m-r-xs"></span>
+                <label>Trabalhista:</label>
+                <%= "#{@year_legal.labor_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.labor_suits_amount}" %>
+              </li>
+            <% end %>
+            <% if @year_legal.penal_suits_quantity.present? %>
+              <li>
+                <span class="fa fa-gavel m-r-xs"></span>
+                <label>Penal:</label>
+                <%= "#{@year_legal.penal_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.penal_suits_amount}" %>
+              </li>
+            <% end %>
+            <% if @year_legal.fiscal_suits_quantity.present? %>
+              <li>
+                <span class="fa fa-gavel m-r-xs"></span>
+                <label>Tributário:</label>
+                <%= "#{@year_legal.fiscal_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.fiscal_suits_amount}" %>
+              </li>
+            <% end %>
+            <% if @year_legal.enforcement_monition_suits_quantity.present? %>
+              <li>
+                <span class="fa fa-gavel m-r-xs"></span>
+                <label>Execução/Monitória:</label>
+                <%= "#{@year_legal.enforcement_monition_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.enforcement_monition_suits_amount}" %>
+              </li>
+            <% end %>
+          </ul>
         </div>
       </div>
     </div>
@@ -177,6 +355,40 @@
 
     var ctx3 = document.getElementById("barChartSeason").getContext("2d");
     new Chart(ctx3, {type: 'bar', data: barDataSeason, options:barOptionsSeason});
+
+    var doughnutData = {
+      labels: ["Itáu","Banco do Brasil","Bradesco" ],
+      datasets: [{
+        data: [300,50,100],
+        backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
+      }]
+    } ;
+
+
+    var doughnutOptions = {
+      responsive: true
+    };
+
+
+    var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+    new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+
+    var doughnutData2 = {
+      labels: ["Factoring 01","Factoring 02","Bradesco" ],
+      datasets: [{
+        data: [10,15,25],
+        backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
+      }]
+    } ;
+
+
+    var doughnutOptions2 = {
+      responsive: true
+    };
+
+
+    var ctx5 = document.getElementById("doughnutChart2").getContext("2d");
+    new Chart(ctx5, {type: 'doughnut', data: doughnutData2, options:doughnutOptions2});
 
   });
 

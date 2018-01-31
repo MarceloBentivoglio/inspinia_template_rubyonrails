@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130162428) do
+ActiveRecord::Schema.define(version: 20180131122658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,29 @@ ActiveRecord::Schema.define(version: 20180130162428) do
     t.index ["payer_id"], name: "index_invoices_on_payer_id"
   end
 
+  create_table "legals", force: :cascade do |t|
+    t.bigint "seller_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "civil_suits_quantity"
+    t.integer "civil_suits_amount_cents", default: 0, null: false
+    t.string "civil_suits_amount_currency", default: "BRL", null: false
+    t.integer "labor_suits_quantity"
+    t.integer "labor_suits_amount_cents", default: 0, null: false
+    t.string "labor_suits_amount_currency", default: "BRL", null: false
+    t.integer "penal_suits_quantity"
+    t.integer "penal_suits_amount_cents", default: 0, null: false
+    t.string "penal_suits_amount_currency", default: "BRL", null: false
+    t.integer "fiscal_suits_quantity"
+    t.integer "fiscal_suits_amount_cents", default: 0, null: false
+    t.string "fiscal_suits_amount_currency", default: "BRL", null: false
+    t.integer "enforcement_monition_suits_quantity"
+    t.integer "enforcement_monition_suits_amount_cents", default: 0, null: false
+    t.string "enforcement_monition_suits_amount_currency", default: "BRL", null: false
+    t.string "information_year"
+    t.index ["seller_id"], name: "index_legals_on_seller_id"
+  end
+
   create_table "operations", force: :cascade do |t|
     t.integer "total_value_cents", default: 0, null: false
     t.string "total_value_currency", default: "BRL", null: false
@@ -248,9 +271,6 @@ ActiveRecord::Schema.define(version: 20180130162428) do
     t.bigint "seller_id"
     t.boolean "address_verification"
     t.string "address_verification_observation"
-    t.integer "law_suits_quantity"
-    t.integer "law_suits_amount_cents", default: 0, null: false
-    t.string "law_suits_amount_currency", default: "BRL", null: false
     t.string "website"
     t.string "google"
     t.string "linkedin"
@@ -406,6 +426,7 @@ ActiveRecord::Schema.define(version: 20180130162428) do
   add_foreign_key "installments", "invoices"
   add_foreign_key "invoices", "operations"
   add_foreign_key "invoices", "payers"
+  add_foreign_key "legals", "sellers"
   add_foreign_key "operations", "sellers"
   add_foreign_key "payers_concentrations", "operations"
   add_foreign_key "payers_concentrations", "payers"
