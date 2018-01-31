@@ -23,7 +23,6 @@ Client.destroy_all
 
 puts 'Creating new Client...'
 client = Client.create!(
-  type: 'Factoring',
   name: 'MVP Invest',
   cnpj: '23198636000195',
   available_funds: Money.new(1000000)
@@ -92,8 +91,8 @@ finantial1 = Finantial.create!(
 puts 'Creating debts for seller1...'
 debt1 = Debt.create!(
   seller: seller1,
-  finantial_institution: 1,
-  debt_type: 1,
+  finantial_institution: f1,
+  debt_type: d1,
   total_amount: Money.new(250000),
   balance_amount: Money.new(150000),
   installments_quantity: 10,
@@ -104,9 +103,7 @@ puts 'Creating Qualitative Informations for seller1...'
 qi = QualitativeInformation.create!(
   seller: seller1,
   address_verification: true,
-  address_verification_observation: 'Escritório bem localizado e bem organizado.'
-  law_suits_quantity: 0,
-  law_suits_amount: Money.new(0),
+  address_verification_observation: 'Escritório bem localizado e bem organizado.',
   website: 'não possui',
   google: 'pouca informação',
   linkedin: 'não possui',
@@ -133,8 +130,27 @@ season = SeasonSale.create!(
   sep: false,
   oct: true,
   nov: true,
-  dec: true
+  dec: true,
+  information_year: '2017'
   )
+
+puts 'Creating Revenues... seller1'
+r1 = Revenue.create!(
+  seller: seller1,
+  jan: Money.new(330000),
+  feb: Money.new(350000),
+  mar: Money.new(400000),
+  apr: Money.new(450000),
+  may: Money.new(400000),
+  jun: Money.new(400000),
+  jul: Money.new(450000),
+  aug: Money.new(380000),
+  sep: Money.new(400000),
+  oct: Money.new(420000),
+  nov: Money.new(450000),
+  dec: Money.new(430000),
+  information_year: "2017"
+)
 
 
 seller2 = Seller.create!(
@@ -255,8 +271,8 @@ qualitative_information_2017 = QualitativeInformation.create!(
 puts 'Creating Debts to seller2...'
 debt2 = Debt.create!(
   seller: seller2,
-  finantial_institution: 3,
-  debt_type: 2,
+  finantial_institution: f3,
+  debt_type: d5,
   total_amount: Money.new(250000),
   balance_amount: Money.new(150000),
   installments_quantity: 10,
@@ -279,6 +295,21 @@ legal_2017 = Legal.create!(
   information_year: '2017',
 )
 
+puts 'Creating Legals...'
+l1 = Legal.create!(
+  seller: seller1,
+  civil_suits_quantity: 1,
+  civil_suits_amount: Money.new(100000),
+  labor_suits_quantity: 2,
+  labor_suits_amount: Money.new(200000),
+  penal_suits_quantity: 3,
+  penal_suits_amount: Money.new(300000),
+  fiscal_suits_quantity: 4,
+  fiscal_suits_amount: Money.new(400000),
+  enforcement_monition_suits_quantity: nil,
+  enforcement_monition_suits_amount: nil,
+  information_year: '2017',
+)
 
 puts 'If you are reading this... your login details is'
 puts 'test@email.com'
