@@ -33,8 +33,10 @@ class InvoicesController < ApplicationController
       end
     end
     @iofad = 0.0038 * @invoice.total_value
+    @advalori_fee = @fatorad * 0.1
 
-    @deposit_value = @invoice.total_value - @interest - @ad_valorem - @iof -@iofad
+
+    @deposit_value = @invoice.total_value - @fatorad - @iof - @iofad
 
 
 

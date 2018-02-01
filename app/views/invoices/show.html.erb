@@ -83,6 +83,10 @@
               <td>R$ <%= humanized_money @invoice.total_value %></td>
             </tr>
             <tr>
+              <td><strong>Comissão :</strong></td>
+              <td>R$ <%= humanized_money @advalori_fee %></td>
+            </tr>
+            <tr>
               <td><strong>Fator +Ad :</strong></td>
               <td>R$ <%= humanized_money @fatorad %></td>
             </tr>
@@ -95,7 +99,7 @@
               <td>R$ <%= humanized_money @iofad %></td>
             </tr>
             <tr>
-              <td><strong>TOTAL FINAL :</strong></td>
+              <td><strong>Total a Depositar :</strong></td>
               <td>R$ <%= humanized_money @deposit_value %></td>
             </tr>
           </tbody>
