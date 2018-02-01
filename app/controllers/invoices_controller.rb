@@ -16,6 +16,28 @@ class InvoicesController < ApplicationController
     @seller = @invoice.operation.seller
     @payer = @invoice.payer
     @installment = @invoice.installments
+
+    @fatorad = @invoice.average_interest_cents + @invoice.average_ad_valorem_cents
+    @iof = 0
+    @interest = 0
+    @ad_valorem = 0
+    @installment.each do |i|
+      if i.outstanding_days.nil?
+        @iof = 0
+        @interest = 0
+        @ad_valorem = 0
+      else
+      @iof += (0.000041 * i.outstanding_days) * i.value_cents
+      @interet = @interest + i.interest_cents
+      @ad_valorem = @ad_valorem + i.ad_valorem_cents
+      end
+    end
+    @iofad = 0.0038 * @invoice.total_value_cents
+
+    @deposit_value = @invoice.total_value_cents - @interest - @ad_valorem - @iof -@iofad
+
+
+
   end
 
 
