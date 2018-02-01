@@ -65,9 +65,9 @@
                 <td><%= installment.number %></td>
                 <td><%= installment.due_date.strftime("%d/%m/%Y") %></td>
                 <td><%= installment.outstanding_days %></td>
-                <td><%= humanized_money installment.interest_cents %></td>
-                <td><%= humanized_money installment.ad_valorem_cents %></td>
-                <td>R$ <%= humanized_money installment.value_cents %></td>
+                <td><%= humanized_money installment.interest %></td>
+                <td><%= humanized_money installment.ad_valorem %></td>
+                <td>R$ <%= humanized_money installment.value %></td>
               </tr>
 
 
@@ -80,7 +80,7 @@
           <tbody>
             <tr>
               <td><strong>Sub Total :</strong></td>
-              <td>R$ <%= humanized_money @invoice.total_value_cents %></td>
+              <td>R$ <%= humanized_money @invoice.total_value %></td>
             </tr>
             <tr>
               <td><strong>Fator +Ad :</strong></td>
@@ -88,11 +88,11 @@
             </tr>
             <tr>
               <td><strong>IOF :</strong></td>
-              <td>R$ <%= @iof %></td>
+              <td>R$ <%= humanized_money @iof %></td>
             </tr>
             <tr>
               <td><strong>IOF Adicional :</strong></td>
-              <td>R$ <%= @iofad %></td>
+              <td>R$ <%= humanized_money @iofad %></td>
             </tr>
             <tr>
               <td><strong>TOTAL FINAL :</strong></td>

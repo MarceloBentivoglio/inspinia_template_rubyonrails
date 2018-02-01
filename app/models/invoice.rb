@@ -46,6 +46,7 @@ class Invoice < ApplicationRecord
       i.number = xml_installments_info.search('nDup').text.strip
       # delete("\n .")): takes out blanks spaces, points and paragraphs, otherwise Money class will read "1000.00" as 1000 and convert to 10.00
       i.value = Money.new(xml_installments_info.search('vDup').text.delete("\n ."))
+      binding.pry
       i.due_date = xml_installments_info.search('dVenc').text.strip
       i.invoice = invoice
       invoice.installments.push(i)
