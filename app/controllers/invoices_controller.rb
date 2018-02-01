@@ -17,7 +17,7 @@ class InvoicesController < ApplicationController
     @payer = @invoice.payer
     @installment = @invoice.installments
 
-    @fatorad = @invoice.average_interest_cents + @invoice.average_ad_valorem_cents
+    @fatorad = @invoice.average_interest + @invoice.average_ad_valorem
     @iof = 0
     @interest = 0
     @ad_valorem = 0
@@ -27,14 +27,16 @@ class InvoicesController < ApplicationController
         @interest = 0
         @ad_valorem = 0
       else
-      @iof += (0.000041 * i.outstanding_days) * i.value_cents
-      @interet = @interest + i.interest_cents
-      @ad_valorem = @ad_valorem + i.ad_valorem_cents
+      @iof += (0.000041 * i.outstanding_days) * i.value
+      @interet = @interest + i.interest
+      @ad_valorem = @ad_valorem + i.ad_valorem
       end
     end
-    @iofad = 0.0038 * @invoice.total_value_cents
+    @iofad = 0.0038 * @invoice.total_value
+    @advalori_fee = @fatorad * 0.1
 
-    @deposit_value = @invoice.total_value_cents - @interest - @ad_valorem - @iof -@iofad
+
+    @deposit_value = @invoice.total_value - @fatorad - @iof - @iofad
 
 
 
@@ -53,7 +55,7 @@ class InvoicesController < ApplicationController
 
   # TODO: refactor with the Invoice class method self.extract_payer_info
   def create
-    invoice = Invoice.new(invoice_and_intallments_params)
+    invoice = Invoice.new(invoice_and_installments_params)
     invoice.operation = Operation.new(operation_params[:operation_attributes])
     payer_identification_number = payer_params[:payer_attributes][:identification_number]
     if Payer.exists?(identification_number: payer_identification_number)
@@ -76,14 +78,14 @@ class InvoicesController < ApplicationController
     invoice.installments.each do |i|
       i.outstanding_days = TimeDifference.between(i.due_date, DateTime.now).in_days # TODO: Datetime.now will change to creation Operation date
       average += i.outstanding_days
-      i.interest = ((1.049 ** (i.outstanding_days / 30)) - 1 ) * i.value
-      i.ad_valorem = ((1.001 ** (i.outstanding_days / 30)) - 1 ) * i.value
+      i.interest = ((1.049 ** (i.outstanding_days / 30.0)) - 1 ) * i.value
+      i.ad_valorem = ((1.001 ** (i.outstanding_days / 30.0)) - 1 ) * i.value
     end
     invoice.save!
     if invoice.save!
       invoice.average_outstanding_days = (average / invoice.installments.count) # TODO: Refactor to bring these lines above
-      invoice.average_interest = ((1.049 ** (invoice.average_outstanding_days / 30)) - 1) * invoice.total_value
-      invoice.average_ad_valorem = ((1.001 ** (invoice.average_outstanding_days / 30)) - 1) * invoice.total_value
+      invoice.average_interest = ((1.049 ** (invoice.average_outstanding_days / 30.0)) - 1) * invoice.total_value
+      invoice.average_ad_valorem = ((1.001 ** (invoice.average_outstanding_days / 30.0)) - 1) * invoice.total_value
       invoice.save!
       redirect_to root_path
     else
@@ -93,7 +95,7 @@ class InvoicesController < ApplicationController
 
   private
 
-  def invoice_and_intallments_params
+  def invoice_and_installments_params
     # In the strong parameters we need to pass the attributes of intallments so that the invoice form can understand it
     params
       .require(:invoice)

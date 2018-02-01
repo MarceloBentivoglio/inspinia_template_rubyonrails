@@ -33,9 +33,9 @@
               <tr>
                 <td><%= i.due_date.strftime("%d/%m/%y") %></td>
                 <td><%= i.outstanding_days %></td>
-                <td>R$ <%= humanized_money i.value_cents %></td>
-                <td>R$ <%= humanized_money i.interest_cents %></td>
-                <td>R$ <%= humanized_money i.ad_valorem_cents %></td>
+                <td>R$ <%= humanized_money i.value %></td>
+                <td>R$ <%= humanized_money i.interest %></td>
+                <td>R$ <%= humanized_money i.ad_valorem %></td>
                 <td>R$ <%= 0.1*(i.interest) %></td>
               </tr>
             <% end %>
