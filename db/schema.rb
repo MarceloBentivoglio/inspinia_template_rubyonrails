@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131122658) do
+ActiveRecord::Schema.define(version: 20180201182552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,10 +211,13 @@ ActiveRecord::Schema.define(version: 20180131122658) do
     t.string "advancement_currency", default: "BRL", null: false
     t.integer "tax_ratained_iof_adicional_cents", default: 0, null: false
     t.string "tax_ratained_iof_adicional_currency", default: "BRL", null: false
-    t.datetime "approval_date"
+    t.datetime "deposit_date"
     t.datetime "closure_date"
     t.string "status"
     t.bigint "seller_id"
+    t.string "importation_reference"
+    t.integer "deposit_value_cents", default: 0, null: false
+    t.string "deposit_value_currency", default: "BRL", null: false
     t.index ["seller_id"], name: "index_operations_on_seller_id"
   end
 
