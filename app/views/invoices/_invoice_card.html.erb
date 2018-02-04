@@ -21,10 +21,10 @@
             <tr>
               <th>Vencimento</th>
               <th>Dias</th>
-              <th>Valor R$</th>
-              <th>Fator R$</th>
-              <th>Ad+ R$</th>
-              <th>Comissão R$</th>
+              <th>Valor </th>
+              <th>Fator </th>
+              <th>Ad+ </th>
+              <th>Comissão </th>
             </tr>
           </thead>
 
@@ -33,10 +33,10 @@
               <tr>
                 <td><%= i.due_date.strftime("%d/%m/%y") %></td>
                 <td><%= i.outstanding_days %></td>
-                <td><%= humanized_money i.value %></td>
-                <td><%= humanized_money i.interest %></td>
-                <td><%= humanized_money i.ad_valorem %></td>
-                <td><%= 0.1*(i.interest) %></td>
+                <td>R$ <%= humanized_money i.value %></td>
+                <td>R$ <%= humanized_money i.interest %></td>
+                <td>R$ <%= humanized_money i.ad_valorem %></td>
+                <td>R$ <%= 0.1*(i.interest) %></td>
               </tr>
             <% end %>
           </tbody>

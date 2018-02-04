@@ -48,6 +48,7 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.1.0)
+    chartkick (2.2.5)
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -76,6 +77,7 @@ GEM
       activesupport (>= 4.2.0)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
+    groupdate (3.2.0)
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -224,11 +226,13 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass
+  chartkick
   cocoon
   creek
   devise
   figaro
   font-awesome-sass
+  groupdate
   jbuilder (~> 2.0)
   listen (~> 3.0.5)
   money-rails (~> 1)

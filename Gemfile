@@ -20,6 +20,12 @@ gem 'webpacker'
 
 # The gems bellow were installad by us after Le Wagon template:
 
+# This gem to group ActiveRecord by date, day, hour, etc.
+gem 'groupdate'
+
+# This gem to use Chart.js with groupdate info.
+gem 'chartkick'
+
 #   This gem treats money as cents in integer with the respective currency
 gem 'money-rails', '~> 1' #https://github.com/RubyMoney/money-rails
 

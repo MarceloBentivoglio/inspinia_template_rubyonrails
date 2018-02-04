@@ -11,6 +11,9 @@
 //= require rails-ujs
 //= require cocoon
 
+//= require Chart.bundle
+//= require chartkick
+
 // inspinia code:
 //= require jquery/jquery-3.1.1.min.js
 //= require bootstrap-sprockets
