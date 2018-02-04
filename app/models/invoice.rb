@@ -1,4 +1,5 @@
 class Invoice < ApplicationRecord
+  INVOICES_TYPE = ["check", "invoice", "contract"]
   belongs_to :operation, optional: true
   belongs_to :payer, optional: true
   has_many :rebuys
