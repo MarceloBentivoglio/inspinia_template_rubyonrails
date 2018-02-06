@@ -75,30 +75,32 @@ class LegacyImportationController < ApplicationController
           }
           Operation.new(operation_attributes).save!
         else
-          installment_attributes = {
-            importation_reference: cols[0],
-            number: cols[4],
-            interest: Money.new(treat_currency_from_file(cols[5])),
-            ad_valorem: Money.new(treat_currency_from_file(cols[7])),
-            due_date: DateTime.parse(cols[9]),
-            value: Money.new(treat_currency_from_file(cols[10]))
-          }
-          # TODO: Fazer funcionar para vários clients pq só funciona isso se tiver apenas um client
-          if Invoice.where("number = ? AND importation_reference = ?", installment_attributes[:number].slice(0..-2), installment_attributes[:importation_reference]).exists?
-            installment_attributes[:invoice] = Invoice.where("number = ? AND importation_reference = ?", installment_attributes[:number].slice(0..-2), installment_attributes[:importation_reference]).first
-          else
-            invoice_attributes = {
+          if Operation.where("importation_reference = ?", cols[0]).exists?
+            installment_attributes = {
               importation_reference: cols[0],
-              invoice_type: find_invoice_type(cols[2]),
-              payer: Payer.find_by_company_name(cols[3]),
-              number: cols[4].slice(0..-2),
-              operation: Operation.find_by_importation_reference(cols[0]),
+              number: cols[4],
+              interest: Money.new(treat_currency_from_file(cols[5])),
+              ad_valorem: Money.new(treat_currency_from_file(cols[7])),
+              due_date: DateTime.parse(cols[9]),
+              value: Money.new(treat_currency_from_file(cols[10]))
             }
-            invoice = Invoice.new(invoice_attributes)
-            invoice.save!
-            installment_attributes[:invoice] = invoice
+            # TODO: Fazer funcionar para vários clients pq só funciona isso se tiver apenas um client
+            if Invoice.where("number = ? AND importation_reference = ?", installment_attributes[:number].slice(0..-2), installment_attributes[:importation_reference]).exists?
+              installment_attributes[:invoice] = Invoice.where("number = ? AND importation_reference = ?", installment_attributes[:number].slice(0..-2), installment_attributes[:importation_reference]).first
+            else
+              invoice_attributes = {
+                importation_reference: cols[0],
+                invoice_type: find_invoice_type(cols[2]),
+                payer: Payer.find_by_company_name(cols[3]),
+                number: cols[4].slice(0..-2),
+                operation: Operation.find_by_importation_reference(cols[0]),
+              }
+              invoice = Invoice.new(invoice_attributes)
+              invoice.save!
+              installment_attributes[:invoice] = invoice
+            end
+            Installment.new(installment_attributes).save!
           end
-          Installment.new(installment_attributes).save!
         end
       end
       puts "Operations imported with success!"
