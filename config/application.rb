@@ -36,6 +36,8 @@ module LeadAdvalori
 
     # Use the APIs inside lib/ NOTE: this may cause the app to run slower (Joaquim - 2017/01/10)
     config.autoload_paths += %W(#{config.root}/lib/assets)
+    # config.autoload_paths << Rails.root.join('lib')
+    # config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
 
     # Code from Inspinia template below

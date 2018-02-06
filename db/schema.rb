@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180204212358) do
+ActiveRecord::Schema.define(version: 20180205115408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,9 +119,6 @@ ActiveRecord::Schema.define(version: 20180204212358) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.string "invoice_number"
-    t.string "contract_number"
-    t.string "check_number"
     t.string "status"
     t.string "delivery_status"
     t.boolean "confirmed"
@@ -144,6 +141,7 @@ ActiveRecord::Schema.define(version: 20180204212358) do
     t.string "invoice_type"
     t.string "importation_reference"
     t.float "average_outstanding_days"
+    t.string "number"
     t.index ["operation_id"], name: "index_invoices_on_operation_id"
     t.index ["payer_id"], name: "index_invoices_on_payer_id"
   end
@@ -210,8 +208,8 @@ ActiveRecord::Schema.define(version: 20180204212358) do
     t.string "tax_retained_iof_currency", default: "BRL", null: false
     t.integer "advancement_cents", default: 0, null: false
     t.string "advancement_currency", default: "BRL", null: false
-    t.integer "tax_ratained_iof_adicional_cents", default: 0, null: false
-    t.string "tax_ratained_iof_adicional_currency", default: "BRL", null: false
+    t.integer "tax_retained_iof_adicional_cents", default: 0, null: false
+    t.string "tax_retained_iof_adicional_currency", default: "BRL", null: false
     t.datetime "deposit_date"
     t.datetime "closure_date"
     t.string "status"
