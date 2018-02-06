@@ -16,7 +16,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
-gem 'time_difference'
+
 
 # The gems bellow were installad by us after Le Wagon template:
 
@@ -34,6 +34,13 @@ gem 'cocoon'
 
 #   This gem is used to upload documents using a form
 gem "paperclip"
+
+# TODO: ????
+gem 'time_difference'
+
+# This gem is used to read xlsx files so that we can convert the data inside the file into ruby objects
+gem 'creek'
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'

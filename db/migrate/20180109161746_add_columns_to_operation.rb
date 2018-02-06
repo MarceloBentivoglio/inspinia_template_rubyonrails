@@ -18,7 +18,7 @@ class AddColumnsToOperation < ActiveRecord::Migration[5.1]
     add_monetize :operations, :tax_retained_csll
     add_monetize :operations, :tax_retained_iof
     add_monetize :operations, :advancement
-    add_monetize :operations, :tax_ratained_iof_adicional
+    add_monetize :operations, :tax_retained_iof_adicional
     add_column :operations, :approval_date, :datetime
     add_column :operations, :closure_date, :datetime
     add_column :operations, :status, :string

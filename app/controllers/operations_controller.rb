@@ -14,4 +14,5 @@ class OperationsController < ApplicationController
     @seller = @operation.seller
     @invoices = @operation.invoices
   end
+
 end
