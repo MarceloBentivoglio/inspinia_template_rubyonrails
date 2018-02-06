@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131122658) do
+ActiveRecord::Schema.define(version: 20180205115408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,19 +114,16 @@ ActiveRecord::Schema.define(version: 20180131122658) do
     t.string "ad_valorem_currency", default: "BRL", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "importation_reference"
     t.index ["invoice_id"], name: "index_installments_on_invoice_id"
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.string "invoice_number"
-    t.string "contract_number"
-    t.string "check_number"
     t.string "status"
     t.string "delivery_status"
     t.boolean "confirmed"
     t.boolean "notified"
     t.boolean "boleto_especial"
-    t.integer "average_outstanding_days"
     t.integer "total_value_cents", default: 0, null: false
     t.string "total_value_currency", default: "BRL", null: false
     t.integer "average_interest_cents", default: 0, null: false
@@ -142,6 +139,9 @@ ActiveRecord::Schema.define(version: 20180131122658) do
     t.integer "xml_file_size"
     t.datetime "xml_updated_at"
     t.string "invoice_type"
+    t.string "importation_reference"
+    t.float "average_outstanding_days"
+    t.string "number"
     t.index ["operation_id"], name: "index_invoices_on_operation_id"
     t.index ["payer_id"], name: "index_invoices_on_payer_id"
   end
@@ -178,7 +178,6 @@ ActiveRecord::Schema.define(version: 20180131122658) do
     t.string "average_interest_currency", default: "BRL", null: false
     t.integer "average_ad_valorem_cents", default: 0, null: false
     t.string "average_ad_valorem_currency", default: "BRL", null: false
-    t.integer "average_outstanding_days"
     t.integer "fee_instrucoes_bancarias_em_titulos_cents", default: 0, null: false
     t.string "fee_instrucoes_bancarias_em_titulos_currency", default: "BRL", null: false
     t.integer "fee_aditivo_cents", default: 0, null: false
@@ -209,12 +208,16 @@ ActiveRecord::Schema.define(version: 20180131122658) do
     t.string "tax_retained_iof_currency", default: "BRL", null: false
     t.integer "advancement_cents", default: 0, null: false
     t.string "advancement_currency", default: "BRL", null: false
-    t.integer "tax_ratained_iof_adicional_cents", default: 0, null: false
-    t.string "tax_ratained_iof_adicional_currency", default: "BRL", null: false
-    t.datetime "approval_date"
+    t.integer "tax_retained_iof_adicional_cents", default: 0, null: false
+    t.string "tax_retained_iof_adicional_currency", default: "BRL", null: false
+    t.datetime "deposit_date"
     t.datetime "closure_date"
     t.string "status"
     t.bigint "seller_id"
+    t.string "importation_reference"
+    t.integer "deposit_value_cents", default: 0, null: false
+    t.string "deposit_value_currency", default: "BRL", null: false
+    t.float "average_outstanding_days"
     t.index ["seller_id"], name: "index_operations_on_seller_id"
   end
 
