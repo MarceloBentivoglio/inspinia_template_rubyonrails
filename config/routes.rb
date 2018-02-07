@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post '/invoices/load_xml', to: 'invoices#load_invoice_from_xml'
   post '/cnpj_check', to: 'cnpj_checks#fetch_information'
 
-  get '/legacy', to: 'legacy_importation#import'
+  get '/legacy', to: 'legacy_importation#import_legacy_data'
 
   root to: 'landing#index'
 
