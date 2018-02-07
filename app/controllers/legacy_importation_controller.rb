@@ -1,6 +1,8 @@
 class LegacyImportationController < ApplicationController
   def import
    # TODO: Check if the header is equal to the template header
+   # TODO: refatorar esse codigo
+    problem_line = []
     payers_workbook = Creek::Book.new 'lib/xlsx_reader/CadastroSacados.xlsx'
     payers_worksheets = payers_workbook.sheets
     payers_worksheets.each do |worksheet|
@@ -19,7 +21,12 @@ class LegacyImportationController < ApplicationController
           email: cols[6],
           phone_number: cols[7]
         }
-        Payer.new(payer_attributes).save!
+        payer = Payer.new(payer_attributes)
+        if payer.save!
+        else
+          puts "foi a linha #{row_number} de payer que deu problema"
+          problem_line << row_number
+        end
 
       end
     end
@@ -44,7 +51,12 @@ class LegacyImportationController < ApplicationController
           phone_number: cols[6],
           client: current_user.client,
         }
-        Seller.new(seller_attributes).save!
+        seller = Seller.new(seller_attributes)
+        if seller.save!
+        else
+          puts "foi a linha #{row_number} de seller que deu problema"
+          problem_line << row_number
+        end
       end
     end
     puts 'Sellers imported with success!'
@@ -73,7 +85,13 @@ class LegacyImportationController < ApplicationController
             tax_retained_iof_adicional: Money.new(treat_currency_from_file(cols[11])),
             advancement: Money.new(treat_currency_from_file(cols[16]))
           }
-          Operation.new(operation_attributes).save!
+          operation = Operation.new(operation_attributes)
+          if operation.save!
+          else
+            puts "foi a linha #{row_number} de operation que deu problema"
+            problem_line << row_number
+          end
+
         else
           if Operation.where("importation_reference = ?", cols[0]).exists?
             installment_attributes = {
@@ -96,14 +114,42 @@ class LegacyImportationController < ApplicationController
                 operation: Operation.find_by_importation_reference(cols[0]),
               }
               invoice = Invoice.new(invoice_attributes)
-              invoice.save!
+              if invoice.save!
+              else
+                puts "foi a linha #{row_number} de invoice que deu problema"
+                problem_line << row_number
+              end
               installment_attributes[:invoice] = invoice
             end
-            Installment.new(installment_attributes).save!
+            installment = Installment.new(installment_attributes)
+            if installment.save!
+            else
+              puts "foi a linha #{row_number} de invoice que deu problema"
+              problem_line << row_number
+            end
+
           end
         end
       end
       puts "Operations imported with success!"
+    end
+
+    if problem_line.empty?
+      puts "\n\n\n não deu problema \n\n\n"
+    else
+      puts "Linhas com problemas:"
+      problem_line.each do |line|
+        puts line
+      end
+    end
+
+    Invoice.all.each do |invoice|
+      invoice.total_value = invoice.installments.reduce(Money.new(0)) {|total_value, installment| total_value + installment.value}
+      if invoice.save!
+        puts "valor de invoices computadas com sucesso!"
+      else
+        puts "invoice que deu problema #{invoice.id}"
+      end
     end
 
     redirect_to root_path
