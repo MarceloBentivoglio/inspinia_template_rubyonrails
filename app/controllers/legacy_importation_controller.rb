@@ -1,5 +1,5 @@
 class LegacyImportationController < ApplicationController
-  def import
+  def import_legacy_data(options = {user: current_user})
    # TODO: Check if the header is equal to the template header
    # TODO: refatorar esse codigo
     problem_line = []
@@ -49,7 +49,7 @@ class LegacyImportationController < ApplicationController
           city: cols[4],
           email: cols[5],
           phone_number: cols[6],
-          client: current_user.client,
+          client: options[:user].client,
         }
         seller = Seller.new(seller_attributes)
         if seller.save!
@@ -146,12 +146,13 @@ class LegacyImportationController < ApplicationController
     Invoice.all.each do |invoice|
       invoice.total_value = invoice.installments.reduce(Money.new(0)) {|total_value, installment| total_value + installment.value}
       if invoice.save!
-        puts "valor de invoices computadas com sucesso!"
+        puts "valor da invoice #{invoice.id} calculado com sucesso!"
       else
         puts "invoice que deu problema #{invoice.id}"
       end
     end
 
+  rescue
     redirect_to root_path
   end
 
