@@ -52,6 +52,9 @@
 // Your custom style to override base style
 @import "base/custom";
 
+// Invoices CSS Related
+@import "invoices/index";
+
 // Clear layout on print mode
 @media print {
   nav.navbar-static-side {

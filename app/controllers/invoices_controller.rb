@@ -2,6 +2,7 @@ class InvoicesController < ApplicationController
   def index
     @invoices = Invoice.all.limit(30)
     @installments = Installment.all
+    @seller = Seller.find(4)
   end
 
   def new
