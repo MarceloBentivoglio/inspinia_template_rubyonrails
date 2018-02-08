@@ -87,15 +87,71 @@ finantial1 = Finantial.create!(
   )
 
 puts 'Creating debts for seller1...'
+
+puts 'Creating "endividamento"....'
+
 debt1 = Debt.create!(
   seller: seller1,
   finantial_institution: f1,
+  debt_type: d2,
+  total_amount: Money.new(5000032),
+  balance_amount: Money.new(1500000),
+  installments_quantity: 24,
+  information_year: '2017',
+  )
+
+debt2 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f2,
+  debt_type: d3,
+  total_amount: Money.new(1000031),
+  balance_amount: Money.new(600000),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
+
+debt2 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f3,
   debt_type: d1,
-  total_amount: Money.new(250000),
+  total_amount: Money.new(25000013),
+  balance_amount: Money.new(20000000),
+  installments_quantity: 52,
+  information_year: '2017',
+  )
+
+puts 'Creating "alavancagem"....'
+
+debt4 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f6,
+  debt_type: d5,
+  total_amount: Money.new(1200023),
   balance_amount: Money.new(150000),
   installments_quantity: 10,
   information_year: '2017',
   )
+
+debt5 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f8,
+  debt_type: d5,
+  total_amount: Money.new(2300034),
+  balance_amount: Money.new(150000),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
+
+debt6 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f9,
+  debt_type: d5,
+  total_amount: Money.new(3200041),
+  balance_amount: Money.new(150000),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
+
 
 puts 'Creating Qualitative Informations for seller1...'
 qi = QualitativeInformation.create!(
