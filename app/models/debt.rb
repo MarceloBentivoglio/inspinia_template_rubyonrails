@@ -4,4 +4,8 @@ class Debt < ApplicationRecord
   belongs_to :debt_type
 
   monetize :total_amount_cents, :balance_amount_cents, with_model_currency: :currency
+
+  def alavancagem?
+    debt_type.name == 'Antecipação de Recebíveis'
+  end
 end

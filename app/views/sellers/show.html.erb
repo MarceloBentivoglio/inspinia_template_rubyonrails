@@ -280,22 +280,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-        <h1>Chart JS testing</h1>
-      </div>
-      <div class="ibox-content">
-            <%= column_chart [{name: "name", data: @revenue, library: { backgroundColor: 'rgba(26,179,148,0.5)', borderColor: "rgba(26,179,148,0.7)", pointBackgroundColor: "rgba(26,179,148,1)", pointBorderColor: "#fff"}, animation: { easing: 'easeOutQuad' }}] %>
-      </div>
-    </div>
-
-  </div>
-
-
-
-
-</div>
+ </div>
 
 
 
@@ -305,10 +290,10 @@
 <!-- TODO bring real data to the graph -->
 <script type="text/javascript">
 
-  $(function() {
+  $(document).ready(function() {
 
     var barData = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: <%= raw @revenue_x_axis %>,
       datasets: [
       {
         label: "Receita em [mil R$] ",
@@ -316,7 +301,7 @@
         borderColor: "rgba(26,179,148,0.7)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
-        data: [1000, 800, 300, 200, 0, 400, 500, 200, 1000, 900, 600]
+        data: <%= raw @revenue_y_axis %>
       }
       ]
     };
@@ -329,7 +314,7 @@
     new Chart(ctx2, {type: 'bar', data: barData, options:barOptions});
 
     var barDataSeason = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: <%= raw @season_sales_x_axis %>,
       datasets: [
       {
         label: false,
@@ -337,7 +322,7 @@
         borderColor: "rgba(26,179,148,0.7)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
-        data: [1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0]
+        data: <%= raw @season_sales_y_axis %>
       }
       ]
     };
@@ -372,9 +357,9 @@
     new Chart(ctx3, {type: 'bar', data: barDataSeason, options:barOptionsSeason});
 
     var doughnutData = {
-      labels: ["Itáu","Banco do Brasil","Bradesco" ],
+      labels: <%= raw @endividamento_x_axis %>,
       datasets: [{
-        data: [300,50,100],
+        data: <%= raw @endividamento_y_axis %>,
         backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
       }]
     } ;
@@ -389,9 +374,9 @@
     new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
     var doughnutData2 = {
-      labels: ["Factoring 01","Factoring 02","Bradesco" ],
+      labels: <%= raw @alavancagem_x_axis %>,
       datasets: [{
-        data: [10,15,25],
+        data: <%= raw @alavancagem_y_axis %>,
         backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
       }]
     } ;
