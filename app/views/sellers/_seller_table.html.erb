@@ -1,12 +1,12 @@
-<div id="company-1" class="tab-pane">
+<div id="company-1" class="tab-pane active">
   <div class="m-b-lg">
-    <h2><%= seller.company_name %></h2>
+    <h2><%= seller.company_name.mb_chars.capitalize %></h2>
 
     <p>
-      Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,written in 45 BC. This book is a treatise on.
+      <%= seller.finantials[0].production_economics_cycle_description %>
     </p>
     <div>
-      <small>Active project completion with: 48%</small>
+      <small>Limite Disponível de Operações: R$100.000,00</small>
       <div class="progress progress-mini">
         <div style="width: 48%;" class="progress-bar"></div>
       </div>
@@ -15,28 +15,92 @@
   <div class="client-detail">
     <div class="full-height-scroll">
 
-      <strong>Last activity</strong>
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Receita em <%= @year %> </h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div>
+            <canvas id="barChart" height="90"></canvas>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Custos fixos mensais total de R$ 95 mil</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <ul class="list-unstyled m-t-md">
+            <li>
+              <span class="fa fa-handshake-o m-r-xs"></span>
+              <label>Salários:</label>
+              R$ 50 mil
+            </li>
+            <li>
+              <span class="fa fa-users m-r-xs"></span>
+              <label>Número de funcionários:</label>
+              10
+            </li>
+            <li>
+              <span class="fa fa-university m-r-xs"></span>
+              <label>Aluguel:</label>
+              R$ 4 mil
+            </li>
+            <li>
+              <span class="fa fa-gift m-r-xs"></span>
+              <label>Custo da mercadoria vendida:</label>
+              R$ 35 mil
+            </li>
+            <li>
+              <span class="fa fa-money m-r-xs"></span>
+              <label>Outros custos fixos relevantes:</label>
+              R$ 6 mil
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+
+
+
+
+      <strong>Detalhes da Nota Fiscal</strong>
 
       <ul class="list-group clear-list">
         <li class="list-group-item fist-item">
-          <span class="pull-right"> <span class="label label-primary">NEW</span> </span>
-          The point of using
+          <span class="pull-right"> <span class="label label-primary">Confirmado</span> </span>
+          Mercadoria Entregue?
         </li>
         <li class="list-group-item">
-          <span class="pull-right"> <span class="label label-warning">WAITING</span></span>
-          Lorem Ipsum is that it has
+          <span class="pull-right"> <span class="label label-primary">Confirmado</span></span>
+          Sacado Confirmou Informações?
         </li>
         <li class="list-group-item">
-          <span class="pull-right"> <span class="label label-danger">BLOCKED</span> </span>
-          If you are going
+          <span class="pull-right"> <span class="label label-warning">Aguardando</span> </span>
+          Sacado Aceitou Notificação?
         </li>
       </ul>
-      <strong>Notes</strong>
-      <p>
-        Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-      </p>
       <hr />
-      <strong>Timeline activity</strong>
+      <strong>Conheça o Histórico</strong>
       <div id="vertical-timeline" class="vertical-container dark-timeline">
         <div class="vertical-timeline-block">
           <div class="vertical-timeline-icon gray-bg">
@@ -44,9 +108,9 @@
           </div>
           <div class="vertical-timeline-content">
             <p>
-              Conference on the sales results for the previous year.
+              Realizamos análise dos Documentos e Visita Presencial.
             </p>
-            <span class="vertical-date small text-muted"> 2:10 pm - 12.06.2014 </span>
+            <span class="vertical-date small text-muted"> 12.06.2015 </span>
           </div>
         </div>
         <div class="vertical-timeline-block">
@@ -55,9 +119,9 @@
           </div>
           <div class="vertical-timeline-content">
             <p>
-              Many desktop publishing packages and web page editors now use Lorem.
+              Assinatura dos Contratos e Início das Operações com Cedente.
             </p>
-            <span class="vertical-date small text-muted"> 4:20 pm - 10.05.2014 </span>
+            <span class="vertical-date small text-muted"> 15.06.2015 </span>
           </div>
         </div>
         <div class="vertical-timeline-block">
@@ -66,9 +130,9 @@
           </div>
           <div class="vertical-timeline-content">
             <p>
-              There are many variations of passages of Lorem Ipsum available.
+              Primeira operação liquidada! R$ 31.000,00
             </p>
-            <span class="vertical-date small text-muted"> 06:10 pm - 11.03.2014 </span>
+            <span class="vertical-date small text-muted"> 25.07.2015 </span>
           </div>
         </div>
         <div class="vertical-timeline-block">
@@ -77,34 +141,131 @@
           </div>
           <div class="vertical-timeline-content">
             <p>
-              The generated Lorem Ipsum is therefore.
+              Hoje, temos um total de R$ 1.435.875,00 liquidados <br/> em 52 operações!
             </p>
-            <span class="vertical-date small text-muted"> 02:50 pm - 03.10.2014 </span>
+            <span class="vertical-date small text-muted"> Vamos Operar? </span>
           </div>
         </div>
-        <div class="vertical-timeline-block">
-          <div class="vertical-timeline-icon gray-bg">
-            <i class="fa fa-coffee"></i>
-          </div>
-          <div class="vertical-timeline-content">
-            <p>
-              Conference on the sales results for the previous year.
-            </p>
-            <span class="vertical-date small text-muted"> 2:10 pm - 12.06.2014 </span>
-          </div>
-        </div>
-        <div class="vertical-timeline-block">
-          <div class="vertical-timeline-icon gray-bg">
-            <i class="fa fa-briefcase"></i>
-          </div>
-          <div class="vertical-timeline-content">
-            <p>
-              Many desktop publishing packages and web page editors now use Lorem.
-            </p>
-            <span class="vertical-date small text-muted"> 4:20 pm - 10.05.2014 </span>
-          </div>
-        </div>
+        <%= link_to "Comprar Operação", '#', class: 'btn btn-primary btn-sm btn-block' %>
       </div>
     </div>
   </div>
+
+
 </div>
+
+
+<% content_for :javascript do %>
+
+
+<!-- TODO bring real data to the graph -->
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+    var barData = {
+      labels: <%= raw @revenue_x_axis %>,
+      datasets: [
+      {
+        label: "Receita em [mil R$] ",
+        backgroundColor: 'rgba(26,179,148,0.5)',
+        borderColor: "rgba(26,179,148,0.7)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: <%= raw @revenue_y_axis %>
+      }
+      ]
+    };
+
+    var barOptions = {
+      responsive: true,
+      legend: {
+        display: false,
+      }
+    };
+
+    var ctx2 = document.getElementById("barChart").getContext("2d");
+    new Chart(ctx2, {type: 'bar', data: barData, options:barOptions});
+
+    var barDataSeason = {
+      labels: <%= raw @season_sales_x_axis %>,
+      datasets: [
+      {
+        label: false,
+        backgroundColor: 'rgba(26,179,148,0.5)',
+        borderColor: "rgba(26,179,148,0.7)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: <%= raw @season_sales_y_axis %>
+      }
+      ]
+    };
+
+    var barOptionsSeason = {
+      responsive: true,
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display:false,
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display:false,
+            drawBorder: false
+          },
+          ticks: {
+            display: false
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      tooltips: {
+        enabled: false
+      },
+    };
+
+    var ctx3 = document.getElementById("barChartSeason").getContext("2d");
+    new Chart(ctx3, {type: 'bar', data: barDataSeason, options:barOptionsSeason});
+
+    var doughnutData = {
+      labels: <%= raw @endividamento_x_axis %>,
+      datasets: [{
+        data: <%= raw @endividamento_y_axis %>,
+        backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
+      }]
+    } ;
+
+
+    var doughnutOptions = {
+      responsive: true
+    };
+
+
+    var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+    new Chart(ctx4, {type: 'bar', data: doughnutData, options:doughnutOptions});
+
+    var doughnutData2 = {
+      labels: <%= raw @alavancagem_x_axis %>,
+      datasets: [{
+        data: <%= raw @alavancagem_y_axis %>,
+        backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
+      }]
+    } ;
+
+
+    var doughnutOptions2 = {
+      responsive: true
+    };
+
+
+    var ctx5 = document.getElementById("doughnutChart2").getContext("2d");
+    new Chart(ctx5, {type: 'doughnut', data: doughnutData2, options:doughnutOptions2});
+
+  });
+
+</script>
+
+<% end %>
