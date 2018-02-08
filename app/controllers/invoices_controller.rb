@@ -38,9 +38,6 @@ class InvoicesController < ApplicationController
 
 
     @deposit_value = @invoice.total_value - @fatorad - @iof - @iofad
-
-
-
   end
 
 
