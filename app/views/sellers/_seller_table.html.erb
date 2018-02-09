@@ -6,7 +6,7 @@
       <%= seller.finantials[0].production_economics_cycle_description %>
     </p>
     <div>
-      <small>Limite Disponível de Operações: R$100.000,00</small>
+      <small>Limite Disponível para Operações: R$100.000,00</small>
       <div class="progress progress-mini">
         <div style="width: 48%;" class="progress-bar"></div>
       </div>
@@ -37,7 +37,7 @@
 
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Custos fixos mensais total de R$ 95 mil</h5>
+          <h5>Custos fixos mensais total de R$<%= humanized_money (seller.finantials.first.total_wages_cost + seller.finantials.first.rent_cost + seller.finantials.first.cost_of_goods_sold + seller.finantials.first.relevant_fixed_cost) %></h5>
           <div class="ibox-tools">
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
@@ -51,28 +51,45 @@
           <ul class="list-unstyled m-t-md">
             <li>
               <span class="fa fa-handshake-o m-r-xs"></span>
-              <label>Salários:</label>
-              R$ 50 mil
+              <label>Salários</label>
+              <span class="pull-right">
+                R$<%= humanized_money seller.finantials.first.total_wages_cost %>
+              </span>
             </li>
             <li>
               <span class="fa fa-users m-r-xs"></span>
-              <label>Número de funcionários:</label>
-              10
+              <label>Número de funcionário:</label>
+              <span class="pull-right">
+                <%= seller.finantials.first.employee_quantity %>
+              </span>
             </li>
             <li>
               <span class="fa fa-university m-r-xs"></span>
-              <label>Aluguel:</label>
-              R$ 4 mil
+              <label>Aluguel</label>
+              <span class="pull-right">
+                R$<%= humanized_money seller.finantials.first.rent_cost %>
+              </span>
             </li>
             <li>
               <span class="fa fa-gift m-r-xs"></span>
-              <label>Custo da mercadoria vendida:</label>
-              R$ 35 mil
+              <label>Custo da mercadoria vendida</label>
+              <span class="pull-right">
+                R$<%= humanized_money seller.finantials.first.cost_of_goods_sold %>
+              </span>
             </li>
             <li>
               <span class="fa fa-money m-r-xs"></span>
-              <label>Outros custos fixos relevantes:</label>
-              R$ 6 mil
+              <label>Outros custos fixos relevantes</label>
+              <span class="pull-right">
+                R$<%= humanized_money seller.finantials.first.relevant_fixed_cost %>
+              </span>
+            </li>
+            <li>
+              <span class="fa fa-line-chart m-r-xs"></span>
+              <label>Ebitda Estimado</label>
+              <span class="pull-right">
+                R$<%= humanized_money seller.finantials.first.ebitda %>
+              </span>
             </li>
           </ul>
         </div>
@@ -146,7 +163,7 @@
             <span class="vertical-date small text-muted"> Vamos Operar? </span>
           </div>
         </div>
-        <%= link_to "Comprar Operação", '#', class: 'btn btn-primary btn-sm btn-block' %>
+        <%= link_to "Comprar Operação", seller_path(@seller), class: 'btn btn-primary btn-sm pull-right' %>
       </div>
     </div>
   </div>
