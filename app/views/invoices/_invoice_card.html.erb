@@ -44,19 +44,19 @@
         <div class="row m-t-lg">
           <div class="col-md-3">
             <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
-            <h5><strong><%= @invoices.where(payer_id: invoice.payer).count %></strong> Operacões Vendidas</h5>
+            <h5><strong><%= Operation.where(seller_id: invoice.operation.seller_id).count %></strong> Operacões Liquidadas</h5>
           </div>
           <div class="col-md-3">
             <span class="line">5,3,9,6,5,9,7,3,5,2</span>
-            <h5><strong>R$ <%= @invoices.where(payer_id: invoice.payer).sum("total_value_cents") %></strong> Liquidado</h5>
+            <h5><strong>R$ <%= humanized_money Operation.where(seller_id: invoice.operation.seller_id).sum("total_value_cents") / 100 %></strong> Liquidado</h5>
           </div>
           <div class="col-md-3">
             <span class="bar2">5,3,9,6,5,9,7,3,5,2</span>
-            <h5><strong><%= @invoices.where(payer_id: invoice.payer).count %></strong> Operacões em Aberto</h5>
+            <h5><strong><%= Invoice.where(payer_id: invoice.payer).count %></strong> Operacões em Aberto</h5>
           </div>
           <div class="col-md-3">
             <span class="line2">5,3,9,6,5,9,7,3,5,2</span>
-            <h5><strong>R$ <%= @invoices.where(payer_id: invoice.payer).sum("total_value_cents") %></strong> a Liquidar</h5>
+            <h5><strong>R$ <%= humanized_money Invoice.where(payer_id: invoice.payer).sum("total_value_cents") / 100 %></strong> a Liquidar</h5>
           </div>
         </div>
         <div class="user-button">

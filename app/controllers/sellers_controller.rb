@@ -45,6 +45,10 @@ class SellersController < ApplicationController
     @endividamento_y_axis = endividamento.values
 
     @year_legal = @seller.legals.first
+
+    #TODO: A view do seller_table não entende o @total_cost ?
+    @total_cost = Money.new(0)
+    @total_cost = @seller.finantials.first.total_wages_cost + @seller.finantials.first.rent_cost + @seller.finantials.first.cost_of_goods_sold + @seller.finantials.first.relevant_fixed_cost
   end
 
   private
