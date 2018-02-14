@@ -49,6 +49,11 @@ class SellersController < ApplicationController
     #TODO: A view do seller_table não entende o @total_cost ?
     @total_cost = Money.new(0)
     @total_cost = @seller.finantials.first.total_wages_cost + @seller.finantials.first.rent_cost + @seller.finantials.first.cost_of_goods_sold + @seller.finantials.first.relevant_fixed_cost
+
+    @total_operations_number = @seller.operations.count
+    @total_operations_amount = Money.new(@seller.operations.sum('total_value_cents'))
+    @operations_report = @seller.operations.group_by_month(:deposit_date, format: "%b %y").sum("total_value_cents")
+    @operations_report.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
   end
 
   private

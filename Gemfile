@@ -35,6 +35,9 @@ gem 'time_difference'
 # This gem is used to read xlsx files so that we can convert the data inside the file into ruby objects
 gem 'creek'
 
+# This gem is used to group data from the database by date. We use it for manking active record requests and group them to put on charts.
+gem 'groupdate', '~> 2.5', '>= 2.5.2'
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'
