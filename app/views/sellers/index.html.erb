@@ -1,0 +1,60 @@
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <h2>Clientes</h2>
+          <p>Todos os clientes listados passaram pela análise de crédito do Advalori.</p>
+          <div class="clients-list">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-briefcase"></i> Cedentes</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-user"></i> Sacados</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <tbody>
+                        <% @seller.each do |seller| %>
+                        <tr>
+                          <td><%= link_to seller.company_name.mb_chars.capitalize, seller_path(seller) %></td>
+                          <td><%= seller.identification_number[0..1] %>.<%= seller.identification_number[2..4] %>.<%= seller.identification_number[5..7] %>/<%= seller.identification_number[8..11] %>-<%= seller.identification_number[12..13] %> </td>
+                          <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                          <td> <%= seller.email %></td>
+                          <td class="contact-type"><i class="fa fa-phone"> </i></td>
+                          <td> <%= seller.phone_number %></td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="tab-2" class="tab-pane">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <tbody>
+                        <% @payer.each do |payer| %>
+                        <tr>
+                          <td><%= payer.company_name.mb_chars.capitalize %></td>
+                          <td><%= payer.identification_number[0..1] %>.<%= payer.identification_number[2..4] %>.<%= payer.identification_number[5..7] %>/<%= payer.identification_number[8..11] %>-<%= payer.identification_number[12..13] %> </td>
+                          <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                          <td> <%= payer.email %></td>
+                          <td class="contact-type"><i class="fa fa-phone"> </i></td>
+                          <td> <%= payer.phone_number %></td>
+                        <% end %>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
