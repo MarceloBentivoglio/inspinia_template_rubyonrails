@@ -3,6 +3,11 @@ class SellersController < ApplicationController
     @seller = Seller.new
   end
 
+  def index
+    @seller = Seller.all
+    @payer = Payer.all
+  end
+
   def create
     @seller = Seller.new(seller_params)
     @seller.client = current_user.client
