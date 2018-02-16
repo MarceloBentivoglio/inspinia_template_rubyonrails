@@ -1,5 +1,12 @@
 <div id="company-1" class="tab-pane active">
-  <h2><%= seller.company_name.mb_chars.capitalize %></h2>
+  <div class="row">
+    <div class="col-xs-6">
+      <h2><%= seller.company_nickname.mb_chars.capitalize %></h2>
+    </div>
+    <div class="col-xs-6">
+      <%= link_to "Comprar Operação", render(partial: 'sellers/confirmation_modal'), class: 'btn btn-primary btn-sm pull-right', data: { toggle: 'modal' } %>
+    </div>
+  </div>
   <div class="client-detail">
     <div class="full-height-scroll">
 
@@ -14,7 +21,7 @@
         <span>Disponível: R$100.000,00</span>
         <span>Utilizado: R$50.000,00</span>
         <div class="progress ">
-          <div style="width: 50%;" class="progress-bar">50%</div>
+          <div style="width: 50%;" class="progress-bar progress-bar-navy-light">50%</div>
         </div>
       </div>
 
@@ -145,7 +152,7 @@
     </div>
   </div>
   <div class="p-m">
-    <%= link_to "Comprar Operação", render(partial: 'sellers/confirmation_modal'), class: 'btn btn-primary btn-sm pull-right', data: { toggle: 'modal' } %>
+
   </div>
 </div>
 
