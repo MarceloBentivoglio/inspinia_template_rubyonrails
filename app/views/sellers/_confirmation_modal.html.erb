@@ -4,40 +4,84 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Confirmacão de Compra</h4>
-                <small class="font-bold">O Advalori não se responsabiliza pelo risco de crédito da operacão. </small>
+                <small>O Advalori não se responsabiliza pelo risco de crédito da operacão. </small>
             </div>
             <div class="modal-body">
-            <div class="row">
-              <div class="col-sm-6">
-                <h4>Cedente:</h4>
-                <address>
-                  <strong><%= @seller.company_name %></strong><br>
-                  <%= @seller.address %>, <%= @seller.address_number %><br>
-                  <%= @seller.city %>, <%= @seller.state %> <%= @seller.zip_code %><br>
-                  <abbr title="Phone">P:</abbr> (123) 601-459
-                </address>
-              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <h4>Cedente:</h4>
+                  <address>
+                    <strong><%= @seller.company_name %></strong><br>
+                    <%= @seller.address %> <%= @seller.address_number %><br>
+                    <%= @seller.city %>, <%= @seller.state %> <%= @seller.zip_code %><br>
+                  </address>
+                </div>
 
-              <div class="col-sm-6 text-right">
-                <h4>Nota Fiscal</h4>
-                <h4 class="text-navy">Invoice Number</h4>
+                <div class="col-sm-6 text-right">
+                  <h4>Nota Fiscal</h4>
+                  <h4 class="text-navy"><%= @invoice.number %></h4>
 
-                <p>
-                  <span><strong>Data da Operacao</strong>  <%= Time.now.strftime("%d/%m/%Y") %> </span><br />
-                  <span><strong>Prazo Medio de Vencimento</strong> <%= %></span>
-                </p>
+                  <p><span><strong>Data da Operacao</strong>  <%= Time.now.strftime("%d/%m/%Y") %> </span><br /></p>
+                </div>
               </div>
-            </div>
-                <p>
-                    <strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged.
-                </p>
+              <strong>Sacado</strong>
+              <p><%= @payer.company_name %></p>
+              <strong>Parcelas</strong>
+              <div class="table-responsive">
+                <table class="table invoice-table">
+                  <thead>
+                    <tr>
+                      <th>Vencimento</th>
+                      <th>Fator (R$)</th>
+                      <th>Advalorem (R$)</th>
+                      <th>Valor de Face (R$)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @installments.each do |installment| %>
+                      <tr>
+                        <td><%= installment.due_date.strftime("%d/%m/%y") %></td>
+                        <td><%= humanized_money installment.interest %></td>
+                        <td><%= humanized_money installment.ad_valorem %></td>
+                        <td><%= humanized_money installment.value %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+              <strong>Resumo</strong>
+              <table class="table invoice-total">
+                <tbody>
+                  <tr>
+                    <td><strong>Sub Total :</strong></td>
+                    <td><%= humanized_money_with_symbol @invoice.total_value %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Comissão :</strong></td>
+                    <td><%= humanized_money_with_symbol @advalori_fee %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Fator +Ad :</strong></td>
+                    <td><%= humanized_money_with_symbol @fatorad %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>IOF :</strong></td>
+                    <td><%= humanized_money_with_symbol @iof %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>IOF Adicional :</strong></td>
+                    <td><%= humanized_money_with_symbol @iofad %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Total a Depositar :</strong></td>
+                    <td><%= humanized_money_with_symbol @deposit_value %></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+              <%= link_to "Confirmar Operação", root_path, class: 'btn btn-primary btn-lg pull-right animation_select', data: { toggle: 'modal', animation: 'fadeInDownBig' } %>
             </div>
         </div>
     </div>
