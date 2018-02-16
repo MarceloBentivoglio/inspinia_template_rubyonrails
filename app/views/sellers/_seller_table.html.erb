@@ -1,23 +1,26 @@
 <div id="company-1" class="tab-pane active">
-  <div class="m-b-lg">
-    <h2><%= seller.company_name.mb_chars.capitalize %></h2>
-    <strong>Sobre a empresa</strong>
-    <p>
-      <%= seller.finantials[0].production_economics_cycle_description %>
-    </p>
-    <div>
-      <strong>Limite</strong>
-      <br>
-      <span>Disponível: R$100.000,00</span>
-      <span>Utilizado: R$50.000,00</span>
-      <div class="progress ">
-        <div style="width: 50%;" class="progress-bar">50%</div>
-      </div>
-    </div>
-  </div>
-
+  <h2><%= seller.company_name.mb_chars.capitalize %></h2>
   <div class="client-detail">
     <div class="full-height-scroll">
+
+      <strong>Sobre a empresa</strong>
+      <p>
+        <%= seller.finantials[0].production_economics_cycle_description %>
+      </p>
+
+      <div>
+        <strong>Limite</strong>
+        <br>
+        <span>Disponível: R$100.000,00</span>
+        <span>Utilizado: R$50.000,00</span>
+        <div class="progress ">
+          <div style="width: 50%;" class="progress-bar">50%</div>
+        </div>
+      </div>
+
+      <strong>Histórico de operações</strong>
+      <canvas id="operationsReportChart" height="150"></canvas>
+
       <strong>Detalhes da Nota Fiscal</strong>
       <ul class="list-group clear-list">
         <li class="list-group-item fist-item">
@@ -33,8 +36,63 @@
           Sacado Aceitou Notificação?
         </li>
       </ul>
-      <strong>Histórico de operações</strong>
-      <canvas id="operationsReportChart" height="150"></canvas>
+
+      <strong>Sacado</strong>
+      <p><%= @payer.company_name %></p>
+
+      <strong>Parcelas</strong>
+      <div class="table-responsive">
+        <table class="table invoice-table">
+          <thead>
+            <tr>
+              <th>Vencimento</th>
+              <th>Fator (R$)</th>
+              <th>Advalorem (R$)</th>
+              <th>Valor de Face (R$)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @installments.each do |installment| %>
+              <tr>
+                <td><%= installment.due_date.strftime("%d/%m/%y") %></td>
+                <td><%= humanized_money installment.interest %></td>
+                <td><%= humanized_money installment.ad_valorem %></td>
+                <td><%= humanized_money installment.value %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <strong>Resumo</strong>
+      <table class="table invoice-total">
+        <tbody>
+          <tr>
+            <td><strong>Sub Total :</strong></td>
+            <td><%= humanized_money_with_symbol @invoice.total_value %></td>
+          </tr>
+          <tr>
+            <td><strong>Comissão :</strong></td>
+            <td><%= humanized_money_with_symbol @advalori_fee %></td>
+          </tr>
+          <tr>
+            <td><strong>Fator +Ad :</strong></td>
+            <td><%= humanized_money_with_symbol @fatorad %></td>
+          </tr>
+          <tr>
+            <td><strong>IOF :</strong></td>
+            <td><%= humanized_money_with_symbol @iof %></td>
+          </tr>
+          <tr>
+            <td><strong>IOF Adicional :</strong></td>
+            <td><%= humanized_money_with_symbol @iofad %></td>
+          </tr>
+          <tr>
+            <td><strong>Total a Depositar :</strong></td>
+            <td><%= humanized_money_with_symbol @deposit_value %></td>
+          </tr>
+        </tbody>
+      </table>
 
 
       <strong>Conheça o Histórico</strong>

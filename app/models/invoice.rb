@@ -2,6 +2,7 @@ class Invoice < ApplicationRecord
   INVOICES_TYPE = ["check", "invoice", "contract"]
   belongs_to :operation, optional: true
   belongs_to :payer, optional: true
+  delegate :seller, to: :operation, allow_nil: true
   has_many :rebuys
   has_many :installments, dependent: :destroy
   # We need this line so that we can create invoice forms with installments (reference: https://www.youtube.com/watch?v=pulzZxPkgmE)
