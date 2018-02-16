@@ -4,7 +4,7 @@
       <h2><%= seller.company_nickname.mb_chars.capitalize %></h2>
     </div>
     <div class="col-xs-6">
-      <%= link_to "Comprar Operação", render(partial: 'sellers/confirmation_modal'), class: 'btn btn-primary btn-sm pull-right', data: { toggle: 'modal' } %>
+      <%= link_to "Comprar Operação", render(partial: 'confirmation_modal'), class: 'btn btn-primary btn-sm pull-right', data: { toggle: 'modal' } %>
     </div>
   </div>
   <div class="client-detail">
@@ -103,7 +103,7 @@
     </div>
   </div>
   <div class="p-m">
-    <%= link_to "Comprar Operação", render(partial: 'sellers/confirmation_modal'), class: 'btn btn-primary btn-sm pull-right', data: { toggle: 'modal' } %>
+    <%= link_to "Comprar Operação", render(partial: 'confirmation_modal'), class: 'btn btn-primary btn-sm pull-right animation_select', data: { toggle: 'modal', animation: 'fadeInDownBig' } %>
   </div>
 </div>
 
