@@ -1,5 +1,12 @@
 <div id="company-1" class="tab-pane active">
-  <h2><%= seller.company_name.mb_chars.capitalize %></h2>
+  <div class="row">
+    <div class="col-xs-6">
+      <h2><%= seller.company_nickname.mb_chars.capitalize %></h2>
+    </div>
+    <div class="col-xs-6">
+      <%= link_to "Comprar Operação", render(partial: 'sellers/confirmation_modal'), class: 'btn btn-primary btn-sm pull-right', data: { toggle: 'modal' } %>
+    </div>
+  </div>
   <div class="client-detail">
     <div class="full-height-scroll">
 
@@ -14,7 +21,7 @@
         <span>Disponível: R$100.000,00</span>
         <span>Utilizado: R$50.000,00</span>
         <div class="progress ">
-          <div style="width: 50%;" class="progress-bar">50%</div>
+          <div style="width: 50%;" class="progress-bar progress-bar-navy-light">50%</div>
         </div>
       </div>
 
@@ -93,55 +100,6 @@
           </tr>
         </tbody>
       </table>
-
-
-      <strong>Conheça o Histórico</strong>
-      <div id="vertical-timeline" class="vertical-container dark-timeline">
-        <div class="vertical-timeline-block">
-          <div class="vertical-timeline-icon gray-bg">
-            <i class="fa fa-coffee"></i>
-          </div>
-          <div class="vertical-timeline-content">
-            <p>
-              Realizamos análise dos Documentos e Visita Presencial.
-            </p>
-            <span class="vertical-date small text-muted"> 12.06.2015 </span>
-          </div>
-        </div>
-        <div class="vertical-timeline-block">
-          <div class="vertical-timeline-icon gray-bg">
-            <i class="fa fa-briefcase"></i>
-          </div>
-          <div class="vertical-timeline-content">
-            <p>
-              Assinatura dos Contratos e Início das Operações com Cedente.
-            </p>
-            <span class="vertical-date small text-muted"> 15.06.2015 </span>
-          </div>
-        </div>
-        <div class="vertical-timeline-block">
-          <div class="vertical-timeline-icon gray-bg">
-            <i class="fa fa-bolt"></i>
-          </div>
-          <div class="vertical-timeline-content">
-            <p>
-              Primeira operação liquidada! R$ 31.000,00
-            </p>
-            <span class="vertical-date small text-muted"> 25.07.2015 </span>
-          </div>
-        </div>
-        <div class="vertical-timeline-block">
-          <div class="vertical-timeline-icon navy-bg">
-            <i class="fa fa-warning"></i>
-          </div>
-          <div class="vertical-timeline-content">
-            <p>
-              Hoje, temos um total de R$ 1.435.875,00 liquidados <br/> em 52 operações!
-            </p>
-            <span class="vertical-date small text-muted"> Vamos Operar? </span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <div class="p-m">

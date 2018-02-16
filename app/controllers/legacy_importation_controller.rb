@@ -14,6 +14,7 @@ class LegacyImportationController < ApplicationController
         # TODO: Separate the address number from the address, maybe using regex
         payer_attributes = {
           company_name: cols[1],
+          company_nickname: cols[1][0,15],
           identification_number: clean_company_identification_number(cols[2]),
           address: cols[3],
           zip_code: cols [4],
@@ -43,6 +44,7 @@ class LegacyImportationController < ApplicationController
         # TODO: Separate the address number from the address, maybe using regex
         seller_attributes = {
           company_name: cols[0],
+          company_nickname: cols[0][0,15],
           identification_number: clean_company_identification_number(cols[1]),
           address: cols[2],
           zip_code: cols [3],
