@@ -45,7 +45,7 @@
       </ul>
 
       <strong>Sacado</strong>
-      <p><%= @payer.company_name %></p>
+      <p><%= payer.company_name %></p>
 
       <strong>Parcelas</strong>
       <div class="table-responsive">
@@ -59,7 +59,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @installments.each do |installment| %>
+            <% installments.each do |installment| %>
               <tr>
                 <td><%= installment.due_date.strftime("%d/%m/%y") %></td>
                 <td><%= humanized_money installment.interest %></td>
@@ -76,27 +76,27 @@
         <tbody>
           <tr>
             <td><strong>Sub Total :</strong></td>
-            <td><%= humanized_money_with_symbol @invoice.total_value %></td>
+            <td><%= humanized_money_with_symbol invoice.total_value %></td>
           </tr>
           <tr>
             <td><strong>Comissão :</strong></td>
-            <td><%= humanized_money_with_symbol @advalori_fee %></td>
+            <td><%= humanized_money_with_symbol advalori_fee %></td>
           </tr>
           <tr>
             <td><strong>Fator +Ad :</strong></td>
-            <td><%= humanized_money_with_symbol @fatorad %></td>
+            <td><%= humanized_money_with_symbol fatorad %></td>
           </tr>
           <tr>
             <td><strong>IOF :</strong></td>
-            <td><%= humanized_money_with_symbol @iof %></td>
+            <td><%= humanized_money_with_symbol iof %></td>
           </tr>
           <tr>
             <td><strong>IOF Adicional :</strong></td>
-            <td><%= humanized_money_with_symbol @iofad %></td>
+            <td><%= humanized_money_with_symbol iofad %></td>
           </tr>
           <tr>
             <td><strong>Total a Depositar :</strong></td>
-            <td><%= humanized_money_with_symbol @deposit_value %></td>
+            <td><%= humanized_money_with_symbol deposit_value %></td>
           </tr>
         </tbody>
       </table>
@@ -113,14 +113,14 @@
 
   $(document).ready(function() {
     var operationsReportData = {
-      labels: <%= raw @operations_report.keys %>,
+      labels: <%= raw operations_report.keys %>,
       datasets: [{
         label: "Volume operado em [R$] ",
         backgroundColor: 'rgba(26,179,148,0.5)',
         borderColor: "rgba(26,179,148,0.7)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
-        data: <%= raw @operations_report.values %>
+        data: <%= raw operations_report.values %>
       }]
     };
 
