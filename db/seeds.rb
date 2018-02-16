@@ -20,7 +20,13 @@ puts 'Creating new Client...'
 client = Client.create!(
   name: 'MVP Invest',
   cnpj: '23198636000195',
-  available_funds: Money.new(1000000)
+  available_funds: Money.new(100000000)
+  )
+
+client2 = Client.create!(
+  name: 'Sabia Fomento Mercantil Limitada',
+  cnpj: '24648847000145',
+  available_funds: Money.new(3000000000)
   )
 
 puts 'Creating new User...'

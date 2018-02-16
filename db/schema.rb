@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205115408) do
+ActiveRecord::Schema.define(version: 20180216205446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "clients", force: :cascade do |t|
-    t.string "type"
+    t.string "client_type"
     t.string "name"
     t.string "cnpj"
-    t.integer "available_funds_cents", default: 0, null: false
+    t.bigint "available_funds_cents", default: 0, null: false
     t.string "available_funds_currency", default: "BRL", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -270,6 +270,15 @@ ActiveRecord::Schema.define(version: 20180205115408) do
     t.index ["payer_id"], name: "index_payers_limits_on_payer_id"
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.bigint "buyer_id"
+    t.bigint "invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_purchases_on_buyer_id"
+    t.index ["invoice_id"], name: "index_purchases_on_invoice_id"
+  end
+
   create_table "qualitative_informations", force: :cascade do |t|
     t.bigint "seller_id"
     t.boolean "address_verification"
@@ -435,6 +444,8 @@ ActiveRecord::Schema.define(version: 20180205115408) do
   add_foreign_key "payers_concentrations", "payers"
   add_foreign_key "payers_limits", "operations"
   add_foreign_key "payers_limits", "payers"
+  add_foreign_key "purchases", "clients", column: "buyer_id"
+  add_foreign_key "purchases", "invoices"
   add_foreign_key "qualitative_informations", "sellers"
   add_foreign_key "rebuys", "invoices"
   add_foreign_key "rebuys", "operations"
