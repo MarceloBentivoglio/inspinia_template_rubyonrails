@@ -46,7 +46,7 @@
       <div class="ibox ">
         <div class="ibox-content">
           <div class="tab-content">
-            <%= render 'sellers/seller_table', { seller: @seller, invoice: @invoice } %>
+            <%= render 'invoice_details', { seller: @seller, invoice: @invoice, payer: @payer, installments: @installments, advalori_fee: @advalori_fee, fatorad: @fatorad, iof: @iof, iofad: @iofad, deposit_value: @deposit_value, operations_report: @operations_report } %>
           </div>
         </div>
       </div>
