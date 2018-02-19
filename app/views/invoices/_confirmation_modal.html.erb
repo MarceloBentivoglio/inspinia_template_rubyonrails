@@ -1,88 +1,88 @@
-  <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Confirmacão de Compra</h4>
-                <small>O Advalori não se responsabiliza pelo risco de crédito da operacão. </small>
+<div class="modal inmodal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title">Confirmacão de Compra</h4>
+              <small>O Advalori não se responsabiliza pelo risco de crédito da operacão. </small>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <h4>Cedente:</h4>
+                <address>
+                  <strong><%= @seller.company_name %></strong><br>
+                  <%= @seller.address %> <%= @seller.address_number %><br>
+                  <%= @seller.city %>, <%= @seller.state %> <%= @seller.zip_code %><br>
+                </address>
+              </div>
+
+              <div class="col-sm-6 text-right">
+                <h4>Nota Fiscal</h4>
+                <h4 class="text-navy"><%= @invoice.number %></h4>
+
+                <p><span><strong>Data da Operacao</strong>  <%= Time.now.strftime("%d/%m/%Y") %> </span><br /></p>
+              </div>
             </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <h4>Cedente:</h4>
-                  <address>
-                    <strong><%= @seller.company_name %></strong><br>
-                    <%= @seller.address %> <%= @seller.address_number %><br>
-                    <%= @seller.city %>, <%= @seller.state %> <%= @seller.zip_code %><br>
-                  </address>
-                </div>
-
-                <div class="col-sm-6 text-right">
-                  <h4>Nota Fiscal</h4>
-                  <h4 class="text-navy"><%= @invoice.number %></h4>
-
-                  <p><span><strong>Data da Operacao</strong>  <%= Time.now.strftime("%d/%m/%Y") %> </span><br /></p>
-                </div>
-              </div>
-              <strong>Sacado</strong>
-              <p><%= @payer.company_name %></p>
-              <strong>Parcelas</strong>
-              <div class="table-responsive">
-                <table class="table invoice-table">
-                  <thead>
-                    <tr>
-                      <th>Vencimento</th>
-                      <th>Fator (R$)</th>
-                      <th>Advalorem (R$)</th>
-                      <th>Valor de Face (R$)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @installments.each do |installment| %>
-                      <tr>
-                        <td><%= installment.due_date.strftime("%d/%m/%y") %></td>
-                        <td><%= humanized_money installment.interest %></td>
-                        <td><%= humanized_money installment.ad_valorem %></td>
-                        <td><%= humanized_money installment.value %></td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
-              <strong>Resumo</strong>
-              <table class="table invoice-total">
+            <strong>Sacado</strong>
+            <p><%= @payer.company_name %></p>
+            <strong>Parcelas</strong>
+            <div class="table-responsive">
+              <table class="table invoice-table">
+                <thead>
+                  <tr>
+                    <th>Vencimento</th>
+                    <th>Fator (R$)</th>
+                    <th>Advalorem (R$)</th>
+                    <th>Valor de Face (R$)</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr>
-                    <td><strong>Sub Total :</strong></td>
-                    <td><%= humanized_money_with_symbol @invoice.total_value %></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Comissão :</strong></td>
-                    <td><%= humanized_money_with_symbol @advalori_fee %></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Fator + Ad :</strong></td>
-                    <td><%= humanized_money_with_symbol @fatorad %></td>
-                  </tr>
-                  <tr>
-                    <td><strong>IOF :</strong></td>
-                    <td><%= humanized_money_with_symbol @iof %></td>
-                  </tr>
-                  <tr>
-                    <td><strong>IOF Adicional :</strong></td>
-                    <td><%= humanized_money_with_symbol @iofad %></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Total a Depositar :</strong></td>
-                    <td><%= humanized_money_with_symbol @deposit_value %></td>
-                  </tr>
+                  <% @installments.each do |installment| %>
+                    <tr>
+                      <td><%= installment.due_date.strftime("%d/%m/%y") %></td>
+                      <td><%= humanized_money installment.interest %></td>
+                      <td><%= humanized_money installment.ad_valorem %></td>
+                      <td><%= humanized_money installment.value %></td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>
+            <strong>Resumo</strong>
+            <table class="table invoice-total">
+              <tbody>
+                <tr>
+                  <td><strong>Sub Total :</strong></td>
+                  <td><%= humanized_money_with_symbol @invoice.total_value %></td>
+                </tr>
+                <tr>
+                  <td><strong>Comissão :</strong></td>
+                  <td><%= humanized_money_with_symbol @advalori_fee %></td>
+                </tr>
+                <tr>
+                  <td><strong>Fator + Ad :</strong></td>
+                  <td><%= humanized_money_with_symbol @fatorad %></td>
+                </tr>
+                <tr>
+                  <td><strong>IOF :</strong></td>
+                  <td><%= humanized_money_with_symbol @iof %></td>
+                </tr>
+                <tr>
+                  <td><strong>IOF Adicional :</strong></td>
+                  <td><%= humanized_money_with_symbol @iofad %></td>
+                </tr>
+                <tr>
+                  <td><strong>Total a Depositar :</strong></td>
+                  <td><%= humanized_money_with_symbol @deposit_value %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-            <div class="modal-footer">
-              <%= link_to "Confirmar Operação", purchases_path(buyer: current_user.client.id, invoice: @invoice.id), class: 'btn btn-primary btn-lg pull-right animation_select', data: { toggle: 'modal', animation: 'fadeInDownBig' } %>
-            </div>
-        </div>
-    </div>
+          <div class="modal-footer">
+            <%= link_to "Confirmar Operação", purchases_path(buyer: current_user.client.id, invoice: @invoice.id), class: 'btn btn-primary btn-lg pull-right animation_select', data: { toggle: 'modal', animation: 'fadeInDownBig' } %>
+          </div>
+      </div>
   </div>
+</div>
