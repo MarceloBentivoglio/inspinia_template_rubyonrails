@@ -4,13 +4,13 @@
       <div class="ibox">
         <div class="ibox-content">
           <!-- <span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span> -->
-          <h2>Painel de Operacões</h2>
-          <p>Navegue entre as operacões disponíveis, clique no Cedente para ver respectivas informaćões financeiras.</p>
+          <h2>Painel de Títulos</h2>
+          <p>Navegue entre os títulos disponíveis. Clique no Cedente para ver detalhes do título</p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
               <!-- <span class="pull-right small text-muted">1406 Elements</span> -->
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i>Disponíveis</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i>Compradas</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i>Comprados</a></li>
 
             </ul>
             <div class="tab-content">
@@ -28,12 +28,12 @@
                             <th scope="col">Taxa</th>
                           </tr>
                         </thead>
-                        <% @invoices.each do |invoice| %>
+                        <% @offered_invoices.each do |invoice| %>
                           <%= render 'invoice_table_item', invoice: invoice %>
                         <% end %>
                       </tbody>
                     </table>
-                    <caption>Painel de Operaćões</caption>
+                    <caption>Painel de Títulos</caption>
                   </div>
                 </div>
               </div>
@@ -51,12 +51,12 @@
                             <th scope="col">Taxa</th>
                           </tr>
                         </thead>
-                        <% @bought_invoices.each do |invoice| %>
+                        <% @purchased_invoices.each do |invoice| %>
                           <%= render 'invoice_table_item', invoice: invoice %>
                         <% end %>
                       </tbody>
                     </table>
-                    <caption>Painel de Operações</caption>
+                    <caption>Painel de Títulos</caption>
                   </div>
                 </div>
               </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216205446) do
+ActiveRecord::Schema.define(version: 20180219143518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,13 @@ ActiveRecord::Schema.define(version: 20180216205446) do
     t.string "enforcement_monition_suits_amount_currency", default: "BRL", null: false
     t.string "information_year"
     t.index ["seller_id"], name: "index_legals_on_seller_id"
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.bigint "invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_offers_on_invoice_id"
   end
 
   create_table "operations", force: :cascade do |t|
@@ -439,6 +446,7 @@ ActiveRecord::Schema.define(version: 20180216205446) do
   add_foreign_key "invoices", "operations"
   add_foreign_key "invoices", "payers"
   add_foreign_key "legals", "sellers"
+  add_foreign_key "offers", "invoices"
   add_foreign_key "operations", "sellers"
   add_foreign_key "payers_concentrations", "operations"
   add_foreign_key "payers_concentrations", "payers"
