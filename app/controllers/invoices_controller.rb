@@ -1,7 +1,8 @@
 class InvoicesController < ApplicationController
   def index
-    @bought_invoices = Purchase.where(buyer: current_user.client).map { |purchase| purchase.invoice}
-    @invoices = Invoice.all.limit(30)
+    @purchased_invoices = Purchase.where(buyer: current_user.client).map { |purchase| purchase.invoice}
+    @offered_invoices = Offer.all.map { |offer| offer.invoice}
+    # @invoices = Invoice.all.limit(30)
     @installments = Installment.all
     #TODO: How to handle multiple controllers in one view?
     @invoice = Invoice.find(317)
