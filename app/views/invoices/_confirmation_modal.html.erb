@@ -81,7 +81,7 @@
             </div>
 
             <div class="modal-footer">
-              <%= link_to "Confirmar Operação", root_path, class: 'btn btn-primary btn-lg pull-right animation_select', data: { toggle: 'modal', animation: 'fadeInDownBig' } %>
+              <%= link_to "Confirmar Operação", purchases_path(buyer: current_user.client.id, invoice: @invoice.id), class: 'btn btn-primary btn-lg pull-right animation_select', data: { toggle: 'modal', animation: 'fadeInDownBig' } %>
             </div>
         </div>
     </div>

@@ -10,10 +10,12 @@ Rails.application.routes.draw do
   post '/cnpj_check', to: 'cnpj_checks#fetch_information'
 
   get '/legacy', to: 'legacy_importation#import_legacy_data'
+  get '/purchases', to:  'purchases#create'
 
   root to: 'landing#index'
 
   get "landing/index"
+
 
   # All routes
   get "dashboards/dashboard_1"
