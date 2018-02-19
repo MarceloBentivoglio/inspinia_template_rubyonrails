@@ -38,7 +38,7 @@
                       <tbody>
                         <% @payer.each do |payer| %>
                         <tr>
-                          <td><%= payer.company_name.mb_chars.capitalize %></td>
+                          <td><%= link_to payer.company_name.mb_chars.capitalize, payer_path(payer) %></td>
                           <td><%= payer.identification_number[0..1] %>.<%= payer.identification_number[2..4] %>.<%= payer.identification_number[5..7] %>/<%= payer.identification_number[8..11] %>-<%= payer.identification_number[12..13] %> </td>
                           <td class="contact-type"><i class="fa fa-envelope"> </i></td>
                           <td> <%= payer.email %></td>

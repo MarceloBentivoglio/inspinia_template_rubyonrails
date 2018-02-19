@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :invoices, only: [:new, :create, :show, :index]
   resources :sellers, only: [:new, :create, :show, :index]
-  resources :payers, only: [:new, :create]
+  resources :payers, only: [:new, :create, :show]
   resources :operations, only: [:new, :show]
 
   post '/invoices/load_xml', to: 'invoices#load_invoice_from_xml'

@@ -1,0 +1,182 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <!-- Institutional -->
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="widget lazur-bg p-xl">
+        <h2><%= @payer.company_nickname %></h2>
+        <small><%= @payer.company_name %></small>
+        <ul class="list-unstyled m-t-md">
+          <li>
+            <span class="fa fa-envelope m-r-xs"></span>
+            <label>E-mail:</label>
+            <%= @payer.email %>
+          </li>
+          <li>
+            <span class="fa fa-home m-r-xs"></span>
+            <label>Endereço:</label>
+            <%= "#{@payer.address}, #{@payer.address_number}" %>
+             <%= " | #{@payer.address_2}" if @payer.address_2.present? %>
+          </li>
+          <li>
+            <span class="fa fa-phone m-r-xs"></span>
+            <label>Contato:</label>
+            <%= "#{@payer.phone_number}" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Institucional </h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+
+            <ul class="list-unstyled m-t-md">
+              <li>
+                <span class="fa fa-birthday-cake m-r-xs"></span>
+                <label>Ano de fundação:</label>
+                <%= @payer.incorporation_date %>
+              </li>
+              <li>
+                <span class="fa fa-industry m-r-xs"></span>
+                <label>Descrição do negócio:</label>
+                <%#= @finantial.production_economics_cycle_description %>
+              </li>
+            </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Operation report -->
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Histórico de operações</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div>
+            <canvas id="operationsReportChart" height="90"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5> Valor total de operações realizadas</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <h1 class="no-margins"><%#= humanized_money_with_symbol @total_operations_amount %> </h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Quantidade total de operações realizadas</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <h1 class="text-navy no-margins">
+                <%#= @total_operations_number %>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="ibox float-e-margins">
+  <div class="ibox-title">
+    <h2>Relato Mais Serasa <%= @payer.company_nickname %></h2>
+  </div>
+</div>
+    <iframe src="/biort.pdf" style="border: none; width: 80%; height: 1000px; margin-bottom: 100px;"> </iframe>
+
+
+ </div>
+
+
+
+<% content_for :javascript do %>
+
+
+<!-- TODO bring real data to the graph -->
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+      var operationsReportData = {
+      labels: <%#= raw @operations_report.keys %>,
+      datasets: [
+      {
+        label: "Volume operado em [R$] ",
+        backgroundColor: 'rgba(26,179,148,0.5)',
+        borderColor: "rgba(26,179,148,0.7)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: <%#= raw @operations_report.values %>
+      }
+      ]
+    };
+
+    var operationsReportOptions = {
+      responsive: true,
+      scales: {
+       yAxes: [{
+         ticks: {
+           callback: function(value, index, values) {
+             return value.toLocaleString("pt-BR",{style:"currency", currency:"BRL"});
+           }
+         }
+       }]
+     }
+    };
+
+    var ctx6 = document.getElementById("operationsReportChart").getContext("2d");
+    new Chart(ctx6, {type: 'bar', data: operationsReportData, options:operationsReportOptions});
+
+  });
+
+</script>
+
+<% end %>
+
