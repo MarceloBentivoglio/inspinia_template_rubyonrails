@@ -41,6 +41,8 @@ gem 'groupdate', '~> 2.5', '>= 2.5.2'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+  # This gems was taught in Le Wagon and it is used to open the mail sent by the app on a tab of the browser
+  gem "letter_opener"
 end
 
 group :development, :test do
