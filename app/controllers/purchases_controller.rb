@@ -6,5 +6,6 @@ class PurchasesController < ApplicationController
     offer.destroy
     Purchase.create!(buyer: buyer, invoice: invoice)
     redirect_to root_path
+    PurchaseMailer.purchase_notification(buyer, invoice).deliver_now
   end
 end
