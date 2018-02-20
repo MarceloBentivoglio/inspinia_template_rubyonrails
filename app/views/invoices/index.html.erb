@@ -5,7 +5,7 @@
         <div class="ibox-content">
           <!-- <span class="text-muted small pull-right">Last modification: <i class="fa fa-clock-o"></i> 2:10 pm - 12.06.2014</span> -->
           <h2>Painel de Títulos</h2>
-          <p>Navegue entre os títulos disponíveis. Clique no Cedente para ver detalhes do título</p>
+          <p>Navegue entre os títulos disponíveis. Clique no Cedente para ver detalhes do título.</p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
               <!-- <span class="pull-right small text-muted">1406 Elements</span> -->
@@ -22,10 +22,10 @@
                         <thead>
                           <tr>
                             <th scope="col"></th>
-                            <th scope="col">Valor</th>
                             <th scope="col">Prazo</th>
-                            <th scope="col">Dias</th>
-                            <th scope="col">Taxa</th>
+                            <th scope="col">Valor Face</th>
+                            <th scope="col">Fator + Ad</th>
+                            <th scope="col">Taxa Bruta</th>
                           </tr>
                         </thead>
                         <% @offered_invoices.each do |invoice| %>
@@ -52,11 +52,10 @@
                           </tr>
                         </thead>
                         <% @purchased_invoices.each do |invoice| %>
-                          <%= render 'invoice_table_item', invoice: invoice %>
+                          <%= render 'invoice_table_item', { invoice: invoice, gross_interest: @gross_interest } %>
                         <% end %>
                       </tbody>
                     </table>
-                    <caption>Painel de Títulos</caption>
                   </div>
                 </div>
               </div>
