@@ -98,7 +98,7 @@ class LegacyImportationController < ApplicationController
         # seller: Seller.where("company_name LIKE '#{cols[3]}%'").first,
         if cols[0] == cols[1]
           operation_attributes = {
-            status: paid_flag,
+            status: paid_flag ? Invoice::INVOICES_STATUS[4] : Invoice::INVOICES_STATUS[5],
             importation_reference: cols[1],
             deposit_date: DateTime.parse(cols[2]),
             seller: Seller.find_by_identification_number(clean_company_identification_number(cols[4])),
@@ -120,7 +120,7 @@ class LegacyImportationController < ApplicationController
         else
           if Operation.where("importation_reference = ?", cols[0]).exists?
             installment_attributes = {
-              status: paid_flag,
+              status: paid_flag ? Invoice::INVOICES_STATUS[4] : Invoice::INVOICES_STATUS[5],
               importation_reference: cols[0],
               number: cols[5],
               interest: Money.new(treat_currency_from_file(cols[7])),
@@ -133,7 +133,7 @@ class LegacyImportationController < ApplicationController
               installment_attributes[:invoice] = Invoice.where("number = ? AND importation_reference = ?", installment_attributes[:number].slice(0..-2), installment_attributes[:importation_reference]).first
             else
               invoice_attributes = {
-                status: paid_flag,
+                status: paid_flag ? Invoice::INVOICES_STATUS[4] : Invoice::INVOICES_STATUS[5],
                 importation_reference: cols[0],
                 invoice_type: find_invoice_type(cols[2]),
                 payer: Payer.find_by_identification_number(clean_company_identification_number(cols[4])),
