@@ -8,6 +8,7 @@
       <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#purchase-modal">Comprar título</button>
     </div>
   </div>
+  <hr class="hr-line-solid">
   <div class="client-detail">
     <div class="full-height-scroll">
 
@@ -15,20 +16,28 @@
       <p>
         <%= seller.finantials[0].production_economics_cycle_description %>
       </p>
-
+      <hr class="hr-line-dashed">
       <div>
         <strong>Limite</strong>
         <br>
-        <span>Disponível: R$100.000,00</span>
         <span>Utilizado: R$50.000,00</span>
-        <div class="progress ">
+        <span class="pull-right small text-muted">Total: R$100.000,00</span>
+        <div class="progress progress-striped active">
           <div style="width: 50%;" class="progress-bar progress-bar-navy-light">50%</div>
         </div>
       </div>
+      <hr class="hr-line-dashed">
 
       <strong>Histórico de operações</strong>
       <canvas id="operationsReportChart" height="150"></canvas>
-
+      <br>
+      <div>
+        <% @operations_report.each do |o| %>
+          <%= o[0] %><span class="pull-right"> R$ <%= humanized_money o[1] %></span>
+          <br>
+        <% end %>
+      </div>
+      <hr class="hr-line-solid">
       <strong>Detalhes da Nota Fiscal</strong>
       <ul class="list-group clear-list">
         <li class="list-group-item fist-item">
