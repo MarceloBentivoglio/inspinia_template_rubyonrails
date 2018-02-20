@@ -5,7 +5,7 @@ class InvoicesController < ApplicationController
     # @invoices = Invoice.all.limit(30)
     @installments = Installment.all
     #TODO: How to handle multiple controllers in one view?
-    @invoice = Invoice.find(317)
+    @invoice = Invoice.find(66)
     @seller = @invoice.seller
     @finantial = @seller.finantials.first
     @total_operations_number = @seller.operations.count

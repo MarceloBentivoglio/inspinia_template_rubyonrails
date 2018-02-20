@@ -60,6 +60,9 @@ most_expensive_invoices = Invoice.all.order(total_value_cents: :DESC).limit(20).
 most_expensive_invoices.each do |id|
   Offer.create!(invoice: Invoice.find(id))
 end
+Offer.create!(invoice: seller1.operations.first.invoices.first)
+puts seller1.operations.first.invoices.first.id
+
 
 # puts 'Creating new Sellers...'
 # seller1 = Seller.create!(

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219143518) do
+ActiveRecord::Schema.define(version: 20180220183721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20180219143518) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "importation_reference"
+    t.string "status"
     t.index ["invoice_id"], name: "index_installments_on_invoice_id"
   end
 
