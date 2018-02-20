@@ -1,5 +1,6 @@
 class Invoice < ApplicationRecord
   INVOICES_TYPE = ["check", "invoice", "contract"]
+  INVOICES_STATUS = ["waiting_for_deposit", "on_date", "at_due_date", "pending_payment", "paid"]
   belongs_to :operation, optional: true
   belongs_to :payer, optional: true
   delegate :seller, to: :operation, allow_nil: true
