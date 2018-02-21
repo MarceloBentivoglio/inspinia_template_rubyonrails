@@ -55,6 +55,9 @@
 // Invoices CSS Related
 @import "invoices/index";
 
+// Components
+@import "components/index";
+
 // Clear layout on print mode
 @media print {
   nav.navbar-static-side {
