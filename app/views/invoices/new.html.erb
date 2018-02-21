@@ -44,9 +44,7 @@
     <%= payer.hidden_field :registration_number %>
     <% end %>
     <%= f.input :invoice_type , as: :radio_buttons, collection: [['Nota fiscal', 'nota_fiscal'], ['Cheque', 'check'], ['Outros', 'outro']], label: "Tipo de documento:" %>
-    <%= f.input :invoice_number %>
-    <%= f.input :contract_number %>
-    <%= f.input :check_number %>
+    <%= f.input :number %>
     <table class="table">
       <thead>
         <th></th>

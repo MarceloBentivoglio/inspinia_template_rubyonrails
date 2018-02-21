@@ -29,7 +29,7 @@ class Invoice < ApplicationRecord
     invoice = extract_invoice_general_info(doc, invoice)
     invoice = extract_installments(doc, invoice)
     invoice = extract_payer_info(doc, invoice)
-    invoice.operation = Operation.new(status: "olha eu aqui")
+    invoice.operation = Operation.new(status: "waiting_for_deposit")
     extract_seller_info(doc, invoice)
     return invoice
   end
@@ -37,7 +37,7 @@ class Invoice < ApplicationRecord
   private
 
   def self.extract_invoice_general_info (doc, invoice)
-    invoice.invoice_number = doc.search('fat nFat').text.strip
+    invoice.number = doc.search('fat nFat').text.strip
     # delete("\n .")): takes out blanks spaces, points and paragraphs, otherwise Money class will read "1000.00" as 1000 and convert to 10.00
     invoice.total_value = Money.new(doc.search('fat vLiq').text.delete("\n ."))
     return invoice
