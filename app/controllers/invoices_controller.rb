@@ -130,7 +130,7 @@ class InvoicesController < ApplicationController
     # In the strong parameters we need to pass the attributes of intallments so that the invoice form can understand it
     params
       .require(:invoice)
-      .permit(:invoice_number, :total_value, :contract_number, :check_number, :invoice_type, installments_attributes: [:id, :invoice_id, :_destroy, :number, :value, :due_date])
+      .permit(:number, :total_value, :invoice_type, installments_attributes: [:id, :invoice_id, :_destroy, :number, :value, :due_date])
   end
 
   def operation_params
