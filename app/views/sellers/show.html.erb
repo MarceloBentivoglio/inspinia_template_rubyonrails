@@ -503,15 +503,22 @@
     new Chart(ctx5, {type: 'doughnut', data: doughnutData2, options:doughnutOptions2});
 
     var operationsReportData = {
-      labels: <%= raw @operations_report.keys %>,
+      labels: <%= raw @operations_report_all_keys.keys %>,
       datasets: [
       {
-        label: "Volume operado em [R$] ",
+        label: "Volume liquidado em [R$] ",
         backgroundColor: 'rgba(26,179,148,0.5)',
         borderColor: "rgba(26,179,148,0.7)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
-        data: <%= raw @operations_report.values %>
+        data: <%= raw @operations_report_paid.values %>
+      }, {
+        label: "Volume em aberto em [R$] ",
+        backgroundColor: 'rgba(142,142,142,0.5)',
+        borderColor: "rgba(26,179,148,0.7)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: <%= raw @operations_report_not_paid.values %>
       }
       ]
     };
@@ -519,15 +526,19 @@
     var operationsReportOptions = {
       responsive: true,
       scales: {
-       yAxes: [{
-         ticks: {
+        xAxes: [{
+          stacked: true
+        }],
+        yAxes: [{
+          stacked: true,
+          ticks: {
            callback: function(value, index, values) {
              return value.toLocaleString("pt-BR",{style:"currency", currency:"BRL"});
            }
          }
        }]
      }
-    };
+   };
 
     var ctx6 = document.getElementById("operationsReportChart").getContext("2d");
     new Chart(ctx6, {type: 'bar', data: operationsReportData, options:operationsReportOptions});
