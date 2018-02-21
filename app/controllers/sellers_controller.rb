@@ -57,11 +57,25 @@ class SellersController < ApplicationController
 
     @total_operations_number = @seller.operations.count
     @total_operations_amount = Money.new(@seller.operations.sum('total_value_cents'))
-    @operations_report = @seller.operations.group_by_month(:deposit_date, format: "%b %y").sum("total_value_cents")
-    @operations_report.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
+    @operations_report_paid = @seller.operations.where(status: "paid").group_by_month(:deposit_date, format: "%b %y").sum("total_value_cents")
+    @operations_report_paid.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
+    @operations_report_not_paid = @seller.operations.where(status: "not_paid").group_by_month(:deposit_date, format: "%b %y").sum("total_value_cents")
+    @operations_report_not_paid.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
+    @operations_report_all_keys = @operations_report_not_paid.merge(@operations_report_paid)
+    @operations_report_all_keys = @operations_report_all_keys.sort_by {|date, value| Date.strptime(date, "%b %y") }.to_h
+    @operations_report_paid = merge_smaller_hash_into_bigger(@operations_report_paid, @operations_report_all_keys)
+    @operations_report_not_paid = merge_smaller_hash_into_bigger(@operations_report_not_paid, @operations_report_all_keys)
   end
 
   private
+
+  def merge_smaller_hash_into_bigger(small, big)
+    new_hash = {}
+    big.each do |key, value|
+      new_hash[key] = small[key] ? small[key] : 0
+    end
+    return new_hash
+  end
 
   def seller_params
     params.require(:seller).permit(:identification_number, :company_name, :company_nickname, :business_entity, :registration_number, :nire, :incorporation_date, :zip_code, :address, :address_number, :neighborhood, :address_2, :state, :city, :corporate_capital, :activity, :cnae, :tax_option)
