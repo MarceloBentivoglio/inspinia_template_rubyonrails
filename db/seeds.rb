@@ -56,7 +56,7 @@ LegacyImportationController.new.import_legacy_data({user: user})
 seller1 = Seller.where("company_name like 'BIORT%'").first
 
 puts 'Creating Offers...'
-most_expensive_invoices = Invoice.all.order(total_value_cents: :DESC).limit(20).for_sale!
+most_expensive_invoices = Invoice.all.order(total_value_cents: :DESC).limit(20).map {|invoice| invoice.for_sale!}
 
 # puts 'Creating new Sellers...'
 # seller1 = Seller.create!(

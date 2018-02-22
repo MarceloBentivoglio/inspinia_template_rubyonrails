@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221233805) do
+ActiveRecord::Schema.define(version: 20180222205412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,13 +115,11 @@ ActiveRecord::Schema.define(version: 20180221233805) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "importation_reference"
-    t.string "status"
+    t.boolean "paid", default: false
     t.index ["invoice_id"], name: "index_installments_on_invoice_id"
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.string "status"
-    t.string "delivery_status"
     t.boolean "confirmed"
     t.boolean "notified"
     t.boolean "boleto_especial"
@@ -139,11 +137,14 @@ ActiveRecord::Schema.define(version: 20180221233805) do
     t.string "xml_content_type"
     t.integer "xml_file_size"
     t.datetime "xml_updated_at"
-    t.string "invoice_type"
     t.string "importation_reference"
     t.float "average_outstanding_days"
     t.string "number"
     t.bigint "order_id"
+    t.integer "invoice_type", default: 0
+    t.integer "delivery_status"
+    t.integer "backoffice_status", default: 0
+    t.integer "sale_status", default: 0
     t.index ["operation_id"], name: "index_invoices_on_operation_id"
     t.index ["order_id"], name: "index_invoices_on_order_id"
     t.index ["payer_id"], name: "index_invoices_on_payer_id"
@@ -222,7 +223,6 @@ ActiveRecord::Schema.define(version: 20180221233805) do
     t.string "tax_retained_iof_adicional_currency", default: "BRL", null: false
     t.datetime "deposit_date"
     t.datetime "closure_date"
-    t.string "status"
     t.bigint "seller_id"
     t.string "importation_reference"
     t.integer "deposit_value_cents", default: 0, null: false
