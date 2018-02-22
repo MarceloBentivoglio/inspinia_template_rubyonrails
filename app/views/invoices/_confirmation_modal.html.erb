@@ -81,7 +81,10 @@
           </div>
 
           <div class="modal-footer">
-            <%= link_to "Confirmar Operação", purchases_path(buyer: current_user.client.id, invoice: @invoice.id), class: 'btn btn-primary btn-lg pull-right animation_select', data: { toggle: 'modal', animation: 'fadeInDownBig' } %>
+            <%= form_for Purchase.new(invoice: @invoice) do |f| %>
+              <%= f.hidden_field :invoice_id %>
+              <%= f.submit "Confirmar operacão", class: "btn btn-primary btn-lg pull-right animation_select" %>
+            <% end %>
           </div>
       </div>
   </div>

@@ -12,6 +12,8 @@
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i>Disponíveis</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i>Comprados</a></li>
 
+              <li class="pull-right"><a id="checkout-batch" class="btn btn-primary disabled">Comprar em massa</a></li>
+
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
@@ -66,10 +68,8 @@
     </div>
     <div class="col-sm-4">
       <div class="ibox ">
-        <div class="ibox-content">
-          <div class="tab-content">
-            <%= render 'invoice_details', { seller: @seller, invoice: @invoice, payer: @payer, installments: @installments, advalori_fee: @advalori_fee, fatorad: @fatorad, iof: @iof, iofad: @iofad, deposit_value: @deposit_value, operations_report: @operations_report } %>
-          </div>
+        <div id="invoice-panel" class="ibox-content">
+          Selecione um invoice
         </div>
       </div>
     </div>

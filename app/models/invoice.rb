@@ -1,9 +1,27 @@
 class Invoice < ApplicationRecord
+  # enum status: {
+  #   check: 0,
+  #   invoice: 1,
+  # }
+
+  # invoice.status == :check
+  # invoice.check?
+
+  # invoice.update!(status: :check)
+  # invoice.check!
+
+  # Invoice.where(status: 0)
+  # Invoice.where(status: :check)
+  # Invoice.check
+
   INVOICES_TYPE = ["check", "invoice", "contract"]
   INVOICES_STATUS = ["waiting_for_deposit", "on_date", "at_due_date", "pending_payment", "paid", "not_paid"]
   belongs_to :operation, optional: true
   belongs_to :payer, optional: true
   delegate :seller, to: :operation, allow_nil: true
+  has_one :offer
+  has_one :purchase
+  belongs_to :order, optional: true
   has_many :rebuys
   has_many :installments, dependent: :destroy
   # We need this line so that we can create invoice forms with installments (reference: https://www.youtube.com/watch?v=pulzZxPkgmE)
@@ -94,4 +112,7 @@ class Invoice < ApplicationRecord
     end
   end
 
+  def taxes
+    (total_value * 0.2).cents
+  end
 end

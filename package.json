@@ -5,7 +5,7 @@
     "@rails/webpacker": "^3.2.0",
     "bootstrap": "3",
     "coffeescript": "1.12.7",
-    "jquery": "^3.3.1"
+    "currency-formatter": "^1.4.1"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.11.1"

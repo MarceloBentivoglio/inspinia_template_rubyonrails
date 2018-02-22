@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220183721) do
+ActiveRecord::Schema.define(version: 20180221233805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,7 +143,9 @@ ActiveRecord::Schema.define(version: 20180220183721) do
     t.string "importation_reference"
     t.float "average_outstanding_days"
     t.string "number"
+    t.bigint "order_id"
     t.index ["operation_id"], name: "index_invoices_on_operation_id"
+    t.index ["order_id"], name: "index_invoices_on_order_id"
     t.index ["payer_id"], name: "index_invoices_on_payer_id"
   end
 
@@ -227,6 +229,13 @@ ActiveRecord::Schema.define(version: 20180220183721) do
     t.string "deposit_value_currency", default: "BRL", null: false
     t.float "average_outstanding_days"
     t.index ["seller_id"], name: "index_operations_on_seller_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "buyer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
   end
 
   create_table "payers", force: :cascade do |t|
@@ -445,10 +454,12 @@ ActiveRecord::Schema.define(version: 20180220183721) do
   add_foreign_key "finantials", "sellers"
   add_foreign_key "installments", "invoices"
   add_foreign_key "invoices", "operations"
+  add_foreign_key "invoices", "orders"
   add_foreign_key "invoices", "payers"
   add_foreign_key "legals", "sellers"
   add_foreign_key "offers", "invoices"
   add_foreign_key "operations", "sellers"
+  add_foreign_key "orders", "clients", column: "buyer_id"
   add_foreign_key "payers_concentrations", "operations"
   add_foreign_key "payers_concentrations", "payers"
   add_foreign_key "payers_limits", "operations"

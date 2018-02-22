@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
   def index
     @purchased_invoices = Purchase.where(buyer: current_user.client).map { |purchase| purchase.invoice}
-    @offered_invoices = Offer.all.map { |offer| offer.invoice}
+    @offered_invoices = Offer.all.includes(invoice: { operation: :seller }).map { |offer| offer.invoice}
     # @invoices = Invoice.all.limit(30)
     @installments = Installment.all
     #TODO: How to handle multiple controllers in one view?
@@ -49,13 +49,13 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
     @seller = @invoice.operation.seller
     @payer = @invoice.payer
-    @installment = @invoice.installments
+    @installments = @invoice.installments
 
     @fatorad = @invoice.average_interest + @invoice.average_ad_valorem
     @iof = 0
     @interest = 0
     @ad_valorem = 0
-    @installment.each do |i|
+    @installments.each do |i|
       if i.outstanding_days.nil?
         @iof = 0
         @interest = 0
@@ -69,8 +69,14 @@ class InvoicesController < ApplicationController
     @iofad = 0.0038 * @invoice.total_value
     @advalori_fee = @fatorad * 0.1
 
-
     @deposit_value = @invoice.total_value - @fatorad - @iof - @iofad
+
+    @operations_report = @seller.operations.group_by_month(:deposit_date, last: 8, format: "%b %y").sum("total_value_cents")
+    @operations_report.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
+
+    if request.xhr?
+      render layout: false
+    end
   end
 
 
@@ -122,6 +128,10 @@ class InvoicesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def checkout
+    @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
   end
 
   private

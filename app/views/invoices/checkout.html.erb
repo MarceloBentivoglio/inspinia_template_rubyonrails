@@ -1,0 +1,23 @@
+<%= form_for Order.new do |f| %>
+  <ul>
+    <input type="hidden" name="order[invoice_ids][]">
+    <% @invoices.each do |invoice| %>
+      <li>
+        <input
+          type="checkbox"
+          name="order[invoice_ids][]"
+          value="<%= invoice.id %>"
+          data-invoice="<%= invoice.to_json(include: :installments, methods: :taxes) %>"
+          checked>
+        <%= invoice.id %> - <%= invoice.total_value.format %>
+      </li>
+    <% end %>
+  </ul>
+
+  <p>
+    Total: R$<span id="total"></span>
+    Impostos: R$<span id="taxes"></span>
+  </p>
+
+  <%= f.submit "Fechar compra", class: "btn btn-primary" %>
+<% end %>

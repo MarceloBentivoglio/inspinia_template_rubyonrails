@@ -1,16 +1,22 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :invoices, only: [:new, :create, :show, :index]
+  resources :invoices, only: [:new, :create, :show, :index] do
+    collection do
+      get :checkout
+    end
+  end
+
   resources :sellers, only: [:new, :create, :show, :index]
   resources :payers, only: [:new, :create, :show]
   resources :operations, only: [:new, :show]
+  resources :purchases, only: [:create]
+  resources :orders, only: [:create]
 
   post '/invoices/load_xml', to: 'invoices#load_invoice_from_xml'
   post '/cnpj_check', to: 'cnpj_checks#fetch_information'
 
   get '/legacy', to: 'legacy_importation#import_legacy_data'
-  get '/purchases', to:  'purchases#create'
 
   root to: 'landing#index'
 

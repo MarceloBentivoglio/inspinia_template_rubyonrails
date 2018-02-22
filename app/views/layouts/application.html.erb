@@ -22,13 +22,16 @@
 <body class="top-navigation">
 
     <!-- Wrapper-->
-    <div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+    <div id="wrapper" class="<%= params[:controller] %> <%= params[:action] %>">
 
         <!-- Page wraper -->
         <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
 
             <!-- Page wrapper -->
             <%= render 'layouts/topnavbar_advalori' %>
+
+            <%= notice %>
+            <%= alert %>
 
             <!-- Main view  -->
             <%= yield %>

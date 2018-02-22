@@ -1,5 +1,8 @@
-<tr data-invoice-id="<%= invoice.id %>">
-  <td><a data-toggle="tab" href="#company-1" class="client-link"><%= invoice.seller.company_nickname %></a></td>
+<tr>
+  <td>
+    <input class="invoices-batch" type="checkbox" value="<%= invoice.id %>">
+  </td>
+  <td data-load-invoice="<%= invoice.id %>"><%= invoice.seller.company_nickname %></td>
   <td><i class="fa fa-calendar"></i> <%= invoice.average_outstanding_days %></td>
   <td>R$ <%= humanized_money invoice.total_value %></td>
   <td>R$ <%= humanized_money invoice.average_interest %></td>

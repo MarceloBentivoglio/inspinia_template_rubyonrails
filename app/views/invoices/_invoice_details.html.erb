@@ -13,9 +13,11 @@
     <div class="full-height-scroll">
 
       <strong>Sobre a empresa</strong>
-      <p>
-        <%= seller.finantials[0].production_economics_cycle_description %>
-      </p>
+      <% if seller.finantials.any? %>
+        <p>
+          <%= seller.finantials[0].production_economics_cycle_description %>
+        </p>
+      <% end %>
       <hr class="hr-line-dashed">
       <div>
         <strong>Limite</strong>
@@ -117,10 +119,7 @@
   </div>
 </div>
 
-<% content_for :javascript do %>
-
 <script type="text/javascript">
-
   $(document).ready(function() {
     var operationsReportData = {
       labels: <%= raw operations_report.keys %>,
@@ -151,7 +150,4 @@
     new Chart(ctx6, {type: 'bar', data: operationsReportData, options:operationsReportOptions});
 
   });
-
 </script>
-
-<% end %>
