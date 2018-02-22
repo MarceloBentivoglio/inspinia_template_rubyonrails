@@ -1,21 +1,29 @@
 class Invoice < ApplicationRecord
-  # enum status: {
-  #   check: 0,
-  #   invoice: 1,
-  # }
+  enum invoice_type: {
+    contract: 0,
+    traditional_invoice: 1,
+    check: 2,
+  }
 
-  # invoice.status == :check
-  # invoice.check?
+  enum delivery_status: {
+    raw_material: 0,
+    in_transit: 1,
+    delivered: 2,
+  }
 
-  # invoice.update!(status: :check)
-  # invoice.check!
+  enum backoffice_status: {
+    registred: 0,
+    approved: 1,
+    rejected: 2,
+    deposited: 3,
+  }
 
-  # Invoice.where(status: 0)
-  # Invoice.where(status: :check)
-  # Invoice.check
+  enum sale_status: {
+    not_available: 0,
+    for_sale: 1,
+    bought: 2,
+  }
 
-  INVOICES_TYPE = ["check", "invoice", "contract"]
-  INVOICES_STATUS = ["waiting_for_deposit", "on_date", "at_due_date", "pending_payment", "paid", "not_paid"]
   belongs_to :operation, optional: true
   belongs_to :payer, optional: true
   delegate :seller, to: :operation, allow_nil: true
