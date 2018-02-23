@@ -132,6 +132,7 @@ class InvoicesController < ApplicationController
 
   def checkout
     @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
+    @seller = @invoices.first.operation.seller
   end
 
   private
