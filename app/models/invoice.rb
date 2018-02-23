@@ -61,6 +61,56 @@ class Invoice < ApplicationRecord
     return invoice
   end
 
+  def deposit_value
+    total_value - gross_interest - iof - iof_ad
+  end
+
+  def interest
+    interest = 0
+    installments.each do |i|
+      interest += i.interest
+    end
+    return interest
+  end
+
+  def ad_valorem
+    ad_valorem = 0
+    installments.each do |i|
+      ad_valorem += i.ad_valorem
+    end
+    return ad_valorem
+  end
+
+  def gross_interest
+    interest + ad_valorem
+  end
+
+  def advalori_fee
+    gross_interest * 0.1
+  end
+
+  def iof
+    iof = 0
+    installments.each do |i|
+      i.outstanding_days.nil? ? iof = 0 : iof += (0.000041 * i.outstanding_days) * i.value
+    end
+   return iof
+  end
+
+  def iof_ad
+    0.0038 * total_value
+  end
+
+  def i_number
+    if installments.count > 0
+      installments.each do |i|
+        i_number = i.number[0..-2]
+        i_digit = i.number[-1]
+      end
+    end
+    return i_number
+  end
+
   private
 
   def self.extract_invoice_general_info (doc, invoice)
@@ -119,9 +169,5 @@ class Invoice < ApplicationRecord
       end
       invoice.operation.seller = seller
     end
-  end
-
-  def taxes
-    (total_value * 0.2).cents
   end
 end
