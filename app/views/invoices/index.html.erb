@@ -54,7 +54,7 @@
                           </tr>
                         </thead>
                         <% @purchased_invoices.each do |invoice| %>
-                          <%= render 'invoice_table_item', { invoice: invoice, gross_interest: @gross_interest } %>
+                          <%= render 'invoice_table_item', invoice: invoice %>
                         <% end %>
                       </tbody>
                     </table>

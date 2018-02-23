@@ -1,41 +1,8 @@
 class InvoicesController < ApplicationController
   def index
-    @purchased_invoices = Purchase.where(buyer: current_user.client).map { |purchase| purchase.invoice}
-    @offered_invoices = Offer.all.includes(invoice: { operation: :seller }).map { |offer| offer.invoice}
-    # @invoices = Invoice.all.limit(30)
-    @installments = Installment.all
-    #TODO: How to handle multiple controllers in one view?
-    @invoice = Invoice.find(66)
-    @seller = @invoice.seller
-    @finantial = @seller.finantials.first
-    @total_operations_number = @seller.operations.count
-    @total_operations_amount = Money.new(@seller.operations.sum('total_value_cents'))
-    @operations_report = @seller.operations.group_by_month(:deposit_date, last: 8, format: "%b %y").sum("total_value_cents")
-    @operations_report.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
-    @payer = @invoice.payer
-    @installments = @invoice.installments
-
-    @fatorad = @invoice.average_interest + @invoice.average_ad_valorem
-    @iof = 0
-    @interest = 0
-    @ad_valorem = 0
-    @installments.each do |i|
-      if i.outstanding_days.nil?
-        @iof = 0
-        @interest = 0
-        @ad_valorem = 0
-      else
-      @iof += (0.000041 * i.outstanding_days) * i.value
-      @interet = @interest + i.interest
-      @ad_valorem = @ad_valorem + i.ad_valorem
-      end
-    end
-    @iofad = 0.0038 * @invoice.total_value
-    @advalori_fee = @fatorad * 0.1
-    @gross_interest = 100 * ((@invoice.average_interest_cents + @invoice.average_ad_valorem_cents) / (@invoice.total_value_cents))
-
-    @deposit_value = @invoice.total_value - @fatorad - @iof - @iofad
-
+    @offered_invoices = Invoice.for_sale.includes(operation: :seller)
+    @purchased_invoices = Invoice.bought.includes(operation: :seller).where(buyer: current_user.client)
+    # @purchased_invoices = Invoice.bought.includes(operation: {seller: {client: :user}}).where(buyer: current_user.client)
   end
 
   def new
@@ -132,7 +99,6 @@ class InvoicesController < ApplicationController
 
   def checkout
     @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
-    @seller = @invoices.first.operation.seller
   end
 
   private

@@ -7,16 +7,14 @@ class OrdersController < ApplicationController
       order.save!
 
       order.invoices.each do |invoice|
-        purchase = Purchase.new(invoice: invoice)
-        purchase.buyer = current_user.client
-        purchase.save!
-        purchase.invoice.offer.destroy
+        invoice.bought!
+        invoice.buyer = current_user.client
+        invoice.save!
       end
     end
 
     order.invoices.each do |invoice|
-      purchase = invoice.purchase
-      PurchaseMailer.purchase_notification(purchase.buyer, purchase.invoice).deliver_now
+      PurchaseMailer.purchase_notification(invoice.buyer, invoice).deliver_now
     end
 
     flash[:notice] = "Compra bem-sucedida!"

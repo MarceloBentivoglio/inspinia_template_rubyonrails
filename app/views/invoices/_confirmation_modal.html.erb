@@ -81,7 +81,7 @@
           </div>
 
           <div class="modal-footer">
-            <%= form_for Purchase.new(invoice: @invoice) do |f| %>
+            <%= form_for Order.new(invoice: @invoice) do |f| %>
               <%= f.hidden_field :invoice_id %>
               <%= f.submit "Confirmar operacão", class: "btn btn-primary btn-lg pull-right animation_select" %>
             <% end %>
