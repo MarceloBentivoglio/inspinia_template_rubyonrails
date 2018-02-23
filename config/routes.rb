@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :sellers, only: [:new, :create, :show, :index]
   resources :payers, only: [:new, :create, :show]
   resources :operations, only: [:new, :show]
-  resources :purchases, only: [:create]
   resources :orders, only: [:create]
 
   post '/invoices/load_xml', to: 'invoices#load_invoice_from_xml'

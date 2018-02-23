@@ -175,13 +175,6 @@ ActiveRecord::Schema.define(version: 20180222222122) do
     t.index ["seller_id"], name: "index_legals_on_seller_id"
   end
 
-  create_table "offers", force: :cascade do |t|
-    t.bigint "invoice_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["invoice_id"], name: "index_offers_on_invoice_id"
-  end
-
   create_table "operations", force: :cascade do |t|
     t.integer "total_value_cents", default: 0, null: false
     t.string "total_value_currency", default: "BRL", null: false
@@ -287,15 +280,6 @@ ActiveRecord::Schema.define(version: 20180222222122) do
     t.datetime "updated_at", null: false
     t.index ["operation_id"], name: "index_payers_limits_on_operation_id"
     t.index ["payer_id"], name: "index_payers_limits_on_payer_id"
-  end
-
-  create_table "purchases", force: :cascade do |t|
-    t.bigint "buyer_id"
-    t.bigint "invoice_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["buyer_id"], name: "index_purchases_on_buyer_id"
-    t.index ["invoice_id"], name: "index_purchases_on_invoice_id"
   end
 
   create_table "qualitative_informations", force: :cascade do |t|
@@ -460,15 +444,12 @@ ActiveRecord::Schema.define(version: 20180222222122) do
   add_foreign_key "invoices", "orders"
   add_foreign_key "invoices", "payers"
   add_foreign_key "legals", "sellers"
-  add_foreign_key "offers", "invoices"
   add_foreign_key "operations", "sellers"
   add_foreign_key "orders", "clients", column: "buyer_id"
   add_foreign_key "payers_concentrations", "operations"
   add_foreign_key "payers_concentrations", "payers"
   add_foreign_key "payers_limits", "operations"
   add_foreign_key "payers_limits", "payers"
-  add_foreign_key "purchases", "clients", column: "buyer_id"
-  add_foreign_key "purchases", "invoices"
   add_foreign_key "qualitative_informations", "sellers"
   add_foreign_key "rebuys", "invoices"
   add_foreign_key "rebuys", "operations"

@@ -1,6 +1,5 @@
 class InvoicesController < ApplicationController
   def index
-    # @offered_invoices = Offer.all.includes(invoice: { operation: :seller }).map { |offer| offer.invoice}
     @offered_invoices = Invoice.for_sale.includes(operation: :seller)
     @purchased_invoices = Invoice.bought.includes(operation: :seller).where(buyer: current_user.client)
     # @purchased_invoices = Invoice.bought.includes(operation: {seller: {client: :user}}).where(buyer: current_user.client)
@@ -100,7 +99,6 @@ class InvoicesController < ApplicationController
 
   def checkout
     @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
-    @seller = @invoices.first.operation.seller
   end
 
   private
