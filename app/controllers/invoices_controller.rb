@@ -129,6 +129,6 @@ class InvoicesController < ApplicationController
   def seller_params
     params
       .require(:invoice)
-      .permit(operation_attributes: [seller_attributes: [:company_name]])
+      .permit(operation_attributes: [seller_attributes: [:company_name, :identification_number]])
   end
 end
