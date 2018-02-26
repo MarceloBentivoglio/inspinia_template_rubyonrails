@@ -72,8 +72,8 @@
                 <% invoice.installments.each do |i| %>
                   <tr>
                     <td><%= i.invoice.payer.company_name %></td>
-                    <td class="text-muted"><%= i.number[0..-2] %></td>
-                    <td class="text-muted"><%= i.number[-1] %></td>
+                    <td class="text-muted"><%= invoice.installments.count == 1 ? i.number : i.number[0..-2] %></td>
+                    <td class="text-muted"><%= invoice.installments.count == 1 ? 1 : i.number[-1] %></td>
                     <td class="text-muted"><%= i.outstanding_days %></td>
                     <td class="text-muted"><%= i.value.format %></td>
                     <td class="text-muted"><%= i.interest.format %></td>
