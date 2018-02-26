@@ -42,7 +42,7 @@
     <%= payer.hidden_field :zip_code %>
     <%= payer.hidden_field :registration_number %>
     <% end %>
-    <%= f.input :invoice_type , as: :radio_buttons, collection: [['Nota fiscal', 'nota_fiscal'], ['Cheque', 'check'], ['Outros', 'outro']], label: "Tipo de documento:" %>
+    <%= f.input :invoice_type , as: :radio_buttons, collection: [['Nota fiscal', 'traditional_invoice'], ['Cheque', 'check'], ['Outros', 'contract']], label: "Tipo de documento:" %>
     <%= f.input :number %>
     <table class="table">
       <thead>
