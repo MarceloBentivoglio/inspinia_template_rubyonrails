@@ -5,10 +5,11 @@ class PurchaseMailer < ApplicationMailer
   #
   #   en.user_mailer.purchase_notification.subject
   #
-  def purchase_notification(client, invoice)
+  def purchase_notification(client, order)
     @greeting = "Olá"
     @client = client
-    @invoice = invoice
+    @invoices = []
+    order.invoices.each { |i| @invoices << i }
 
     mail(
       to: "joaquim.oliveira.nt@gmail.com",

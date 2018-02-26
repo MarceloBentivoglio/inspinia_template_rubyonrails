@@ -28,6 +28,7 @@
     <%= f.simple_fields_for :operation do |operation| %>
     <%= operation.simple_fields_for :seller do |seller| %>
     <%= seller.input :company_name %>
+    <%= seller.input :identification_number %>
     <% end %>
     <% end %>
     <h3>Sacado</h3>
