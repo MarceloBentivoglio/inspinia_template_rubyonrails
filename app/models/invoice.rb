@@ -1,4 +1,5 @@
 class Invoice < ApplicationRecord
+  # Changes in invoice_type enum must be reflected on the view new.html.erb
   enum invoice_type: {
     contract: 0,
     traditional_invoice: 1,
@@ -54,7 +55,7 @@ class Invoice < ApplicationRecord
     invoice = extract_invoice_general_info(doc, invoice)
     invoice = extract_installments(doc, invoice)
     invoice = extract_payer_info(doc, invoice)
-    invoice.operation = Operation.new(status: "waiting_for_deposit")
+    invoice.operation = Operation.new()
     extract_seller_info(doc, invoice)
     return invoice
   end

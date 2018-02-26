@@ -2,6 +2,7 @@ class InvoicesController < ApplicationController
   def index
     @offered_invoices = Invoice.for_sale.includes(operation: :seller)
     @purchased_invoices = Invoice.bought.includes(operation: :seller).where(buyer: current_user.client)
+    # TODO: verificar se há melhora de performance com a linha de código abaixo
     # @purchased_invoices = Invoice.bought.includes(operation: {seller: {client: :user}}).where(buyer: current_user.client)
   end
 
@@ -66,7 +67,6 @@ class InvoicesController < ApplicationController
       payer = Payer.find_by_identification_number(payer_identification_number)
     else
       payer = Payer.new(payer_params[:payer_attributes])
-      payer.save!
     end
     seller_identification_number = seller_params[:operation_attributes][:seller_attributes][:identification_number]
     if Seller.exists?(identification_number: seller_identification_number)
@@ -74,10 +74,15 @@ class InvoicesController < ApplicationController
     else
       seller = Seller.new(seller_params[:operation_attributes][:seller_attributes])
       seller.client = current_user.client
-      seller.save!
     end
     invoice.payer = payer
     invoice.operation.seller = seller
+    ActiveRecord::Base.transaction do
+      payer.save!
+      seller.save!
+      invoice.save!
+    end
+
     average = 0
     invoice.installments.each do |i|
       i.outstanding_days = TimeDifference.between(i.due_date, DateTime.now).in_days # TODO: Datetime.now will change to creation Operation date
@@ -85,7 +90,6 @@ class InvoicesController < ApplicationController
       i.interest = ((1.049 ** (i.outstanding_days / 30.0)) - 1 ) * i.value
       i.ad_valorem = ((1.001 ** (i.outstanding_days / 30.0)) - 1 ) * i.value
     end
-    invoice.save!
     if invoice.save!
       invoice.average_outstanding_days = (average / invoice.installments.count) # TODO: Refactor to bring these lines above
       invoice.average_interest = ((1.049 ** (invoice.average_outstanding_days / 30.0)) - 1) * invoice.total_value
