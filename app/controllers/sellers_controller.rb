@@ -4,8 +4,8 @@ class SellersController < ApplicationController
   end
 
   def index
-    @seller = Seller.all
-    @payer = Payer.all
+    @sellers = Seller.all
+    @payers = Payer.all
   end
 
   def create
