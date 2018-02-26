@@ -12,8 +12,7 @@
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i>Disponíveis</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i>Comprados</a></li>
 
-              <li class="pull-right"><a id="checkout-batch" class="btn btn-primary disabled">Comprar em massa</a></li>
-
+              <li class="pull-right"><a id="checkout-batch" class="btn btn-outline btn-primary disabled">Comprar Títulos</a></li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
@@ -23,10 +22,11 @@
                       <tbody>
                         <thead>
                           <tr>
-                            <th scope="col"></th>
+                            <th scope="col"><i class="fa fa-check"></i></th>
                             <th scope="col">Prazo</th>
                             <th scope="col">Valor Face</th>
-                            <th scope="col">Fator + Ad</th>
+                            <th scope="col">Fator</th>
+                            <th scope="col">Ad Valorem</th>
                             <th scope="col">Taxa Bruta</th>
                           </tr>
                         </thead>
@@ -35,7 +35,6 @@
                         <% end %>
                       </tbody>
                     </table>
-                    <caption>Painel de Títulos</caption>
                   </div>
                 </div>
               </div>
