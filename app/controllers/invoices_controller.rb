@@ -19,26 +19,6 @@ class InvoicesController < ApplicationController
     @payer = @invoice.payer
     @installments = @invoice.installments
 
-    @fatorad = @invoice.average_interest + @invoice.average_ad_valorem
-    @iof = 0
-    @interest = 0
-    @ad_valorem = 0
-    @installments.each do |i|
-      if i.outstanding_days.nil?
-        @iof = 0
-        @interest = 0
-        @ad_valorem = 0
-      else
-      @iof += (0.000041 * i.outstanding_days) * i.value
-      @interet = @interest + i.interest
-      @ad_valorem = @ad_valorem + i.ad_valorem
-      end
-    end
-    @iofad = 0.0038 * @invoice.total_value
-    @advalori_fee = @fatorad * 0.1
-
-    @deposit_value = @invoice.total_value - @fatorad - @iof - @iofad
-
     @operations_report = @seller.operations.group_by_month(:deposit_date, last: 8, format: "%b %y").sum("total_value_cents")
     @operations_report.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
 
@@ -61,13 +41,16 @@ class InvoicesController < ApplicationController
   # TODO: refactor with the Invoice class method self.extract_payer_info
   def create
     invoice = Invoice.new(invoice_and_installments_params)
+
     invoice.operation = Operation.new(operation_params[:operation_attributes])
+
     payer_identification_number = payer_params[:payer_attributes][:identification_number]
     if Payer.exists?(identification_number: payer_identification_number)
       payer = Payer.find_by_identification_number(payer_identification_number)
     else
       payer = Payer.new(payer_params[:payer_attributes])
     end
+
     seller_identification_number = seller_params[:operation_attributes][:seller_attributes][:identification_number]
     if Seller.exists?(identification_number: seller_identification_number)
       seller = Seller.find_by_identification_number(seller_identification_number)
@@ -75,6 +58,7 @@ class InvoicesController < ApplicationController
       seller = Seller.new(seller_params[:operation_attributes][:seller_attributes])
       seller.client = current_user.client
     end
+
     invoice.payer = payer
     invoice.operation.seller = seller
     ActiveRecord::Base.transaction do
@@ -82,6 +66,14 @@ class InvoicesController < ApplicationController
       seller.save!
       invoice.save!
     end
+
+# Invoice
+# .total_value .average_interest .average_ad_valorem .average_outstanding_days .
+
+# Installments
+# .value_cents .due_date .outstanding_days .interest .ad_valorem
+
+
 
     average = 0
     invoice.installments.each do |i|

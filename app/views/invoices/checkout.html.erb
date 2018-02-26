@@ -41,7 +41,8 @@
                 <th><p style="color: #7698C2; font-size: 13px; display: inline;">Cedente <i class="fa fa-retweet"></i></p><p style="display: inline"> Sacado</p></th>
                 <th style="font-size: 13px;">Número NF</th>
                 <th style="font-size: 13px;">Parcelas</th>
-                <th style="font-size: 13px;">Prazo <span class="">(médio)</span></th>
+                <th style="font-size: 13px;">Vencimento</th>
+                <th style="font-size: 13px;">Prazo <small>(médio)</small></th>
                 <th style="font-size: 13px;">Valor Face</th>
                 <th style="font-size: 13px;">Fator</th>
                 <th style="font-size: 13px;">Ad Valorem</th>
@@ -55,6 +56,7 @@
               <tr>
                 <td class="font-bold" style="color: #7698C2;"><%= invoice.operation.seller.company_name %></td>
                 <td class="font-bold"><%= invoice.number %></td>
+                <td class="font-bold"></td>
                 <td class="font-bold"></td>
                 <td class="font-bold"><%= invoice.average_outstanding_days %></td>
                 <td class="font-bold"><%= invoice.total_value.format %></td>
@@ -74,6 +76,7 @@
                     <td><%= i.invoice.payer.company_name %></td>
                     <td class="text-muted"><%= invoice.installments.count == 1 ? i.number : i.number[0..-2] %></td>
                     <td class="text-muted"><%= invoice.installments.count == 1 ? 1 : i.number[-1] %></td>
+                    <td class="text-muted"><%= i.due_date.strftime("%d %B %Y") %></td>
                     <td class="text-muted"><%= i.outstanding_days %></td>
                     <td class="text-muted"><%= i.value.format %></td>
                     <td class="text-muted"><%= i.interest.format %></td>
