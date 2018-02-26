@@ -13,9 +13,11 @@ class OrdersController < ApplicationController
       end
     end
 
-    order.invoices.each do |invoice|
-      PurchaseMailer.purchase_notification(invoice.buyer, invoice).deliver_now
-    end
+    PurchaseMailer.purchase_notification(order.invoices.first.buyer, order).deliver_now
+
+    # order.invoices.each do |invoice|
+    #   PurchaseMailer.purchase_notification(invoice.buyer, invoice).deliver_now
+    # end
 
     flash[:notice] = "Compra bem-sucedida!"
 
