@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    PurchaseMailer.purchase_notification(order.invoices.first.buyer, order).deliver_now
+    PurchaseMailer.purchase_notification(order.buyer, order).deliver_now
 
     # order.invoices.each do |invoice|
     #   PurchaseMailer.purchase_notification(invoice.buyer, invoice).deliver_now
