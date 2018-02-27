@@ -45,7 +45,7 @@ class Invoice < ApplicationRecord
   has_attached_file :xml_file
 
   # We need this so that the program understands that total_value is a Money object
-  monetize :total_value_cents, :average_interest_cents, :average_ad_valorem_cents, with_model_currency: :currency
+  monetize :total_value_cents, with_model_currency: :currency
 
 
   def self.from_file(file)
@@ -63,6 +63,13 @@ class Invoice < ApplicationRecord
   def deposit_value
     total_value - gross_interest - iof - iof_ad
   end
+
+  def average_outstanding_days
+    average = 0
+    installments.each { |i| average += i.outstanding_days }
+    average / installments.count
+  end
+
 
   def interest
     interest = 0
@@ -91,7 +98,7 @@ class Invoice < ApplicationRecord
   def iof
     iof = 0
     installments.each do |i|
-      i.outstanding_days.nil? ? iof = 0 : iof += (0.000041 * i.outstanding_days) * i.value
+      iof += i.iof
     end
    return iof
   end
