@@ -307,7 +307,7 @@
         <div class="col-lg-6">
           <div class="ibox float-e-margins">
             <div class="ibox-title">
-              <h5> Valor total de operações realizadas</h5>
+              <h5> Valor total de títulos:</h5>
               <div class="ibox-tools">
                 <a class="collapse-link">
                   <i class="fa fa-chevron-up"></i>
@@ -318,14 +318,32 @@
               </div>
             </div>
             <div class="ibox-content">
-              <h1 class="no-margins"><%= humanized_money_with_symbol @total_operations_amount %> </h1>
+              <ul class="list-unstyled m-t-md">
+                <li>
+                  <span class="fa fa-circle text-green-graphic m-r-xs"></span>
+                  <label>Realizadas:</label>
+                  <%= @installments_paid_amount.format %>
+                </li>
+                <li>
+                  <span class="fa fa-circle text-purple-graphic m-r-xs"></span>
+                  <label>Em dia:</label>
+                  <%= @installments_on_date_amount.format %>
+                </li>
+                <li>
+                  <span class="fa fa-circle text-red-graphic m-r-xs"></span>
+                  <label>Em atraso:</label>
+                  <%= @installments_overdue_amount.format %>
+                </li>
+              </ul>
+
+
             </div>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="ibox float-e-margins">
             <div class="ibox-title">
-              <h5>Quantidade total de operações realizadas</h5>
+              <h5>Quantidade total de titulos:</h5>
               <div class="ibox-tools">
                 <a class="collapse-link">
                   <i class="fa fa-chevron-up"></i>
@@ -336,9 +354,23 @@
               </div>
             </div>
             <div class="ibox-content">
-              <h1 class="text-navy no-margins">
-                <%= @total_operations_number %>
-              </h1>
+              <ul class="list-unstyled m-t-md">
+                <li>
+                  <span class="fa fa-circle text-green-graphic m-r-xs"></span>
+                  <label>Realizadas:</label>
+                  <%= @installments_paid_quantity %>
+                </li>
+                <li>
+                  <span class="fa fa-circle text-purple-graphic m-r-xs"></span>
+                  <label>Em dia:</label>
+                  <%= @installments_on_date_quantity%>
+                </li>
+                <li>
+                  <span class="fa fa-circle text-red-graphic m-r-xs"></span>
+                  <label>Em atraso:</label>
+                  <%= @installments_overdue_quantity%>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -482,7 +514,7 @@
       datasets: [
       {
         label: "Volume liquidado em [R$] ",
-        backgroundColor: 'rgba(26,179,148,0.5)',
+        backgroundColor: 'rgba(26, 179, 148, 0.5)',
         borderColor: "rgba(255,255,255,1)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
@@ -496,7 +528,7 @@
         data: <%= raw @installments_on_date.values %>
       }, {
         label: "Volume vencido em [R$] ",
-        backgroundColor: 'rgba(237,85,101, 0.5)',
+        backgroundColor: 'rgba(237, 85, 101, 0.5)',
         borderColor: "rgba(255,255,255,1)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
