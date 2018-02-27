@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227182401) do
+ActiveRecord::Schema.define(version: 20180227210447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -314,6 +314,17 @@ ActiveRecord::Schema.define(version: 20180227182401) do
     t.index ["operation_id"], name: "index_rebuys_on_operation_id"
   end
 
+  create_table "rejections", force: :cascade do |t|
+    t.bigint "invoice_id"
+    t.bigint "rejector_id"
+    t.integer "motive"
+    t.text "motive_detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_rejections_on_invoice_id"
+    t.index ["rejector_id"], name: "index_rejections_on_rejector_id"
+  end
+
   create_table "revenues", force: :cascade do |t|
     t.bigint "seller_id"
     t.integer "jan_cents", default: 0, null: false
@@ -458,6 +469,8 @@ ActiveRecord::Schema.define(version: 20180227182401) do
   add_foreign_key "qualitative_informations", "sellers"
   add_foreign_key "rebuys", "invoices"
   add_foreign_key "rebuys", "operations"
+  add_foreign_key "rejections", "clients", column: "rejector_id"
+  add_foreign_key "rejections", "invoices"
   add_foreign_key "revenues", "sellers"
   add_foreign_key "season_sales", "sellers"
   add_foreign_key "sellers", "clients"
