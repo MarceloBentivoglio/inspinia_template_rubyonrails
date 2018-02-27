@@ -27,7 +27,8 @@ class Invoice < ApplicationRecord
 
   belongs_to :operation, optional: true
   belongs_to :payer, optional: true
-  delegate :seller, to: :operation, allow_nil: true
+  belongs_to :seller, optional: true
+  # delegate :seller, to: :operation, allow_nil: true
   belongs_to :order, optional: true
   has_many :rebuys
   has_many :installments, dependent: :destroy
