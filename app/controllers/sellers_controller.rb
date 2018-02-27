@@ -4,8 +4,8 @@ class SellersController < ApplicationController
   end
 
   def index
-    @seller = Seller.all
-    @payer = Payer.all
+    @sellers = Seller.all
+    @payers = Payer.all
   end
 
   def create
@@ -57,14 +57,23 @@ class SellersController < ApplicationController
 
     @total_operations_number = @seller.operations.count
     @total_operations_amount = Money.new(@seller.operations.sum('total_value_cents'))
-    @operations_report_paid = @seller.operations.where(status: "paid").group_by_month(:deposit_date, format: "%b %y").sum("total_value_cents")
-    @operations_report_paid.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
-    @operations_report_not_paid = @seller.operations.where(status: "not_paid").group_by_month(:deposit_date, format: "%b %y").sum("total_value_cents")
-    @operations_report_not_paid.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
-    @operations_report_all_keys = @operations_report_not_paid.merge(@operations_report_paid)
-    @operations_report_all_keys = @operations_report_all_keys.sort_by {|date, value| Date.strptime(date, "%b %y") }.to_h
-    @operations_report_paid = merge_smaller_hash_into_bigger(@operations_report_paid, @operations_report_all_keys)
-    @operations_report_not_paid = merge_smaller_hash_into_bigger(@operations_report_not_paid, @operations_report_all_keys)
+
+    @installments_paid = @seller.operations.joins(invoices: :installments).where(invoices: {installments: {paid: true}}).group_by_month(:deposit_date, format: "%b %y").sum("value_cents")
+    @installments_paid.transform_values! {|monthly_amount| monthly_amount.to_f/100}
+
+    time_range_future = Time.now..(Time.now + 1.year)
+    @installments_on_date = @seller.operations.joins(invoices: :installments).where(invoices: {installments: {paid: false, due_date: time_range_future}}).group_by_month(:deposit_date, format: "%b %y").sum("value_cents")
+    @installments_on_date.transform_values! {|monthly_amount| monthly_amount.to_f/100}
+
+    time_range_past = (Time.now - 6.years)...(Time.now)
+    @installments_overdue = @seller.operations.joins(invoices: :installments).where(invoices: {installments: {paid: false, due_date: time_range_past}}).group_by_month(:deposit_date, format: "%b %y").sum("value_cents")
+    @installments_overdue.transform_values! {|monthly_amount| monthly_amount.to_f/100}
+
+    @installments_all_keys = @installments_overdue.merge(@installments_on_date.merge(@installments_paid))
+    @installments_all_keys = @installments_all_keys.sort_by {|date, value| Date.strptime(date, "%b %y") }.to_h
+    @installments_paid = merge_smaller_hash_into_bigger(@installments_paid, @installments_all_keys)
+    @installments_on_date = merge_smaller_hash_into_bigger(@installments_on_date, @installments_all_keys)
+    @installments_overdue = merge_smaller_hash_into_bigger(@installments_overdue, @installments_all_keys)
   end
 
   private
