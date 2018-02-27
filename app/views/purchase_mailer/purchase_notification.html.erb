@@ -1,15 +1,20 @@
-<h1>Compra de título</h1>
+<h1>Notificação de Compra de Título</h1>
 
-<p><%= @greeting %>, administradores do Advalori</p>
-<p>Abaixo os detalhes da compra:</p>
-<h2>Comprador</h2>
-<h3><%= @client.name %></h3>
-<small><%= @client.cnpj %></small>
+<h3>Comprador: <%= @client.name %></h3>
+<small>CNPJ: <%= @client.cnpj %></small>
 <br>
-<h2>Detalhes do título:</h2>
-<h3>ID: <%= @invoice.id %></h3>
-<h3>Cedente: <%= @invoice.seller.company_name %></h3>
-<small><%= @invoice.seller.identification_number %></small>
-<h3>Sacado: <%= @invoice.payer.company_name %></h3>
-<small><%= @invoice.payer.identification_number %></small>
-<h3>Valor: <%= humanized_money_with_symbol @invoice.total_value %></h3>
+
+<h2>Detalhes dos títulos:</h2>
+<h3><% @invoices.each do |invoice| %></h3>
+<h3>ID: <%= invoice.id %></h3>
+<h3>Cedente</h3>
+<h4><%= invoice.seller.company_name %></h4>
+<small>CNPJ: <%= invoice.seller.identification_number %></small>
+
+<h3>Sacado</h3>
+<h4><%= invoice.payer.company_name %></h4>
+<small>CNPJ: <%= invoice.payer.identification_number %></small>
+<h3>Valor: <%= humanized_money_with_symbol invoice.total_value %></h3>
+<p>****************************************</p>
+<br>
+<% end %>

@@ -88,23 +88,23 @@
           </tr>
           <tr>
             <td><strong>Comissão :</strong></td>
-            <td><%= humanized_money_with_symbol advalori_fee %></td>
+            <td><%= humanized_money_with_symbol invoice.advalori_fee %></td>
           </tr>
           <tr>
             <td><strong>Fator +Ad :</strong></td>
-            <td><%= humanized_money_with_symbol fatorad %></td>
+            <td><%= humanized_money_with_symbol invoice.gross_interest %></td>
           </tr>
           <tr>
             <td><strong>IOF :</strong></td>
-            <td><%= humanized_money_with_symbol iof %></td>
+            <td><%= humanized_money_with_symbol invoice.iof %></td>
           </tr>
           <tr>
             <td><strong>IOF Adicional :</strong></td>
-            <td><%= humanized_money_with_symbol iofad %></td>
+            <td><%= humanized_money_with_symbol invoice.iof_ad %></td>
           </tr>
           <tr>
             <td><strong>Total a Depositar :</strong></td>
-            <td><%= humanized_money_with_symbol deposit_value %></td>
+            <td><%= humanized_money_with_symbol invoice.deposit_value %></td>
           </tr>
         </tbody>
       </table>
