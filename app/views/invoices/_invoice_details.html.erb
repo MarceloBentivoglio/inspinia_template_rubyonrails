@@ -1,7 +1,7 @@
 <div id="company-1" class="tab-pane active">
   <div class="row">
     <div class="col-xs-6">
-      <h2><%= seller.company_nickname.mb_chars.capitalize %></h2>
+      <h2><%= @seller.company_nickname.mb_chars.capitalize %></h2>
     </div>
   </div>
   <hr class="hr-line-solid">
@@ -9,12 +9,12 @@
     <div class="full-height-scroll">
 
       <strong>Sobre a empresa</strong>
-      <% if seller.finantials.any? %>
+      <% if @seller.finantials.any? %>
         <p>
-          <%= seller.finantials[0].production_economics_cycle_description %>
+          <%= @seller.finantials[0].production_economics_cycle_description %>
         </p>
       <% end %>
-      <hr class="hr-line-dashed">
+      <hr class="hr-line-dashed-strong">
       <div>
         <strong>Limite</strong>
         <br>
@@ -24,18 +24,32 @@
           <div style="width: 50%;" class="progress-bar progress-bar-navy-light">50%</div>
         </div>
       </div>
-      <hr class="hr-line-dashed">
-
-      <strong>Histórico de operações</strong>
-      <canvas id="operationsReportChart" height="150"></canvas>
+      <hr class="hr-line-dashed-strong">
+      <strong>Histórico de títulos</strong>
+      <canvas id="operationsReportChart" height="175"></canvas>
       <br>
-      <div>
-        <% @operations_report.each do |o| %>
-          <%= o[0] %><span class="pull-right"> R$ <%= humanized_money o[1] %></span>
+      <strong>Volume liquidado</strong>
+      <div class="m-t-sm">
+        <% @installments_paid.each do |i| %>
+          <%= i[0] %><span class="pull-right"> R$ <%= humanized_money i[1] %></span>
           <br>
         <% end %>
       </div>
-      <hr class="hr-line-solid">
+      <strong>Volume em aberto</strong>
+      <div class="m-t-sm">
+        <% @installments_on_date.each do |i| %>
+          <%= i[0] %><span class="pull-right"> R$ <%= humanized_money i[1] %></span>
+          <br>
+        <% end %>
+      </div>
+      <strong>Volume vencido</strong>
+      <div class="m-t-sm">
+        <% @installments_overdue.each do |i| %>
+          <%= i[0] %><span class="pull-right"> R$ <%= humanized_money i[1] %></span>
+          <br>
+        <% end %>
+      </div>
+      <hr class="hr-line-dashed-strong">
       <strong>Detalhes da Nota Fiscal</strong>
       <ul class="list-group clear-list">
         <li class="list-group-item fist-item">
@@ -53,7 +67,7 @@
       </ul>
 
       <strong>Sacado</strong>
-      <p><%= payer.company_name %></p>
+      <p class="m-t-xs m-b-md"><%= @payer.company_name %></p>
 
       <strong>Parcelas</strong>
       <div class="table-responsive">
@@ -67,7 +81,7 @@
             </tr>
           </thead>
           <tbody>
-            <% installments.each do |installment| %>
+            <% @installments.each do |installment| %>
               <tr>
                 <td><%= installment.due_date.strftime("%d/%m/%y") %></td>
                 <td><%= humanized_money installment.interest %></td>
@@ -79,32 +93,34 @@
         </table>
       </div>
 
+      <hr class="hr-line-dashed-strong">
+
       <strong>Resumo</strong>
       <table class="table invoice-total">
         <tbody>
           <tr>
             <td><strong>Sub Total :</strong></td>
-            <td><%= humanized_money_with_symbol invoice.total_value %></td>
+            <td><%= humanized_money_with_symbol @invoice.total_value %></td>
           </tr>
           <tr>
             <td><strong>Comissão :</strong></td>
-            <td><%= humanized_money_with_symbol invoice.advalori_fee %></td>
+            <td><%= humanized_money_with_symbol @invoice.advalori_fee %></td>
           </tr>
           <tr>
             <td><strong>Fator +Ad :</strong></td>
-            <td><%= humanized_money_with_symbol invoice.gross_interest %></td>
+            <td><%= humanized_money_with_symbol @invoice.gross_interest %></td>
           </tr>
           <tr>
             <td><strong>IOF :</strong></td>
-            <td><%= humanized_money_with_symbol invoice.iof %></td>
+            <td><%= humanized_money_with_symbol @invoice.iof %></td>
           </tr>
           <tr>
             <td><strong>IOF Adicional :</strong></td>
-            <td><%= humanized_money_with_symbol invoice.iof_ad %></td>
+            <td><%= humanized_money_with_symbol @invoice.iof_ad %></td>
           </tr>
           <tr>
             <td><strong>Total a Depositar :</strong></td>
-            <td><%= humanized_money_with_symbol invoice.deposit_value %></td>
+            <td><%= humanized_money_with_symbol @invoice.deposit_value %></td>
           </tr>
         </tbody>
       </table>
@@ -114,30 +130,54 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
     var operationsReportData = {
-      labels: <%= raw operations_report.keys %>,
-      datasets: [{
-        label: "Volume operado em [R$] ",
-        backgroundColor: 'rgba(26,179,148,0.5)',
-        borderColor: "rgba(26,179,148,0.7)",
+      labels: <%= raw @installments_all_keys.keys %>,
+      datasets: [
+      {
+        label: "Volume liquidado em [R$] ",
+        backgroundColor: 'rgba(26, 179, 148, 0.5)',
+        borderColor: "rgba(255,255,255,1)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
-        data: <%= raw operations_report.values %>
-      }]
+        data: <%= raw @installments_paid.values %>
+      }, {
+        label: "Volume em aberto em dia em [R$] ",
+        backgroundColor: 'rgba(147, 154, 198, 0.5)',
+        borderColor: "rgba(255,255,255,1)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: <%= raw @installments_on_date.values %>
+      }, {
+        label: "Volume vencido em [R$] ",
+        backgroundColor: 'rgba(237, 85, 101, 0.5)',
+        borderColor: "rgba(255,255,255,1)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: <%= raw @installments_overdue.values %>
+      }
+      ]
     };
 
     var operationsReportOptions = {
       responsive: true,
       scales: {
-       yAxes: [{
-        ticks: {
-          callback: function(label, index, labels) {
-            return label/1000+'k';
+        xAxes: [{
+          stacked: true
+        }],
+        yAxes: [{
+          stacked: true,
+          ticks: {
+            callback: function(label, index, labels) {
+              return label/1000+'k';
+            }
           }
-        },
-       }]
-     }
+        }]
+      }
     };
+
+
+
 
     var ctx6 = document.getElementById("operationsReportChart").getContext("2d");
     new Chart(ctx6, {type: 'bar', data: operationsReportData, options:operationsReportOptions});
