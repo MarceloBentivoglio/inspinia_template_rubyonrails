@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180222222122) do
+ActiveRecord::Schema.define(version: 20180227143909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,11 +107,6 @@ ActiveRecord::Schema.define(version: 20180222222122) do
     t.integer "value_cents", default: 0, null: false
     t.string "value_currency", default: "BRL", null: false
     t.datetime "due_date"
-    t.integer "outstanding_days"
-    t.integer "interest_cents", default: 0, null: false
-    t.string "interest_currency", default: "BRL", null: false
-    t.integer "ad_valorem_cents", default: 0, null: false
-    t.string "ad_valorem_currency", default: "BRL", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "importation_reference"
@@ -125,10 +120,6 @@ ActiveRecord::Schema.define(version: 20180222222122) do
     t.boolean "boleto_especial"
     t.integer "total_value_cents", default: 0, null: false
     t.string "total_value_currency", default: "BRL", null: false
-    t.integer "average_interest_cents", default: 0, null: false
-    t.string "average_interest_currency", default: "BRL", null: false
-    t.integer "average_ad_valorem_cents", default: 0, null: false
-    t.string "average_ad_valorem_currency", default: "BRL", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "operation_id"
@@ -138,7 +129,6 @@ ActiveRecord::Schema.define(version: 20180222222122) do
     t.integer "xml_file_size"
     t.datetime "xml_updated_at"
     t.string "importation_reference"
-    t.float "average_outstanding_days"
     t.string "number"
     t.bigint "order_id"
     t.integer "invoice_type", default: 0
