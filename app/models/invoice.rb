@@ -91,6 +91,10 @@ class Invoice < ApplicationRecord
     interest + ad_valorem
   end
 
+  def gross_interest_percentage
+    gross_interest / total_value * 100
+  end
+
   def advalori_fee
     gross_interest * 0.1
   end
@@ -105,16 +109,6 @@ class Invoice < ApplicationRecord
 
   def iof_ad
     0.0038 * total_value
-  end
-
-  def i_number
-    if installments.count > 0
-      installments.each do |i|
-        i_number = i.number[0..-2]
-        i_digit = i.number[-1]
-      end
-    end
-    return i_number
   end
 
   def test_ar
