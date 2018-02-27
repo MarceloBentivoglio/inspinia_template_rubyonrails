@@ -110,6 +110,10 @@ class Invoice < ApplicationRecord
     return i_number
   end
 
+  def test_ar
+    number.to_i + 10
+  end
+
   private
 
   def self.extract_invoice_general_info (doc, invoice)

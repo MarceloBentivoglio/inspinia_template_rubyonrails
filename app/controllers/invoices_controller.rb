@@ -105,6 +105,10 @@ class InvoicesController < ApplicationController
     @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
   end
 
+  def payment_status
+
+  end
+
   private
 
   def invoice_and_installments_params

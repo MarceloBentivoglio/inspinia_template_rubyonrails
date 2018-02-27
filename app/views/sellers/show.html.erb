@@ -503,22 +503,29 @@
     new Chart(ctx5, {type: 'doughnut', data: doughnutData2, options:doughnutOptions2});
 
     var operationsReportData = {
-      labels: <%= raw @operations_report_all_keys.keys %>,
+      labels: <%= raw @installments_all_keys.keys %>,
       datasets: [
       {
         label: "Volume liquidado em [R$] ",
         backgroundColor: 'rgba(26,179,148,0.5)',
-        borderColor: "rgba(26,179,148,0.7)",
+        borderColor: "rgba(255,255,255,1)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
-        data: <%= raw @operations_report_paid.values %>
+        data: <%= raw @installments_paid.values %>
       }, {
-        label: "Volume em aberto em [R$] ",
-        backgroundColor: 'rgba(142,142,142,0.5)',
-        borderColor: "rgba(26,179,148,0.7)",
+        label: "Volume em aberto em dia em [R$] ",
+        backgroundColor: 'rgba(147, 154, 198, 0.5)',
+        borderColor: "rgba(255,255,255,1)",
         pointBackgroundColor: "rgba(26,179,148,1)",
         pointBorderColor: "#fff",
-        data: <%= raw @operations_report_not_paid.values %>
+        data: <%= raw @installments_on_date.values %>
+      }, {
+        label: "Volume vencido em [R$] ",
+        backgroundColor: 'rgba(237,85,101, 0.5)',
+        borderColor: "rgba(255,255,255,1)",
+        pointBackgroundColor: "rgba(26,179,148,1)",
+        pointBorderColor: "#fff",
+        data: <%= raw @installments_overdue.values %>
       }
       ]
     };
@@ -537,8 +544,8 @@
            }
          }
        }]
-     }
-   };
+      }
+    };
 
     var ctx6 = document.getElementById("operationsReportChart").getContext("2d");
     new Chart(ctx6, {type: 'bar', data: operationsReportData, options:operationsReportOptions});

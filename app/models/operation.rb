@@ -5,6 +5,7 @@ class Operation < ApplicationRecord
   has_many :sellers_limits
   has_many :payers_limits
   has_many :invoices
+  has_many :installments, through: :invoices
   belongs_to :seller
   accepts_nested_attributes_for :seller,
                                 allow_destroy: true

@@ -283,14 +283,35 @@ puts 'Creating Legals... seller1'
 # puts 'Creating new Operation...'
 # operation = Operation.create!(seller: seller1, closure_date: Time.now, total_value: Money.new(12000), average_outstanding_days: 38)
 
-# puts 'Creating new Invoices...'
-# invoice = Invoice.create!(operation: operation, payer: payer1, invoice_number: "40012", status: "disponivel", delivery_status: true, confirmed: true, notified: true, average_outstanding_days: 38, total_value: Money.new(10000))
+puts 'Creating new Invoices...'
+invoice = Invoice.create!(
+  operation: Operation.last,
+  payer: Payer.last,
+  number: "40012",
+  confirmed: true,
+  notified: true,
+  total_value: Money.new(10000)
+)
+
 # invoice2 = Invoice.create!(operation: operation, payer: payer2, invoice_number: "40015", status: "disponivel", delivery_status: true, confirmed: true, notified: true, average_outstanding_days: 24, total_value: Money.new(4000))
 
 
-# puts 'Creating new Installments...'
-# i = Installment.create!(invoice: invoice, number: "40012/1", value: Money.new(5000), due_date: Time.now + 30)
-# i2 = Installment.create!(invoice: invoice, number: "40012/2", value: Money.new(5000), due_date: Time.now + 58)
+puts 'Creating new Installments...'
+i = Installment.create!(
+  invoice: invoice,
+  number: "40012/1",
+  value: Money.new(5000),
+  due_date: Time.now,
+  paid: false
+)
+
+i2 = Installment.create!(
+  invoice: invoice,
+  number: "40012/2",
+  value: Money.new(5000),
+  due_date: Time.now,
+  paid: true
+)
 # i3 = Installment.create!(invoice: invoice2, number: "40015/1", value: Money.new(1000), due_date: Time.now + 30)
 # i4 = Installment.create!(invoice: invoice2, number: "40015/2", value: Money.new(1000), due_date: Time.now + 58)
 # i5 = Installment.create!(invoice: invoice2, number: "40015/3", value: Money.new(1000), due_date: Time.now + 88)
