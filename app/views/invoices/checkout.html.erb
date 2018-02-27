@@ -58,7 +58,7 @@
                 <td class="font-bold"><%= invoice.number %></td>
                 <td class="font-bold"></td>
                 <td class="font-bold"></td>
-                <td class="font-bold"><%= invoice.average_outstanding_days %></td>
+                <td class="font-bold" style="text-align: center;"><%= invoice.average_outstanding_days.to_i %></td>
                 <td class="font-bold"><%= invoice.total_value.format %></td>
                 <td class="font-bold"><%= invoice.interest.format %></td>
                 <td class="font-bold"><%= invoice.ad_valorem.format %></td>
@@ -71,13 +71,13 @@
                   checked>
                 </td>
               </tr>
-                <% invoice.installments.each do |i| %>
+                <% invoice.installments.order(:due_date).each do |i| %>
                   <tr>
                     <td><%= i.invoice.payer.company_name %></td>
                     <td class="text-muted"><%= invoice.installments.count == 1 ? i.number : i.number[0..-2] %></td>
                     <td class="text-muted"><%= invoice.installments.count == 1 ? 1 : i.number[-1] %></td>
                     <td class="text-muted"><%= i.due_date.strftime("%d %B %Y") %></td>
-                    <td class="text-muted"><%= i.outstanding_days %></td>
+                    <td class="text-muted" style="text-align: center;"><%= i.outstanding_days.to_i %></td>
                     <td class="text-muted"><%= i.value.format %></td>
                     <td class="text-muted"><%= i.interest.format %></td>
                     <td class="text-muted"><%= i.ad_valorem.format %></td>

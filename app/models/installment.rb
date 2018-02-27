@@ -11,7 +11,7 @@ class Installment < ApplicationRecord
   monetize :value_cents, with_model_currency: :currency
 
   def outstanding_days
-    TimeDifference.between(due_date, Time.now).in_days
+    due_date > Time.now ? TimeDifference.between(due_date, Time.now).in_days : 0
   end
 
   def closure_outstanding_days
@@ -29,6 +29,4 @@ class Installment < ApplicationRecord
   def iof
     (0.000041 * outstanding_days) * value
   end
-
-
 end
