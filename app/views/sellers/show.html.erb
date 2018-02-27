@@ -343,29 +343,6 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="ibox float-e-margins">
-            <div class="ibox-title">
-              <h5>Total de operações liquidadas e em aberto</h5>
-              <div class="ibox-tools">
-                <a class="collapse-link">
-                  <i class="fa fa-chevron-up"></i>
-                </a>
-                <a class="close-link">
-                  <i class="fa fa-times"></i>
-                </a>
-              </div>
-            </div>
-            <div class="ibox-content">
-              <div>
-                <canvas id="operationsSettledOpenedChart" height="90"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
     </div>
   </div>
 
@@ -375,8 +352,6 @@
   </div>
 </div>
     <iframe src="/biort.pdf" style="border: none; width: 80%; height: 1000px; margin-bottom: 100px;"> </iframe>
-
-
  </div>
 
 
@@ -549,68 +524,6 @@
 
     var ctx6 = document.getElementById("operationsReportChart").getContext("2d");
     new Chart(ctx6, {type: 'bar', data: operationsReportData, options:operationsReportOptions});
-
-    var operationsSettledOpenedData = {
-      labels: [""],
-      datasets: [{
-        label: "Liquidadas",
-        backgroundColor: 'rgba(26,179,148,0.5)',
-        borderColor: "rgba(26,179,148,0.7)",
-        pointBackgroundColor: "rgba(26,179,148,1)",
-        pointBorderColor: "#fff",
-        data: [1000000]
-      }, {
-        label: "Em aberto",
-        data: [50000],
-        backgroundColor: "rgba(63,203,226,1)",
-        hoverBackgroundColor: "rgba(46,185,235,1)"
-      }]
-    };
-
-    var operationsSettledOpenedOptions = {
-      responsive: true,
-      tooltips: {
-        enabled: true
-      },
-      hover :{
-        animationDuration:0
-      },
-      scales: {
-        xAxes: [{
-            ticks: {
-                beginAtZero: true,
-                fontFamily: "'Open Sans Bold', sans-serif",
-                fontSize:11
-            },
-            scaleLabel:{
-                display: true,
-            },
-            gridLines: {
-            },
-            stacked: true
-        }],
-        yAxes: [{
-          gridLines: {
-            display: true,
-            color: "#fff",
-            zeroLineColor: "#fff",
-            zeroLineWidth: 0
-          },
-          ticks: {
-            fontFamily: "'Open Sans Bold', sans-serif",
-            fontSize:11,
-            mirror: true
-          },
-          stacked: true
-        }]
-      },
-      legend:{
-        display: true
-      },
-   };
-
-   var ctx7 = document.getElementById("operationsSettledOpenedChart").getContext("2d");
-   new Chart(ctx7, {type: 'horizontalBar', data: operationsSettledOpenedData, options:operationsSettledOpenedOptions});
 
   });
 
