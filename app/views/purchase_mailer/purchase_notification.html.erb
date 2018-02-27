@@ -8,8 +8,8 @@
 <h3><% @invoices.each do |invoice| %></h3>
 <h3>ID: <%= invoice.id %></h3>
 <h3>Cedente</h3>
-<h4><%= invoice.seller.company_name %></h4>
-<small>CNPJ: <%= invoice.seller.identification_number %></small>
+<h4><%= invoice.operation.seller.company_name %></h4>
+<small>CNPJ: <%= invoice.operation.seller.identification_number %></small>
 
 <h3>Sacado</h3>
 <h4><%= invoice.payer.company_name %></h4>

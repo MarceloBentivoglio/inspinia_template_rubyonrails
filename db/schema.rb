@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227210447) do
+ActiveRecord::Schema.define(version: 20180227213849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,10 +150,12 @@ ActiveRecord::Schema.define(version: 20180227210447) do
     t.integer "backoffice_status", default: 0
     t.integer "sale_status", default: 0
     t.bigint "buyer_id"
+    t.bigint "seller_id"
     t.index ["buyer_id"], name: "index_invoices_on_buyer_id"
     t.index ["operation_id"], name: "index_invoices_on_operation_id"
     t.index ["order_id"], name: "index_invoices_on_order_id"
     t.index ["payer_id"], name: "index_invoices_on_payer_id"
+    t.index ["seller_id"], name: "index_invoices_on_seller_id"
   end
 
   create_table "legals", force: :cascade do |t|
@@ -459,6 +461,7 @@ ActiveRecord::Schema.define(version: 20180227210447) do
   add_foreign_key "invoices", "operations"
   add_foreign_key "invoices", "orders"
   add_foreign_key "invoices", "payers"
+  add_foreign_key "invoices", "sellers"
   add_foreign_key "legals", "sellers"
   add_foreign_key "operations", "sellers"
   add_foreign_key "orders", "clients", column: "buyer_id"

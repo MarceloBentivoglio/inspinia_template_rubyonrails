@@ -118,12 +118,12 @@ class LegacyImportationController < ApplicationController
 
         else
           if Operation.where("importation_reference = ?", cols[0]).exists?
+              # interest: Money.new(treat_currency_from_file(cols[7])),
+              # ad_valorem: Money.new(treat_currency_from_file(cols[9])),
             installment_attributes = {
               paid: paid_flag,
               importation_reference: cols[0],
               number: cols[5],
-              interest: Money.new(treat_currency_from_file(cols[7])),
-              ad_valorem: Money.new(treat_currency_from_file(cols[9])),
               due_date: DateTime.parse(cols[11]),
               value: Money.new(treat_currency_from_file(cols[12]))
             }
@@ -133,6 +133,7 @@ class LegacyImportationController < ApplicationController
             else
               invoice_attributes = {
                 importation_reference: cols[0],
+                seller: Operation.find_by_importation_reference(cols[0]).seller,
                 payer: Payer.find_by_identification_number(clean_company_identification_number(cols[4])),
                 number: cols[5].slice(0..-2),
                 operation: Operation.find_by_importation_reference(cols[0]),
