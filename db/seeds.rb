@@ -287,6 +287,7 @@ puts 'Creating new Invoices...'
 invoice = Invoice.create!(
   operation: Operation.last,
   payer: Payer.last,
+  seller: Operation.last.seller,
   number: "40012",
   confirmed: true,
   notified: true,

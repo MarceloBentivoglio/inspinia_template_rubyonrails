@@ -80,6 +80,7 @@ class InvoicesController < ApplicationController
     end
 
     invoice.payer = payer
+    invoice.seller = seller
     invoice.operation.seller = seller
     ActiveRecord::Base.transaction do
       payer.save!
