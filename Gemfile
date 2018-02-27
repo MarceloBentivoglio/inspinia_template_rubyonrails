@@ -30,7 +30,7 @@ gem 'cocoon'
 #   This gem is used to upload documents using a form
 gem "paperclip"
 
-# TODO: ????
+# This gem is used to calculate between dates
 gem 'time_difference'
 
 # This gem is used to read xlsx files so that we can convert the data inside the file into ruby objects
@@ -38,6 +38,10 @@ gem 'creek'
 
 # This gem is used to group data from the database by date. We use it for manking active record requests and group them to put on charts.
 gem 'groupdate', '~> 2.5', '>= 2.5.2'
+
+# This gem is used to build Admin interface. Github reference still needed because of Rails 5 support.
+gem 'activeadmin', github: 'activeadmin/activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
 
 group :development do
