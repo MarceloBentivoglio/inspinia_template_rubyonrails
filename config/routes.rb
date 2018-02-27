@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  ActiveAdmin.routes(self)
   devise_for :users
   resources :invoices, only: [:new, :create, :show, :index] do
     collection do
