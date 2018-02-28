@@ -41,6 +41,7 @@ module LeadAdvalori
     # config.autoload_paths << Rails.root.join('lib')
     # config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
+    config.assets.initialize_on_precompile = false
 
     # Code from Inspinia template below
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
@@ -52,6 +53,7 @@ module LeadAdvalori
     # config.i18n.default_locale = :de
     config.assets.precompile += [ 'appviews.css', 'cssanimations.css', 'dashboards.css', 'forms.css', 'gallery.css', 'graphs.css', 'mailbox.css', 'miscellaneous.css', 'pages.css', 'tables.css', 'uielements.css', 'widgets.css', 'commerce.css' ]  +
     config.assets.precompile += [ 'appviews.js', 'cssanimations.js', 'dashboards.js', 'forms.js', 'gallery.js', 'graphs.js', 'mailbox.js', 'miscellaneous.js', 'pages.js', 'tables.js', 'uielements.js', 'widgets.js', 'commerce.js', 'metrics.js', 'landing.js' ]
+
 
   end
 end
