@@ -1,0 +1,96 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-8">
+    <h2>Rejeição de títulos</h2>
+    <ul class="unstyled">
+      <li>
+        1 - Escolha um motivo pelo qual está rejeitando esses títulos.
+      </li>
+      <li>
+        2 - No campo de texto dê mais detalhes sobre o motivo da rejeição
+      </li>
+      <li>
+        3 - Confirme pressionando o botão
+      </li>
+      <li>
+        Pronto! Agora esses títulos não aparecerão mais para você e isso nos ajudará a lhe fazer ofertas mais personalizadas.
+      </li>
+      <li>
+        O histórico de suas rejeições pode ser encontrado na aba "Rejeições". Lá você pode inclusive cancelar a rejeição de um título.
+      </li>
+      <li>
+        Se você quiser você pode ainda rejeitar um cedente ou sacado indo no menu "Clientes"
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="ibox-content p-xl">
+
+        <div class="table-responsive m-t">
+          <table class="table invoice-table">
+            <thead>
+              <tr>
+                <th><p style="color: #7698C2; font-size: 13px; display: inline;">Cedente <i class="fa fa-retweet"></i></p><p style="display: inline"> Sacado</p></th>
+                <th style="font-size: 13px;">Número NF</th>
+                <th style="font-size: 13px;">Parcelas</th>
+                <th style="font-size: 13px;">Vencimento</th>
+                <th style="font-size: 13px;">Prazo <small>(médio)</small></th>
+                <th style="font-size: 13px;">Valor Face</th>
+                <th style="font-size: 13px;">Fator</th>
+                <th style="font-size: 13px;">Ad Valorem</th>
+                <th style="width: 10px;">Confirma</th>
+              </tr>
+            </thead>
+            <%= simple_form_for Rejection.new do |f| %>
+            <tbody>
+              <%#= Esse input hidden é um macetão do Marcos. Ela coloca um argumento vazio no params. E sem esse argumento vazio nos invoices_id alguma coisa não funciona. Só não lembro o que é%>
+              <input type="hidden" name="rejection[invoice_ids][]">
+              <% @invoices.each do |invoice| %>
+                <tr>
+                  <td class="font-bold" style="color: #7698C2;"><%= invoice.operation.seller.company_name %></td>
+                  <td class="font-bold"><%= invoice.number %></td>
+                  <td class="font-bold"></td>
+                  <td class="font-bold"></td>
+                  <td class="font-bold" style="text-align: center;"><%= invoice.average_outstanding_days.to_i %></td>
+                  <td class="font-bold"><%= invoice.total_value.format %></td>
+                  <td class="font-bold"><%= invoice.interest.format %></td>
+                  <td class="font-bold"><%= invoice.ad_valorem.format %></td>
+                  <td>
+                    <input
+                    type="checkbox"
+                    name="rejection[invoice_ids][]"
+                    value="<%= invoice.id %>"
+                    checked>
+                  </td>
+                </tr>
+                  <% invoice.installments.order(:due_date).each do |i| %>
+                    <tr>
+                      <td>&nbsp &nbsp <%= i.invoice.payer.company_name %></td>
+                      <td class="text-muted"><%= invoice.installments.count == 1 ? i.number : i.number[0..-2] %></td>
+                      <td class="text-muted"><%= invoice.installments.count == 1 ? 1 : i.number[-1] %></td>
+                      <td class="text-muted"><%= i.due_date.strftime("%d %B %Y") %></td>
+                      <td class="text-muted" style="text-align: center;"><%= i.outstanding_days.to_i %></td>
+                      <td class="text-muted"><%= i.value.format %></td>
+                      <td class="text-muted"><%= i.interest.format %></td>
+                      <td class="text-muted"><%= i.ad_valorem.format %></td>
+                      <td></td>
+                    </tr>
+                  <% end %>
+              <% end %>
+            </tbody>
+          </table>
+            <%= f.input :motive, label: "Motivo" %>
+            <%= f.input :motive_detail, as: :text, label: "Detalhes sobre motivo da rejeição" %>
+          <div class="text-right">
+            <%= f.submit "Confirmar rejeição", class: "btn btn-primary" %>
+          </div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

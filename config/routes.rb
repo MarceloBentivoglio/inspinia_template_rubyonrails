@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :invoices, only: [:new, :create, :show, :index] do
     collection do
       get :checkout
+      get :rejection
     end
   end
 
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   resources :payers, only: [:new, :create, :show]
   resources :operations, only: [:new, :show]
   resources :orders, only: [:create]
+  resources :rejections, only: [:create]
 
   post '/invoices/load_xml', to: 'invoices#load_invoice_from_xml'
   post '/cnpj_check', to: 'cnpj_checks#fetch_information'

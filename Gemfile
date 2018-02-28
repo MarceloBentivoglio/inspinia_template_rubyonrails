@@ -43,6 +43,8 @@ gem 'groupdate', '~> 2.5', '>= 2.5.2'
 gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
+# This gem is used to enable enum to become a selection in simple_form. We use it especially on the rejections form
+gem 'enum_help'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
