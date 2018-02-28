@@ -30,7 +30,7 @@ client2 = Client.create!(
   )
 
 puts 'Creating new User...'
-user = User.create!(email: 'test@email.com', password: '123123', client: client)
+user = User.create!(email: 'test@email.com', password: '123123', client: client, admin: true)
 
 puts 'Creating Finantial Institutions...'
 f1 = FinantialInstitution.create!(name: 'Itaú')

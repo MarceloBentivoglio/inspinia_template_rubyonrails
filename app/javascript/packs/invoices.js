@@ -22,8 +22,12 @@ $("[data-load-invoice]").click(event => {
 
 $(".invoices-batch").change(() => {
   const checkout = $("#checkout-batch");
+  const rejection = $("#rejection-batch");
   const invoices = $(".invoices-batch:checked").toArray().map(e => parseInt(e.value));
 
   checkout.toggleClass("disabled", invoices.length === 0);
+  rejection.toggleClass("disabled", invoices.length === 0);
   checkout.attr("href", `/invoices/checkout?invoices_ids=${JSON.stringify(invoices)}`);
+  rejection.attr("href", `/invoices/rejection?invoices_ids=${JSON.stringify(invoices)}`);
 })
+

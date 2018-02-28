@@ -95,6 +95,10 @@ class InvoicesController < ApplicationController
     @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
   end
 
+  def rejection
+    @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
+  end
+
   def payment_status
 
   end

@@ -1,9 +1,9 @@
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-8">
-    <h2>Resumo da Operação</h2>
+    <h2>Resumo da Compra</h2>
     <ol class="breadcrumb">
       <li>
-        Verifique as informações da operação e confirme sua compra.
+        Verifique as informações da compra e confirme pressionando o botão.
       </li>
     </ol>
   </div>
@@ -14,6 +14,7 @@
   <div class="col-lg-12">
     <div class="wrapper wrapper-content animated fadeInRight">
       <div class="ibox-content p-xl">
+
         <div class="row">
           <div class="col-sm-6">
             <h5>Factoring:</h5>
@@ -49,7 +50,7 @@
                 <th style="width: 10px;">Confirma</th>
               </tr>
             </thead>
-            <%= form_for Order.new do |f| %>
+            <%= simple_form_for Order.new do |f| %>
             <tbody>
               <input type="hidden" name="order[invoice_ids][]">
               <% @invoices.each do |invoice| %>
@@ -73,7 +74,7 @@
               </tr>
                 <% invoice.installments.order(:due_date).each do |i| %>
                   <tr>
-                    <td><%= i.invoice.payer.company_name %></td>
+                    <td>&nbsp &nbsp <%= i.invoice.payer.company_name %></td>
                     <td class="text-muted"><%= invoice.installments.count == 1 ? i.number : i.number[0..-2] %></td>
                     <td class="text-muted"><%= invoice.installments.count == 1 ? 1 : i.number[-1] %></td>
                     <td class="text-muted"><%= i.due_date.strftime("%d %B %Y") %></td>

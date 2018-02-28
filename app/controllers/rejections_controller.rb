@@ -1,6 +1,6 @@
-class OrdersController < ApplicationController
+class RejectionsController < ApplicationController
   def create
-    # binding.pry
+    binding.pry
     order = Order.new(order_params)
     order.buyer = current_user.client
 
@@ -27,7 +27,11 @@ class OrdersController < ApplicationController
 
   private
 
-  def order_params
-    params.require(:order).permit(invoice_ids: [])
+  def invoice_params
+    params.require(:rejection).permit(invoice_ids: [])
+  end
+
+  def rejection_params
+    params.require(:rejection).permit( :motive, :motive_detail)
   end
 end
