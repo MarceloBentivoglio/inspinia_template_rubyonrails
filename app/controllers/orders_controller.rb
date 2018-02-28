@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
   def create
-    # binding.pry
     order = Order.new(order_params)
     order.buyer = current_user.client
 
