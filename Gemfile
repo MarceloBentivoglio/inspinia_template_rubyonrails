@@ -43,6 +43,7 @@ gem 'groupdate', '~> 2.5', '>= 2.5.2'
 gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
+gem 'bullet'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -66,5 +67,4 @@ group :development, :test do
   gem 'flamegraph'
   gem 'stackprof'     # For Ruby MRI 2.1+
   gem 'fast_stack'    # For Ruby MRI 2.0
-  gem 'bullet'
 end
