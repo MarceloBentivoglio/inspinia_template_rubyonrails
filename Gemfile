@@ -66,5 +66,5 @@ group :development, :test do
   gem 'flamegraph'
   gem 'stackprof'     # For Ruby MRI 2.1+
   gem 'fast_stack'    # For Ruby MRI 2.0
-  gem 'bullet'
+  # gem 'bullet'
 end
