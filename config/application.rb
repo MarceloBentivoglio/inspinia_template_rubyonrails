@@ -41,7 +41,7 @@ module LeadAdvalori
     # config.autoload_paths << Rails.root.join('lib')
     # config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
-    config.assets.initialize_on_precompile = false
+    # config.assets.initialize_on_precompile = false
 
     # Code from Inspinia template below
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
