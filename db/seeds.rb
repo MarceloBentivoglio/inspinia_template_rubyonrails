@@ -179,7 +179,7 @@ season = SeasonSale.create!(
 puts 'Creating Revenues... seller1'
 r1 = Revenue.create!(
   seller: seller1,
-  jan: Money.new(),
+  jan: Money.new(0),
   feb: Money.new(27229918),
   mar: Money.new(34753828),
   apr: Money.new(31158778),
