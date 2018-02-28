@@ -485,7 +485,18 @@
 
 
     var doughnutOptions = {
-      responsive: true
+      responsive: true,
+      tooltips: {
+                    callbacks: {
+                        title: function (tooltipItem, data) { return data.labels[tooltipItem[0].index]; },
+                        label: function (tooltipItem, data) {
+                            var amount = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            var total = eval(data.datasets[tooltipItem.datasetIndex].data.join("+"));
+                            return amount + ' ( ' + parseFloat(amount * 100 / total).toFixed(2) + '% )';
+                        },
+                        // footer: function(tooltipItem, data) { return 'Total: 100 planos.'; }
+                    }
+                },
     };
 
 
@@ -502,7 +513,18 @@
 
 
     var doughnutOptions2 = {
-      responsive: true
+      responsive: true,
+      tooltips: {
+                    callbacks: {
+                        title: function (tooltipItem, data) { return data.labels[tooltipItem[0].index]; },
+                        label: function (tooltipItem, data) {
+                            var amount = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            var total = eval(data.datasets[tooltipItem.datasetIndex].data.join("+"));
+                            return amount + ' ( ' + parseFloat(amount * 100 / total).toFixed(2) + '% )';
+                        },
+                        //footer: function(tooltipItem, data) { return 'Total: 100 planos.'; }
+                    }
+                },
     };
 
 

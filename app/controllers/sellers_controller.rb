@@ -39,9 +39,9 @@ class SellersController < ApplicationController
     endividamento = {}
     @seller.debts.each do |debt|
       if debt.alavancagem?
-        alavancagem[debt.finantial_institution.name] = debt.total_amount.to_f
+        alavancagem[debt.finantial_institution.name] = debt.balance_amount.to_f
       else
-        endividamento[debt.finantial_institution.name] = debt.total_amount.to_f
+        endividamento[debt.finantial_institution.name] = debt.balance_amount.to_f
       end
     end
     @alavancagem_x_axis = alavancagem.keys
