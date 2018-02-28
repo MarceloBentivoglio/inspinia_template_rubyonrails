@@ -1,1 +1,2 @@
-
+# Ingoned files for deploying
+/config/initializers/bullet.rb
