@@ -46,8 +46,6 @@
             </thead>
             <%= simple_form_for Rejection.new do |f| %>
             <tbody>
-              <%#= Esse input hidden é um macetão do Marcos. Ela coloca um argumento vazio no params. E sem esse argumento vazio nos invoices_id alguma coisa não funciona. Só não lembro o que é%>
-              <input type="hidden" name="rejection[invoice_ids][]">
               <% @invoices.each do |invoice| %>
                 <tr>
                   <td class="font-bold" style="color: #7698C2;"><%= invoice.operation.seller.company_name %></td>
