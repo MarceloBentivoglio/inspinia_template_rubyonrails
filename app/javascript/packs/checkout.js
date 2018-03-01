@@ -1,4 +1,4 @@
-import currencyFormatter from 'currency-formatter';
+const currencyFormatter = require('currency-formatter');
 
 $("[data-invoice]").change(() => {
   const invoices = $("[data-invoice]:checked").toArray().map(el => JSON.parse(el.dataset.invoice));
