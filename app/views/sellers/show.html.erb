@@ -95,7 +95,7 @@
               </div>
             </div>
             <div class="ibox-content">
-              <h1 class="no-margins">R$ 300 mil</h1>
+              <h1 class="no-margins"><%= humanized_money_with_symbol @seller.average_revenue %></h1>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@
             </div>
             <div class="ibox-content">
               <h1 class="text-navy no-margins">
-                <i class="fa fa-play fa-rotate-270"></i> 5%
+                <i class="fa fa-play fa-rotate-270"></i> 5.23%
               </h1>
             </div>
           </div>
@@ -149,7 +149,7 @@
     <div class="col-lg-4">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Endividamento total de R$ 100 mil</h5>
+          <h5>Endividamento total de <%= humanized_money_with_symbol @seller.total_debt %></h5>
         </div>
         <div class="ibox-content">
           <div>
@@ -161,7 +161,7 @@
     <div class="col-lg-4">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Alavancangem total de R$ 50 mil</h5>
+          <h5>Alavancangem total de <%= humanized_money_with_symbol @seller.total_leverage %></h5>
           <div class="ibox-tools">
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
@@ -181,7 +181,7 @@
     <div class="col-lg-4">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Custos fixos mensais total de R$ 95 mil</h5>
+          <h5>Custos fixos mensais total de <%= humanized_money_with_symbol @seller.total_costs %></h5>
           <div class="ibox-tools">
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
@@ -196,27 +196,27 @@
             <li>
               <span class="fa fa-handshake-o m-r-xs"></span>
               <label>Salários:</label>
-              R$ 50 mil
+              <%= humanized_money_with_symbol @seller.finantials[0].total_wages_cost_cents %>
             </li>
             <li>
               <span class="fa fa-users m-r-xs"></span>
               <label>Número de funcionários:</label>
-              10
+              <%= @seller.finantials[0].employee_quantity %>
             </li>
             <li>
               <span class="fa fa-university m-r-xs"></span>
               <label>Aluguel:</label>
-              R$ 4 mil
+              <%= humanized_money_with_symbol @seller.finantials[0].rent_cost_cents %>
             </li>
             <li>
               <span class="fa fa-gift m-r-xs"></span>
               <label>Custo da mercadoria vendida:</label>
-              R$ 35 mil
+              <%= humanized_money_with_symbol @seller.finantials[0].cost_of_goods_sold_cents %>
             </li>
             <li>
               <span class="fa fa-money m-r-xs"></span>
               <label>Outros custos fixos relevantes:</label>
-              R$ 6 mil
+              <%= humanized_money_with_symbol @seller.finantials[0].relevant_fixed_cost_cents %>
             </li>
           </ul>
         </div>

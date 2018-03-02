@@ -15,6 +15,35 @@ class Seller < ApplicationRecord
 
   validates :identification_number, uniqueness: true
 
+
+  def total_leverage
+    debts.where(debt_type: 5).sum('balance_amount_cents') / 100
+  end
+
+  def total_debt
+    debts.sum('balance_amount_cents') / 100 - total_leverage
+  end
+
+  def total_costs
+    finantials[0].total_wages_cost_cents + finantials[0].rent_cost_cents + finantials[0].relevant_fixed_cost_cents + finantials[0].cost_of_goods_sold_cents
+  end
+
+  def average_revenue
+    revenues.where(id: 1).pluck(:jan_cents,
+                                :feb_cents,
+                                :mar_cents,
+                                :apr_cents,
+                                :may_cents,
+                                :jun_cents,
+                                :jul_cents,
+                                :aug_cents,
+                                :sep_cents,
+                                :oct_cents,
+                                :nov_cents,
+                                :dec_cents).map(&:sum).sum / 100 / 11
+
+  end
+
 # TODO: refatorar seller_controller e invoices_controller para não precisar repitir essas linahs de código
   # def historical_transactions()
 
