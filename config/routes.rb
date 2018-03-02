@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   root to: 'landing#index'
 
+  get "landing/index"
+
   # All routes
   get "dashboards/dashboard_1"
   get "dashboards/dashboard_2"
