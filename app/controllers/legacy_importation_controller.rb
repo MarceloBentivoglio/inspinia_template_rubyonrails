@@ -72,11 +72,11 @@ class LegacyImportationController < ApplicationController
       end
     end
 
-    paid_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_liquidadas.xlsx'
+    paid_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_liquidadas_2.xlsx'
     paid_operations_worksheets = paid_operations_workbook.sheets
     extract_operations_invoices_installments(paid_operations_worksheets, true)
 
-    pending_payment_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_em_aberto.xlsx'
+    pending_payment_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_em_aberto_2.xlsx'
     pending_payment_operations_worksheets = pending_payment_operations_workbook.sheets
     extract_operations_invoices_installments(pending_payment_operations_worksheets, false)
 
