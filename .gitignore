@@ -21,6 +21,3 @@ yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
 
-# After running git push heroku master it was asked to ignore theses files
-vendor/bundle
-.bundle/
