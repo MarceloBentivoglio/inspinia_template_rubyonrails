@@ -21,13 +21,6 @@ class PayersController < ApplicationController
     @invoices_count = @payer.invoices.count
     @invoices_amount = @payer.invoices.sum('total_value_cents')
 
-
-    # @total_operations_number = @payer.operations.count
-    # @total_operations_amount = Money.new(@payer.operations.sum('total_value_cents'))
-    # @operations_report = @payer.invoices.group_by_month(:deposit_date, format: "%b %y").sum("total_value_cents")
-    # @operations_report.transform_values! {|monthly_operations_amount| monthly_operations_amount.to_f/100}
-
-
     @installments_paid_amount = Money.new(@payer.invoices.joins(:installments).where(installments: {paid: true}).sum("value_cents"))
     @installments_paid_quantity = @payer.invoices.joins(:installments).where(installments: {paid: true}).count
     @installments_paid = @payer.invoices.joins(:installments).where(installments: {paid: true}).group_by_month(:due_date, format: "%b %y").sum("value_cents")

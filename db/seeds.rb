@@ -32,188 +32,188 @@
 # puts 'Creating new User...'
 # user = User.create!(email: 'test@email.com', password: '123123', client: client, admin: true)
 
-# puts 'Creating Finantial Institutions...'
-# f1 = FinantialInstitution.create!(name: 'Itaú')
-# f2 = FinantialInstitution.create!(name: 'Bradesco')
-# f3 = FinantialInstitution.create!(name: 'Caixa Econômica Federal')
-# f4 = FinantialInstitution.create!(name: 'Banco do Brasil')
-# f5 = FinantialInstitution.create!(name: 'BNDES')
-# f6 = FinantialInstitution.create!(name: 'Santander')
-# f7 = FinantialInstitution.create!(name: 'Receita Federal')
-# f8 = FinantialInstitution.create!(name: 'MVP Fomento Mercantil')
-# f9 = FinantialInstitution.create!(name: 'Sabia Fomento Mercantil')
-# f10 = FinantialInstitution.create!(name: 'FIDC Federal Invest')
-# f11 = FinantialInstitution.create!(name: 'BV Financeira')
+puts 'Creating Finantial Institutions...'
+f1 = FinantialInstitution.create!(name: 'Itaú')
+f2 = FinantialInstitution.create!(name: 'Bradesco')
+f3 = FinantialInstitution.create!(name: 'Caixa Econômica Federal')
+f4 = FinantialInstitution.create!(name: 'Banco do Brasil')
+f5 = FinantialInstitution.create!(name: 'BNDES')
+f6 = FinantialInstitution.create!(name: 'Santander')
+f7 = FinantialInstitution.create!(name: 'Receita Federal')
+f8 = FinantialInstitution.create!(name: 'MVP Fomento Mercantil')
+f9 = FinantialInstitution.create!(name: 'Sabia Fomento Mercantil')
+f10 = FinantialInstitution.create!(name: 'FIDC Federal Invest')
+f11 = FinantialInstitution.create!(name: 'BV Financeira')
 
-# puts 'Creating Debt Types...'
-# d1 = DebtType.create!(name: 'Financiamento Imobiliario')
-# d2 = DebtType.create!(name: 'Financiamento Automotivo')
-# d3 = DebtType.create!(name: 'Capital de Giro')
-# d4 = DebtType.create!(name: 'Refis')
-# d5 = DebtType.create!(name: 'Antecipação de Recebíveis')
-# d6 = DebtType.create!(name: 'Cheque Especial')
-# d7 = DebtType.create!(name: 'Conta Garantida')
+puts 'Creating Debt Types...'
+d1 = DebtType.create!(name: 'Financiamento Imobiliario')
+d2 = DebtType.create!(name: 'Financiamento Automotivo')
+d3 = DebtType.create!(name: 'Capital de Giro')
+d4 = DebtType.create!(name: 'Refis')
+d5 = DebtType.create!(name: 'Antecipação de Recebíveis')
+d6 = DebtType.create!(name: 'Cheque Especial')
+d7 = DebtType.create!(name: 'Conta Garantida')
 
-LegacyImportationController.new.import_legacy_data({user: User.first})
+# LegacyImportationController.new.import_legacy_data({user: User.first})
 
-# seller1 = Seller.where("company_name like 'BIORT%'").first
+seller1 = Seller.where("company_name like 'BIORT%'").first
 
 # puts 'Creating Offers...'
 # most_expensive_invoices = Invoice.all.order(total_value_cents: :DESC).limit(20).map {|invoice| invoice.for_sale!}
 
 
-# puts 'Creating finantials for seller1...'
-# finantial1 = Finantial.create!(
-#   seller: seller1,
-#   production_economics_cycle_description: 'Biort distribui produtos hospitalares para os maiores hospitais de São Paulo. Possui como principais clientes, Rede Dor São Luiz, Cruzeiro do Sul, Christóvão da Gama, entre outros.',
-#   employee_quantity: 16,
-#   total_wages_cost: Money.new(85000),
-#   rent_cost: Money.new(7000),
-#   relevant_fixed_cost: Money.new(15000),
-#   cost_of_goods_sold: Money.new(150000),
-#   information_year: '2017',
-#   )
+puts 'Creating finantials for seller1...'
+finantial1 = Finantial.create!(
+  seller: seller1,
+  production_economics_cycle_description: 'Biort distribui produtos hospitalares para os maiores hospitais de São Paulo. Possui como principais clientes, Rede Dor São Luiz, Cruzeiro do Sul, Christóvão da Gama, entre outros.',
+  employee_quantity: 16,
+  total_wages_cost: Money.new(85000),
+  rent_cost: Money.new(7000),
+  relevant_fixed_cost: Money.new(15000),
+  cost_of_goods_sold: Money.new(150000),
+  information_year: '2017',
+  )
 
-# puts 'Creating debts for seller1...'
+puts 'Creating debts for seller1...'
 
-# puts 'Creating "endividamento"....'
+puts 'Creating "endividamento"....'
 
-# debt1 = Debt.create!(
-#   seller: seller1,
-#   finantial_institution: f1,
-#   debt_type: d6,
-#   total_amount: Money.new(0),
-#   balance_amount: Money.new(13821),
-#   installments_quantity: 1,
-#   information_year: '2017',
-#   )
+debt1 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f1,
+  debt_type: d6,
+  total_amount: Money.new(0),
+  balance_amount: Money.new(13821),
+  installments_quantity: 1,
+  information_year: '2017',
+  )
 
-# debt2 = Debt.create!(
-#   seller: seller1,
-#   finantial_institution: f1,
-#   debt_type: d7,
-#   total_amount: Money.new(0),
-#   balance_amount: Money.new(1750000),
-#   installments_quantity: 1,
-#   information_year: '2017',
-#   )
+debt2 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f1,
+  debt_type: d7,
+  total_amount: Money.new(0),
+  balance_amount: Money.new(1750000),
+  installments_quantity: 1,
+  information_year: '2017',
+  )
 
-# debt3 = Debt.create!(
-#   seller: seller1,
-#   finantial_institution: f1,
-#   debt_type: d3,
-#   total_amount: Money.new(0),
-#   balance_amount: Money.new(21322100),
-#   installments_quantity: 24,
-#   information_year: '2017',
-#   )
+debt3 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f1,
+  debt_type: d3,
+  total_amount: Money.new(0),
+  balance_amount: Money.new(21322100),
+  installments_quantity: 24,
+  information_year: '2017',
+  )
 
-# debt4 = Debt.create!(
-#   seller: seller1,
-#   finantial_institution: f11,
-#   debt_type: d2,
-#   total_amount: Money.new(0),
-#   balance_amount: Money.new(1340700),
-#   installments_quantity: 10,
-#   information_year: '2017',
-#   )
+debt4 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f11,
+  debt_type: d2,
+  total_amount: Money.new(0),
+  balance_amount: Money.new(1340700),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
 
-# debt5 = Debt.create!(
-#   seller: seller1,
-#   finantial_institution: f2,
-#   debt_type: d2,
-#   total_amount: Money.new(0),
-#   balance_amount: Money.new(6200000),
-#   installments_quantity: 10,
-#   information_year: '2017',
-#   )
+debt5 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f2,
+  debt_type: d2,
+  total_amount: Money.new(0),
+  balance_amount: Money.new(6200000),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
 
-# puts 'Creating "alavancagem"....'
+puts 'Creating "alavancagem"....'
 
-# ala1 = Debt.create!(
-#   seller: seller1,
-#   finantial_institution: f1,
-#   debt_type: d5,
-#   total_amount: Money.new(0),
-#   balance_amount: Money.new(9662700),
-#   installments_quantity: 10,
-#   information_year: '2017',
-#   )
+ala1 = Debt.create!(
+  seller: seller1,
+  finantial_institution: f1,
+  debt_type: d5,
+  total_amount: Money.new(0),
+  balance_amount: Money.new(9662700),
+  installments_quantity: 10,
+  information_year: '2017',
+  )
 
 
-# puts 'Creating Qualitative Informations for seller1...'
-# qi = QualitativeInformation.create!(
-#   seller: seller1,
-#   address_verification: true,
-#   address_verification_observation: 'Escritório bem localizado e bem organizado.',
-#   website: 'não possui',
-#   google: 'pouca informação',
-#   linkedin: 'não possui',
-#   facebook: 'não possui',
-#   corporate_email: '@biort.com.br',
-#   reclame_aqui: 'não possui reclamações',
-#   reclame_aqui_complaints_quantity: 0,
-#   reclame_aqui_answered_complaints: 0,
-#   google_maps: 'atualizado',
-#   information_year: '2017'
-#   )
+puts 'Creating Qualitative Informations for seller1...'
+qi = QualitativeInformation.create!(
+  seller: seller1,
+  address_verification: true,
+  address_verification_observation: 'Escritório bem localizado e bem organizado.',
+  website: 'não possui',
+  google: 'pouca informação',
+  linkedin: 'não possui',
+  facebook: 'não possui',
+  corporate_email: '@biort.com.br',
+  reclame_aqui: 'não possui reclamações',
+  reclame_aqui_complaints_quantity: 0,
+  reclame_aqui_answered_complaints: 0,
+  google_maps: 'atualizado',
+  information_year: '2017'
+  )
 
-# puts 'Creating Season Sales for seller1...'
-# season = SeasonSale.create!(
-#   seller: seller1,
-#   jan: false,
-#   feb: false,
-#   mar: false,
-#   apr: true,
-#   may: true,
-#   jun: false,
-#   jul: false,
-#   aug: false,
-#   sep: false,
-#   oct: true,
-#   nov: true,
-#   dec: true,
-#   information_year: '2017'
-#   )
+puts 'Creating Season Sales for seller1...'
+season = SeasonSale.create!(
+  seller: seller1,
+  jan: false,
+  feb: false,
+  mar: false,
+  apr: true,
+  may: true,
+  jun: false,
+  jul: false,
+  aug: false,
+  sep: false,
+  oct: true,
+  nov: true,
+  dec: true,
+  information_year: '2017'
+  )
 
-# puts 'Creating Revenues... seller1'
-# r1 = Revenue.create!(
-#   seller: seller1,
-#   jan: Money.new(0),
-#   feb: Money.new(27229918),
-#   mar: Money.new(34753828),
-#   apr: Money.new(31158778),
-#   may: Money.new(33890187),
-#   jun: Money.new(36392975),
-#   jul: Money.new(49849299),
-#   aug: Money.new(30644302),
-#   sep: Money.new(25117165),
-#   oct: Money.new(22608075),
-#   nov: Money.new(17294601),
-#   dec: Money.new(17642850),
-#   information_year: "2017"
-# )
-# r2 = Revenue.create!(
-#   seller: seller1,
-#   jan: Money.new(27448150),
-#   information_year: "2018"
-# )
+puts 'Creating Revenues... seller1'
+r1 = Revenue.create!(
+  seller: seller1,
+  jan: Money.new(0),
+  feb: Money.new(27229918),
+  mar: Money.new(34753828),
+  apr: Money.new(31158778),
+  may: Money.new(33890187),
+  jun: Money.new(36392975),
+  jul: Money.new(49849299),
+  aug: Money.new(30644302),
+  sep: Money.new(25117165),
+  oct: Money.new(22608075),
+  nov: Money.new(17294601),
+  dec: Money.new(17642850),
+  information_year: "2017"
+)
+r2 = Revenue.create!(
+  seller: seller1,
+  jan: Money.new(27448150),
+  information_year: "2018"
+)
 
-# puts 'Creating Legals... seller1'
-#   l1 = Legal.create!(
-#     seller: seller1,
-#     civil_suits_quantity: 0,
-#     civil_suits_amount: Money.new(0),
-#     labor_suits_quantity: 0,
-#     labor_suits_amount: Money.new(0),
-#     penal_suits_quantity: 0,
-#     penal_suits_amount: Money.new(0),
-#     fiscal_suits_quantity: 2,
-#     fiscal_suits_amount: Money.new(13583500),
-#     enforcement_monition_suits_quantity: 0,
-#     enforcement_monition_suits_amount: Money.new(0),
-#     information_year: "2017",
-#   )
+puts 'Creating Legals... seller1'
+  l1 = Legal.create!(
+    seller: seller1,
+    civil_suits_quantity: 0,
+    civil_suits_amount: Money.new(0),
+    labor_suits_quantity: 0,
+    labor_suits_amount: Money.new(0),
+    penal_suits_quantity: 0,
+    penal_suits_amount: Money.new(0),
+    fiscal_suits_quantity: 2,
+    fiscal_suits_amount: Money.new(13583500),
+    enforcement_monition_suits_quantity: 0,
+    enforcement_monition_suits_amount: Money.new(0),
+    information_year: "2017",
+  )
 
 
 # # seller2 = Seller.create!(
