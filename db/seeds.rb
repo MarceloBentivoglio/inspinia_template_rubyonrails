@@ -54,7 +54,7 @@
 # d6 = DebtType.create!(name: 'Cheque Especial')
 # d7 = DebtType.create!(name: 'Conta Garantida')
 
-LegacyImportationController.new.import_legacy_data({user: user})
+LegacyImportationController.new.import_legacy_data({user: User.first})
 
 # seller1 = Seller.where("company_name like 'BIORT%'").first
 

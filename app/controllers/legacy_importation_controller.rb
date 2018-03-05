@@ -74,7 +74,7 @@ class LegacyImportationController < ApplicationController
       end
     end
 
-    paid_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_liquidadas_biort.xlsx'
+    paid_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_finalizadas_biort.xlsx'
     paid_operations_worksheets = paid_operations_workbook.sheets
     extract_operations_invoices_installments(paid_operations_worksheets, true)
 
