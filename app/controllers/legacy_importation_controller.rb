@@ -3,7 +3,7 @@ class LegacyImportationController < ApplicationController
    # TODO: Check if the header is equal to the template header
    # TODO: refatorar esse codigo
     problem_line = []
-    payers_workbook = Creek::Book.new 'lib/xlsx_reader/sacados.xlsx'
+    payers_workbook = Creek::Book.new 'lib/xlsx_reader/sacados_biort.xlsx'
     payers_worksheets = payers_workbook.sheets
     payers_worksheets.each do |worksheet|
       worksheet.rows.each_with_index do |row, row_number|
