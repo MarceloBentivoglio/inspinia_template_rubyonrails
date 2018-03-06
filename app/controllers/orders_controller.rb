@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
       redirect_to invoices_path
     else
       flash[:alert] = "Email não enviado!"
+      redirect_to invoices_path
     end
 
 
