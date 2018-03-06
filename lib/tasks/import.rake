@@ -1,4 +1,4 @@
-require 'legacy_importation'
+require_relative '../../app/services/legacy_importation.rb'
 
 namespace :import do
   desc "Given the path of a excel spreadsheet exported from Smart it will import paid invoices "
