@@ -55,7 +55,7 @@
               <input type="hidden" name="order[invoice_ids][]">
               <% @invoices.each do |invoice| %>
               <tr>
-                <td class="font-bold" style="color: #7698C2;"><%= invoice.operation.seller.company_name %></td>
+                <td class="font-bold" style="color: #7698C2;"><%= invoice.seller.company_name %></td>
                 <td class="font-bold"><%= invoice.number %></td>
                 <td class="font-bold"></td>
                 <td class="font-bold"></td>

@@ -19,7 +19,9 @@
         <strong>Limite</strong>
         <br>
         <span>Utilizado: R$50.000,00</span>
-        <span class="pull-right small text-muted">Total: R$100.000,00</span>
+        <span class="pull-right small text-muted">
+          <%= humanized_money_with_symbol @seller.limit %>
+        </span>
         <div class="progress progress-striped active">
           <div style="width: 50%;" class="progress-bar progress-bar-navy-light">50%</div>
         </div>

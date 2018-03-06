@@ -2,7 +2,7 @@
   <td>
     <input class="invoices-batch" type="checkbox" value="<%= invoice.id %>">
   </td>
-  <td ><%= invoice.operation.seller.company_nickname %></td>
+  <td ><%= invoice.seller.company_nickname %></td>
   <td><i class="fa fa-calendar"></i> <%= invoice.average_outstanding_days.to_i %></td>
   <td>R$ <%= humanized_money invoice.total_value %></td>
   <td>R$ <%= humanized_money invoice.interest %></td>

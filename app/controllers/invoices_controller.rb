@@ -17,7 +17,7 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
-    @seller = @invoice.operation.seller
+    @seller = @invoice.seller
     @payer = @invoice.payer
     @installments = @invoice.installments
 
