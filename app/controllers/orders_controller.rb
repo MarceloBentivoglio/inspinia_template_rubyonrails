@@ -13,15 +13,20 @@ class OrdersController < ApplicationController
       end
     end
 
-    PurchaseMailer.purchase_notification(order.buyer, order).deliver_now
+    if PurchaseMailer.purchase_notification(order.buyer, order).deliver
+      flash[:notice] = "Compra bem-sucedida!"
+      redirect_to invoices_path
+    else
+      flash[:alert] = "Email não enviado!"
+    end
+
+
 
     # order.invoices.each do |invoice|
     #   PurchaseMailer.purchase_notification(invoice.buyer, invoice).deliver_now
     # end
 
-    flash[:notice] = "Compra bem-sucedida!"
 
-    redirect_to invoices_path
   end
 
   private
