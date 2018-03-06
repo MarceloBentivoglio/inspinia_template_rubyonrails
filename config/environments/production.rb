@@ -1,6 +1,6 @@
 Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: "https://advalori-lead.herokuapp.com/" }
+  config.action_mailer.default_url_options = { host: "advalori-lead.herokuapp.com/" }
     # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
 
