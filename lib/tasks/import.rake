@@ -1,3 +1,5 @@
+require 'legacy_importation'
+
 namespace :import do
   desc "Given the path of a excel spreadsheet exported from Smart it will import paid invoices "
   task :paid_invoices, [:path] do |t, args|
