@@ -12,7 +12,7 @@ class PurchaseMailer < ApplicationMailer
     order.invoices.each { |i| @invoices << i }
 
     mail(
-      to: "joaquim.oliveira.nt@gmail.com",
+      to: "mabj90s@gmail.com",
       subject: "[Advalori] Alguém comprou um título!"
     )
   end
@@ -25,6 +25,6 @@ class PurchaseMailer < ApplicationMailer
   def purchase_confirmation
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail to: "mabj90s@gmail.com"
   end
 end
