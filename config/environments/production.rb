@@ -1,10 +1,19 @@
 Rails.application.configure do
-  config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: "advalori-lead.herokuapp.com/" }
     # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
 
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "gmail.com",
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: "mabj90s@gmail.com",
+    password: "040790Mabj!"
+  }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
