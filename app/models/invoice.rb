@@ -15,8 +15,7 @@ class Invoice < ApplicationRecord
   enum backoffice_status: {
     registred: 0,
     approved: 1,
-    rejected: 2,
-    deposited: 3,
+    deposited: 2,
   }
 
   enum sale_status: {

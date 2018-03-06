@@ -33,37 +33,37 @@ class LegacyImportationController < ApplicationController
     end
     puts "Payers imported with success"
 
-    # sellers_workbook = Creek::Book.new 'lib/xlsx_reader/cedentes.xlsx'
-    # sellers_worksheets = sellers_workbook.sheets
-    # sellers_worksheets.each do |worksheet|
-    #   worksheet.rows.each_with_index do |row, row_number|
-    #     next if (0 .. 2).include? row_number
+    sellers_workbook = Creek::Book.new 'lib/xlsx_reader/cedentes.xlsx'
+    sellers_worksheets = sellers_workbook.sheets
+    sellers_worksheets.each do |worksheet|
+      worksheet.rows.each_with_index do |row, row_number|
+        next if (0 .. 2).include? row_number
 
-    #     cols = row.values
-    #     puts "seller: #{row_number}"
-    #     break if cols[0].nil?
-    #     next if !(cols[0].include? "BIORT")
-    #     # TODO: Separate the address number from the address, maybe using regex
-    #     seller_attributes = {
-    #       company_name: cols[0],
-    #       company_nickname: cols[0][0,15],
-    #       identification_number: clean_company_identification_number(cols[1]),
-    #       address: cols[2],
-    #       zip_code: cols [3],
-    #       city: cols[4],
-    #       email: cols[5],
-    #       phone_number: cols[6],
-    #       client: options[:user].client,
-    #     }
-    #     seller = Seller.new(seller_attributes)
-    #     if seller.save!
-    #     else
-    #       puts "foi a linha #{row_number} de seller que deu problema"
-    #       problem_line << row_number
-    #     end
-    #   end
-    # end
-    # puts 'Sellers imported with success!'
+        cols = row.values
+        puts "seller: #{row_number}"
+        break if cols[0].nil?
+        next if !(cols[0].include? "BIORT")
+        # TODO: Separate the address number from the address, maybe using regex
+        seller_attributes = {
+          company_name: cols[0],
+          company_nickname: cols[0][0,15],
+          identification_number: clean_company_identification_number(cols[1]),
+          address: cols[2],
+          zip_code: cols [3],
+          city: cols[4],
+          email: cols[5],
+          phone_number: cols[6],
+          client: options[:user].client,
+        }
+        seller = Seller.new(seller_attributes)
+        if seller.save!
+        else
+          puts "foi a linha #{row_number} de seller que deu problema"
+          problem_line << row_number
+        end
+      end
+    end
+    puts 'Sellers imported with success!'
 
     if problem_line.empty?
       puts "\n\n\n não deu problema \n\n\n"
@@ -73,113 +73,9 @@ class LegacyImportationController < ApplicationController
         puts line
       end
     end
-
-    paid_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_finalizadas_biort.xlsx'
-    paid_operations_worksheets = paid_operations_workbook.sheets
-    extract_operations_invoices_installments(paid_operations_worksheets, true)
-
-    pending_payment_operations_workbook = Creek::Book.new 'lib/xlsx_reader/operacoes_em_aberto_biort.xlsx'
-    pending_payment_operations_worksheets = pending_payment_operations_workbook.sheets
-    extract_operations_invoices_installments(pending_payment_operations_worksheets, false)
 
   rescue
     redirect_to root_path
-  end
-
-  def extract_operations_invoices_installments(operations_worksheets, paid_flag)
-    problem_line = []
-    operations_worksheets.each do |worksheet|
-      worksheet.rows.each_with_index do |row, row_number|
-        next if (0 .. 3).include? row_number
-        cols = row.values
-        puts "operation: #{row_number}"
-        break if cols[0].nil?
-        # Right now we don't want operations that has rebuys, créditos ou pendencias
-        next unless [cols[13], cols[15], cols[16], cols[18]].all? {|col| col == "0" || col.nil?}
-        # This line can be used in case where the xlsx file does not carry the seller's identification number
-        # seller: Seller.where("company_name LIKE '#{cols[3]}%'").first,
-        if cols[0] == cols[1]
-          operation_attributes = {
-            importation_reference: cols[1],
-            deposit_date: DateTime.parse(cols[2]),
-            seller: Seller.find_by_identification_number(clean_company_identification_number(cols[4])),
-            total_value: Money.new(treat_currency_from_file(cols[5])),
-            average_interest: Money.new(treat_currency_from_file(cols[6])),
-            average_ad_valorem: Money.new(treat_currency_from_file(cols[8])),
-            average_outstanding_days: treat_float_from_file(cols[10]),
-            fee_doc_ted_transferencia: Money.new(treat_currency_from_file(cols[11])),
-            tax_retained_iof_adicional: Money.new(treat_currency_from_file(cols[12])),
-            advancement: Money.new(treat_currency_from_file(cols[17]))
-          }
-          operation = Operation.new(operation_attributes)
-          if operation.save!
-          else
-            puts "foi a linha #{row_number} de operation que deu problema"
-            problem_line << row_number
-          end
-
-        else
-          if Operation.where("importation_reference = ?", cols[0]).exists?
-              # interest: Money.new(treat_currency_from_file(cols[7])),
-              # ad_valorem: Money.new(treat_currency_from_file(cols[9])),
-            installment_attributes = {
-              paid: paid_flag,
-              importation_reference: cols[0],
-              number: cols[5],
-              due_date: DateTime.parse(cols[11]),
-              value: Money.new(treat_currency_from_file(cols[12]))
-            }
-            # TODO: Fazer funcionar para vários clients pq só funciona isso se tiver apenas um client
-            if Invoice.where("number = ? AND importation_reference = ?", installment_attributes[:number].slice(0..-2), installment_attributes[:importation_reference]).exists?
-              installment_attributes[:invoice] = Invoice.where("number = ? AND importation_reference = ?", installment_attributes[:number].slice(0..-2), installment_attributes[:importation_reference]).first
-            else
-              invoice_attributes = {
-                importation_reference: cols[0],
-                seller: Operation.find_by_importation_reference(cols[0]).seller,
-                payer: Payer.find_by_identification_number(clean_company_identification_number(cols[4])),
-                number: cols[5].slice(0..-2),
-                operation: Operation.find_by_importation_reference(cols[0]),
-              }
-              invoice = Invoice.new(invoice_attributes)
-              if invoice.save!
-                define_invoice_type(invoice, cols[2])
-                invoice.deposited!
-              else
-                puts "foi a linha #{row_number} de invoice que deu problema"
-                problem_line << row_number
-              end
-              installment_attributes[:invoice] = invoice
-            end
-            installment = Installment.new(installment_attributes)
-            if installment.save!
-            else
-              puts "foi a linha #{row_number} de invoice que deu problema"
-              problem_line << row_number
-            end
-
-          end
-        end
-      end
-      puts "Operations imported with success!"
-    end
-
-    if problem_line.empty?
-      puts "\n\n\n não deu problema \n\n\n"
-    else
-      puts "Linhas com problemas:"
-      problem_line.each do |line|
-        puts line
-      end
-    end
-
-    Invoice.all.each do |invoice|
-      invoice.total_value = invoice.installments.reduce(Money.new(0)) {|total_value, installment| total_value + installment.value}
-      if invoice.save!
-        puts "valor da invoice #{invoice.id} calculado com sucesso!"
-      else
-        puts "invoice que deu problema #{invoice.id}"
-      end
-    end
   end
 
   def clean_company_identification_number(cnpj)

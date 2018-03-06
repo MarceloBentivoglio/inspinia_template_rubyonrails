@@ -14,6 +14,7 @@ class Seller < ApplicationRecord
   has_many :legals
 
   validates :identification_number, uniqueness: true
+  monetize :limit_cents, with_model_currency: :currency
 
 
   def total_leverage
