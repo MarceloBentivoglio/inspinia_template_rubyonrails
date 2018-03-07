@@ -12,4 +12,10 @@ namespace :import do
     path = args.path
     LegacyImportation.new.opened_invoices_importation(path)
   end
+
+  desc "Given the path of a excel spreadsheet exported from Smart it will import payers "
+  task :payers, [:path] => :environment do |t, args|
+    path = args.path
+    LegacyImportation.new.payers_importation(path)
+  end
 end
