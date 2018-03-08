@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: "advalori-lead.herokuapp.com/" }
+  config.action_mailer.default_url_options = { host: "advalori-lead.herokuapp.com" }
     # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
 
@@ -11,8 +11,8 @@ Rails.application.configure do
     domain: "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "mabj90s@gmail.com",
-    password: "040790Mabj!"
+    user_name: "admin@advalori.com",
+    password: "Advalori2018Admin*"
   }
 
   # Code is not reloaded between requests.
