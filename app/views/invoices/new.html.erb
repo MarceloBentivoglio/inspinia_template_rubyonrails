@@ -2,6 +2,7 @@
 
   <%= simple_form_for @invoice, url: invoices_load_xml_path do |f| %>
   <%= f.error_notification %>
+  <h2>Upload de documento</h2>
   <div class="form-inputs">
     <div class="control-group">
       <%= f.label :xml_file, class: 'control-label' %>
@@ -16,51 +17,45 @@
   <% end %>
 
   <div>
-    <h2>Upload de documento</h2>
-    <%= link_to "XML" %>
-    <%= link_to "IMG" %>
-    <%= link_to "PDF" %>
-  </div>
-  <div>
     <h2>Dados do título</h2>
     <%= simple_form_for(@invoice, url: invoices_path) do |f| %>
-    <h3>Cedente</h3>
-    <%= f.simple_fields_for :operation do |operation| %>
-    <%= operation.simple_fields_for :seller do |seller| %>
-    <%= seller.input :company_name %>
-    <%= seller.input :identification_number %>
-    <% end %>
-    <% end %>
-    <h3>Sacado</h3>
-    <%= f.simple_fields_for :payer do |payer| %>
-    <%= payer.input :company_name %>
-    <%= payer.input :identification_number %>
-    <%= payer.hidden_field :address %>
-    <%= payer.hidden_field :address_number %>
-    <%= payer.hidden_field :neighborhood %>
-    <%= payer.hidden_field :city %>
-    <%= payer.hidden_field :state %>
-    <%= payer.hidden_field :zip_code %>
-    <%= payer.hidden_field :registration_number %>
-    <% end %>
-    <%= f.input :invoice_type , as: :radio_buttons, collection: [['Nota fiscal', 'traditional_invoice'], ['Cheque', 'check'], ['Outros', 'contract']], label: "Tipo de documento:" %>
-    <%= f.input :number %>
-    <table class="table">
-      <thead>
-        <th></th>
-        <th>Número</th>
-        <th>Valor de face</th>
-        <th>Data de Vencimento</th>
-      </thead>
-      <tbody class="installments">
-        <%= f.simple_fields_for :installments do |builder| %>
-        <%= render 'installment_fields', f: builder %>
-        <% end %>
-      </tbody>
-    </table>
-    <%= link_to_add_association 'Adicionar parcela', f, :installments, class: "btn btn-primary", data: { association_insertion_node: '.installments', association_insertion_method: :append }  %>
-    <%= f.input :total_value %>
-    <%= f.submit "Salvar invoice", class: "btn btn-primary" %>
+      <h3>Cedente</h3>
+      <%= f.simple_fields_for :seller do |seller| %>
+        <%= seller.input :company_name %>
+        <%= seller.input :identification_number %>
+        <%= seller.hidden_field :company_nickname %>
+      <% end %>
+      <h3>Sacado</h3>
+      <%= f.simple_fields_for :payer do |payer| %>
+        <%= payer.input :company_name %>
+        <%= payer.input :identification_number %>
+        <%= payer.hidden_field :address %>
+        <%= payer.hidden_field :address_number %>
+        <%= payer.hidden_field :neighborhood %>
+        <%= payer.hidden_field :city %>
+        <%= payer.hidden_field :state %>
+        <%= payer.hidden_field :zip_code %>
+        <%= payer.hidden_field :registration_number %>
+      <% end %>
+      <%= f.input :invoice_type, label: "Tipo de documento:" %>
+      <%= f.input :sale_status, label: "Disponibiliade para venda:" %>
+      <%= f.input :number %>
+      <table class="table">
+        <thead>
+          <th></th>
+          <th>Número</th>
+          <th>Valor de face</th>
+          <th>Data de Vencimento</th>
+        </thead>
+        <tbody class="installments">
+          <%= f.simple_fields_for :installments do |builder| %>
+          <%= render 'installment_fields', f: builder %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to_add_association 'Adicionar parcela', f, :installments, class: "btn btn-primary", data: { association_insertion_node: '.installments', association_insertion_method: :append }  %>
+      <%= f.input :total_value %>
+      <%= f.submit "Salvar invoice", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
