@@ -10,6 +10,11 @@ class Installment < ApplicationRecord
   # We need this so that the program understands that value is a Money object
   monetize :value_cents, with_model_currency: :currency
 
+  # For ActiveAdmin
+  def name
+    "#{id} - #{number}"
+  end
+
   def outstanding_days
     due_date > Time.now ? TimeDifference.between(due_date, Time.now).in_days : 0
   end

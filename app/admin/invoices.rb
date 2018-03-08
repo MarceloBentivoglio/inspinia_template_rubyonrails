@@ -21,7 +21,6 @@ ActiveAdmin.register Invoice do
     column :created_at
     column :payer
     column :number
-    column :order
     column :buyer
     column :invoice_type
     column :delivery_status

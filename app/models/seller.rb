@@ -16,6 +16,10 @@ class Seller < ApplicationRecord
   monetize :limit_cents, with_model_currency: :currency
 
 
+  def name
+    "#{id} - #{company_nickname}"
+  end
+
   def total_leverage
     debts.where(debt_type: 5).sum('balance_amount_cents') / 100
   end

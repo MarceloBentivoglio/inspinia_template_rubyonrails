@@ -46,6 +46,10 @@ class Invoice < ApplicationRecord
   # We need this so that the program understands that total_value is a Money object
   monetize :total_value_cents, with_model_currency: :currency
 
+  # For Active Admin
+  def name
+    "#{id} - #{number}"
+  end
 
   def deposit_value
     total_value - gross_interest - iof - iof_ad
