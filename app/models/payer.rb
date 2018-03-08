@@ -5,4 +5,9 @@ class Payer < ApplicationRecord
   has_many :invoices
 
   validates :identification_number, uniqueness: true
+
+  # For Active Admin
+  def name
+    "#{id} - #{company_nickname}"
+  end
 end
