@@ -20,6 +20,8 @@ class InvoicesController < ApplicationController
     @seller = @invoice.seller
     @payer = @invoice.payer
     @installments = @invoice.installments
+    @seller_used_limit = @seller.used_limit
+    @seller_used_limit_percentage = @seller_used_limit[:relative] * 100
 
     @installments_paid_amount = Money.new(@seller.invoices.joins(:installments).where(installments: {paid: true}).sum("value_cents"))
     @installments_paid_quantity = @seller.invoices.joins(:installments).where(installments: {paid: true}).count
