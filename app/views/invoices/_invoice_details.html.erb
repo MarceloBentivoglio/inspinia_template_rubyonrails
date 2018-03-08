@@ -18,12 +18,14 @@
       <div>
         <strong>Limite</strong>
         <br>
-        <span>Utilizado: R$50.000,00</span>
+        <span>Utilizado: <%= humanized_money_with_symbol @seller_used_limit[:absolute] %></span>
         <span class="pull-right small text-muted">
           <%= humanized_money_with_symbol @seller.limit %>
         </span>
         <div class="progress progress-striped active">
-          <div style="width: 50%;" class="progress-bar progress-bar-navy-light">50%</div>
+          <div style="width: <%= number_to_percentage(@seller_used_limit_percentage, precision: 0) %>;" class="progress-bar progress-bar-navy-light">
+            <%= number_to_percentage(@seller_used_limit_percentage, precision: 0) %>
+          </div>
         </div>
       </div>
       <hr class="hr-line-dashed-strong">
