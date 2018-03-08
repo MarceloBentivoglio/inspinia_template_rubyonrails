@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
     invoices_for_sale = Invoice.for_sale.includes(:seller).to_a
     @rejected_invoices = Rejection.includes(:invoice).where(rejector: current_user.client).map(&:invoice)
     @offered_invoices = invoices_for_sale - @rejected_invoices
-    @purchased_invoices = Invoice.sold.joins(:client).where(buyer: current_user.client)
+    @purchased_invoices = Invoice.sold.includes(:seller).where(buyer: current_user.client)
     # TODO: verificar se há melhora de performance com a linha de código abaixo
     # @purchased_invoices = Invoice.sold.includes(operation: {seller: {client: :user}}).where(buyer: current_user.client)
   end
@@ -118,7 +118,7 @@ class InvoicesController < ApplicationController
     # In the strong parameters we need to pass the attributes of intallments so that the invoice form can understand it
     params
       .require(:invoice)
-      .permit(:number, :total_value, :invoice_type, :sale_status, installments_attributes: [:id, :invoice_id, :_destroy, :number, :value, :due_date])
+      .permit(:number, :total_value, :invoice_type, :sale_status, installments_attributes: [:id, :invoice_id, :_destroy, :number, :value, :due_date, :deposit_date])
   end
 
   def payer_params
