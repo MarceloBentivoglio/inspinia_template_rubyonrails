@@ -5,6 +5,6 @@
   <td ><%= invoice.seller.company_nickname %></td>
   <td><i class="fa fa-calendar"></i> <%= invoice.average_outstanding_days.to_i %></td>
   <td>R$ <%= humanized_money invoice.total_value %></td>
-  <td>R$ <%= humanized_money invoice.interest %></td>
+  <td>R$ <%= humanized_money invoice.gross_interest %></td>
   <td class="client-status"><span class="label label-primary"><%= number_with_precision(invoice.gross_interest_percentage, precision: 2) %>%</span></td>
 </tr>
