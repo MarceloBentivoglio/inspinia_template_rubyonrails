@@ -1,9 +1,9 @@
 class InvoicesController < ApplicationController
   def index
-    invoices_for_sale = Invoice.for_sale.includes(operation: :seller).to_a
+    invoices_for_sale = Invoice.for_sale.includes(:seller).to_a
     @rejected_invoices = Rejection.includes(:invoice).where(rejector: current_user.client).map(&:invoice)
     @offered_invoices = invoices_for_sale - @rejected_invoices
-    @purchased_invoices = Invoice.sold.includes(operation: :seller).where(buyer: current_user.client)
+    @purchased_invoices = Invoice.sold.joins(:client).where(buyer: current_user.client)
     # TODO: verificar se há melhora de performance com a linha de código abaixo
     # @purchased_invoices = Invoice.sold.includes(operation: {seller: {client: :user}}).where(buyer: current_user.client)
   end
