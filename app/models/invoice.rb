@@ -21,13 +21,12 @@ class Invoice < ApplicationRecord
   enum sale_status: {
     not_available: 0,
     for_sale: 1,
-    bought: 2,
+    sold: 2,
   }
 
   belongs_to :operation, optional: true
   belongs_to :payer
   belongs_to :seller
-  # delegate :seller, to: :operation, allow_nil: true
   belongs_to :order, optional: true
   has_many :rebuys
   has_many :installments, dependent: :destroy
@@ -38,7 +37,7 @@ class Invoice < ApplicationRecord
                                 # reject_if: :all_blank
   accepts_nested_attributes_for :payer,
                                 allow_destroy: true
-  accepts_nested_attributes_for :operation,
+  accepts_nested_attributes_for :seller,
                                 allow_destroy: true
 
   # We need this to upload the invoices in xml format
@@ -47,18 +46,6 @@ class Invoice < ApplicationRecord
   # We need this so that the program understands that total_value is a Money object
   monetize :total_value_cents, with_model_currency: :currency
 
-
-  def self.from_file(file)
-    doc = Nokogiri::XML(file.read)
-    file.rewind
-    invoice = Invoice.new
-    invoice = extract_invoice_general_info(doc, invoice)
-    invoice = extract_installments(doc, invoice)
-    invoice = extract_payer_info(doc, invoice)
-    invoice.operation = Operation.new()
-    extract_seller_info(doc, invoice)
-    return invoice
-  end
 
   def deposit_value
     total_value - gross_interest - iof - iof_ad
@@ -113,6 +100,17 @@ class Invoice < ApplicationRecord
 
   def test_ar
     number.to_i + 10
+  end
+
+  def self.from_file(file)
+    doc = Nokogiri::XML(file.read)
+    file.rewind
+    invoice = Invoice.new
+    invoice = extract_invoice_general_info(doc, invoice)
+    invoice = extract_installments(doc, invoice)
+    invoice = extract_payer_info(doc, invoice)
+    invoice = extract_seller_info(doc, invoice)
+    return invoice
   end
 
   private
@@ -171,7 +169,8 @@ class Invoice < ApplicationRecord
         seller.company_name = xml_seller_info.search('xNome').text.strip
         seller.company_nickname = xml_seller_info.search('xFant').text.strip
       end
-      invoice.operation.seller = seller
+      invoice.seller = seller
+      return invoice
     end
   end
 end

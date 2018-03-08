@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
       order.save!
 
       order.invoices.each do |invoice|
-        invoice.bought!
+        invoice.sold!
         invoice.buyer = current_user.client
         invoice.save!
       end
