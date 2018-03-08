@@ -16,7 +16,7 @@ class Installment < ApplicationRecord
   end
 
   def outstanding_days
-    due_date > Time.now ? TimeDifference.between(due_date, Time.now).in_days : 0
+    due_date > Time.now ? (TimeDifference.between(due_date, Time.now).in_days + 3) : 0
   end
 
   def closure_outstanding_days
