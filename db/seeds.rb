@@ -1,37 +1,37 @@
-puts 'Cleaning database...'
-EquityHolder.destroy_all
-SellersLimit.destroy_all
-SellersConcentration.destroy_all
-Installment.destroy_all
-Invoice.destroy_all
-QualitativeInformation.destroy_all
-Revenue.destroy_all
-SeasonSale.destroy_all
+# puts 'Cleaning database...'
+# EquityHolder.destroy_all
+# SellersLimit.destroy_all
+# SellersConcentration.destroy_all
+# Installment.destroy_all
+# Invoice.destroy_all
+# QualitativeInformation.destroy_all
+# Revenue.destroy_all
+# SeasonSale.destroy_all
 Debt.destroy_all
-Finantial.destroy_all
-Operation.destroy_all
-Seller.destroy_all
-Payer.destroy_all
-User.destroy_all
-Client.destroy_all
-
-
-puts 'Creating new Client...'
-client = Client.create!(
-  name: 'MVP Invest',
-  cnpj: '23198636000195',
-  available_funds: Money.new(100000000)
-  )
-
-client2 = Client.create!(
-  name: 'Sabia Fomento Mercantil Limitada',
-  cnpj: '24648847000145',
-  available_funds: Money.new(3000000000)
-  )
-
-puts 'Creating new User...'
-user = User.create!(email: 'test@email.com', password: '123123', client: client, admin: true)
-
+FinantialInstitution.destroy_all
+# Operation.destroy_all
+# Seller.destroy_all
+# Payer.destroy_all
+# User.destroy_all
+# Client.destroy_all
+#
+#
+# puts 'Creating new Client...'
+# client = Client.create!(
+#   name: 'MVP Invest',
+#   cnpj: '23198636000195',
+#   available_funds: Money.new(100000000)
+#   )
+#
+# client2 = Client.create!(
+#   name: 'Sabia Fomento Mercantil Limitada',
+#   cnpj: '24648847000145',
+#   available_funds: Money.new(3000000000)
+#   )
+#
+# puts 'Creating new User...'
+# user = User.create!(email: 'test@email.com', password: '123123', client: client, admin: true)
+#
 puts 'Creating Finantial Institutions...'
 f1 = FinantialInstitution.create!(name: 'Itaú')
 f2 = FinantialInstitution.create!(name: 'Bradesco')
@@ -267,36 +267,36 @@ puts 'Creating Legals... seller1'
 # puts 'Creating new Operation...'
 # operation = Operation.create!(seller: seller1, closure_date: Time.now, total_value: Money.new(12000), average_outstanding_days: 38)
 
-puts 'Creating new Invoices...'
-invoice = Invoice.create!(
-  operation: Operation.last,
-  payer: Payer.last,
-  seller: Operation.last.seller,
-  number: "40012",
-  confirmed: true,
-  notified: true,
-  total_value: Money.new(10000)
-)
+# puts 'Creating new Invoices...'
+# invoice = Invoice.create!(
+#   operation: Operation.last,
+#   payer: Payer.last,
+#   seller: Operation.last.seller,
+#   number: "40012",
+#   confirmed: true,
+#   notified: true,
+#   total_value: Money.new(10000)
+# )
 
 # invoice2 = Invoice.create!(operation: operation, payer: payer2, invoice_number: "40015", status: "disponivel", delivery_status: true, confirmed: true, notified: true, average_outstanding_days: 24, total_value: Money.new(4000))
 
 
-puts 'Creating new Installments...'
-i = Installment.create!(
-  invoice: invoice,
-  number: "40012/1",
-  value: Money.new(5000),
-  due_date: Time.now,
-  paid: false
-)
-
-i2 = Installment.create!(
-  invoice: invoice,
-  number: "40012/2",
-  value: Money.new(5000),
-  due_date: Time.now,
-  paid: true
-)
+# puts 'Creating new Installments...'
+# i = Installment.create!(
+#   invoice: invoice,
+#   number: "40012/1",
+#   value: Money.new(5000),
+#   due_date: Time.now,
+#   paid: false
+# )
+#
+# i2 = Installment.create!(
+#   invoice: invoice,
+#   number: "40012/2",
+#   value: Money.new(5000),
+#   due_date: Time.now,
+#   paid: true
+# )
 # i3 = Installment.create!(invoice: invoice2, number: "40015/1", value: Money.new(1000), due_date: Time.now + 30)
 # i4 = Installment.create!(invoice: invoice2, number: "40015/2", value: Money.new(1000), due_date: Time.now + 58)
 # i5 = Installment.create!(invoice: invoice2, number: "40015/3", value: Money.new(1000), due_date: Time.now + 88)
