@@ -19,19 +19,22 @@ FinantialInstitution.destroy_all
 # puts 'Creating new Client...'
 # client = Client.create!(
 #   name: 'MVP Invest',
+#   company_nickname: 'Agência Itaim',
 #   cnpj: '23198636000195',
 #   available_funds: Money.new(100000000)
 #   )
 #
 # client2 = Client.create!(
 #   name: 'Sabia Fomento Mercantil Limitada',
+#    company_nickname: 'Agência Alameda',
 #   cnpj: '24648847000145',
 #   available_funds: Money.new(3000000000)
 #   )
 #
 # puts 'Creating new User...'
 # user = User.create!(email: 'test@email.com', password: '123123', client: client, admin: true)
-#
+# user2 = User.create!(email: 'test2@email.com', password: '123123', client: client2, admin: true)
+
 puts 'Creating Finantial Institutions...'
 f1 = FinantialInstitution.create!(name: 'Itaú')
 f2 = FinantialInstitution.create!(name: 'Bradesco')
