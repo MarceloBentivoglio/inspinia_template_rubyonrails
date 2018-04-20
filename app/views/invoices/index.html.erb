@@ -9,11 +9,13 @@
           <div class="clients-list">
             <ul class="nav nav-tabs">
               <!-- <span class="pull-right small text-muted">1406 Elements</span> -->
-              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-th-list"></i>Disponíveis</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-shopping-cart"></i>Comprados</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-exclamation-triangle"></i>Rejeitados</a></li>
-
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-th-list"></i>Loja</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-exclamation-triangle"></i>Rejeitados</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-shopping-cart"></i>Comprados</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-arrow-right"></i>Vendidos</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-5"><i class="fa fa-cogs"></i>Disponíveis</a></li>
             </ul>
+
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
                 <div>
@@ -32,6 +34,7 @@
                             <th scope="col">Valor de Face</th>
                             <th scope="col">Fator +Ad</th>
                             <th scope="col">Taxa Bruta</th>
+                            <th scope="col">Vendedor</th>
                           </tr>
                         </thead>
                         <% @offered_invoices.each do |invoice| %>
@@ -56,9 +59,10 @@
                             <th scope="col">Valor de Face</th>
                             <th scope="col">Fator +Ad</th>
                             <th scope="col">Taxa Bruta</th>
+                            <th scope="col">Vendedor</th>
                           </tr>
                         </thead>
-                        <% @purchased_invoices.each do |invoice| %>
+                        <% @rejected_invoices.each do |invoice| %>
                           <%= render 'invoice_table_item', invoice: invoice %>
                         <% end %>
                       </tbody>
@@ -80,10 +84,61 @@
                             <th scope="col">Valor de Face</th>
                             <th scope="col">Fator +Ad</th>
                             <th scope="col">Taxa Bruta</th>
+                            <th scope="col">Vendedor</th>
                           </tr>
                         </thead>
-                        <% @rejected_invoices.each do |invoice| %>
+                        <% @purchased_invoices.each do |invoice| %>
                           <%= render 'invoice_table_item', invoice: invoice %>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+              <div id="tab-4" class="tab-pane">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-fixed">
+                      <tbody>
+                        <thead>
+                          <tr>
+                            <th scope="col"><i class="fa fa-check"></i></th>
+                            <th scope="col">Cedente</th>
+                            <th scope="col">Dias</th>
+                            <th scope="col">Valor de Face</th>
+                            <th scope="col">Fator +Ad</th>
+                            <th scope="col">Taxa Bruta</th>
+                            <th scope="col">Comprador</th>
+                          </tr>
+                        </thead>
+                        <% @sold_invoices.each do |invoice| %>
+                          <%= render 'invoice_table_item_sold', invoice: invoice %>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div id="tab-5" class="tab-pane">
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-fixed">
+                      <tbody>
+                        <thead>
+                          <tr>
+                            <th scope="col"><i class="fa fa-check"></i></th>
+                            <th scope="col">Cedente</th>
+                            <th scope="col">Dias</th>
+                            <th scope="col">Valor de Face</th>
+                            <th scope="col">Fator +Ad</th>
+                            <th scope="col">Taxa Bruta</th>
+                          </tr>
+                        </thead>
+                        <% @user_offered_invoices.each do |invoice| %>
+                          <%= render 'invoice_table_item_user_offers', invoice: invoice %>
                         <% end %>
                       </tbody>
                     </table>
