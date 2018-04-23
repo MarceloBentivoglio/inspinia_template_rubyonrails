@@ -103,6 +103,22 @@ class InvoicesController < ApplicationController
     @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
   end
 
+  def not_available
+    @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
+    @invoices.each do |invoice|
+      invoice.not_available!
+    end
+    render :index
+  end
+
+  def available
+
+  end
+
+  def remove
+
+  end
+
   def payment_status
 
   end
