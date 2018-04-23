@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419170934) do
+ActiveRecord::Schema.define(version: 20180423160348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,9 +154,11 @@ ActiveRecord::Schema.define(version: 20180419170934) do
     t.integer "sale_status", default: 0
     t.bigint "buyer_id"
     t.bigint "seller_id"
+    t.bigint "owner_id"
     t.index ["buyer_id"], name: "index_invoices_on_buyer_id"
     t.index ["operation_id"], name: "index_invoices_on_operation_id"
     t.index ["order_id"], name: "index_invoices_on_order_id"
+    t.index ["owner_id"], name: "index_invoices_on_owner_id"
     t.index ["payer_id"], name: "index_invoices_on_payer_id"
     t.index ["seller_id"], name: "index_invoices_on_seller_id"
   end
@@ -463,6 +465,7 @@ ActiveRecord::Schema.define(version: 20180419170934) do
   add_foreign_key "finantials", "sellers"
   add_foreign_key "installments", "invoices"
   add_foreign_key "invoices", "clients", column: "buyer_id"
+  add_foreign_key "invoices", "clients", column: "owner_id"
   add_foreign_key "invoices", "operations"
   add_foreign_key "invoices", "orders"
   add_foreign_key "invoices", "payers"

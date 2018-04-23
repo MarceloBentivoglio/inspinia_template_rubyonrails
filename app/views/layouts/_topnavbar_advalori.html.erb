@@ -12,7 +12,9 @@
         <li><%= link_to 'Clientes', sellers_path %></li>
       </ul>
       <ul class="nav navbar-top-links navbar-right">
+        <% if user_signed_in? %>
         <li><%= current_user.client.company_nickname %></li>
+        <% end %>
         <li>
           <%= link_to destroy_user_session_path, method: :delete do %>
             Sair <i class="fa fa-sign-out"> </i>

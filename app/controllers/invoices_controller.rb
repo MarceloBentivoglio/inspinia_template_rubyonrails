@@ -1,7 +1,9 @@
 class InvoicesController < ApplicationController
   def index
     invoices_for_sale = Invoice.for_sale.includes(:seller).to_a
-    @user_offered_invoices =  Invoice.for_sale.includes(:seller).where(seller: current_user.client.sellers)
+    user_invoices_for_sale = Invoice.for_sale.includes(:seller).where(seller: current_user.client.sellers).to_a
+    user_invoices_not_available = Invoice.where("sale_status = ? AND (backoffice_status = ? OR backoffice_status = ?)", 0, 0, 1).where(seller: current_user.client.sellers).to_a
+    @user_offered_invoices = user_invoices_for_sale + user_invoices_not_available
     @rejected_invoices = Rejection.includes(:invoice).where(rejector: current_user.client).map(&:invoice)
     @offered_invoices = invoices_for_sale - @rejected_invoices
     @purchased_invoices = Invoice.sold.includes(:seller).where(buyer: current_user.client)
@@ -101,6 +103,30 @@ class InvoicesController < ApplicationController
 
   def rejection
     @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
+  end
+
+  def not_available
+    @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
+    @invoices.each do |invoice|
+      invoice.not_available!
+    end
+    redirect_to invoices_path
+  end
+
+  def available
+    @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
+    @invoices.each do |invoice|
+      invoice.for_sale!
+    end
+    redirect_to invoices_path
+  end
+
+  def remove
+    @invoices = Invoice.find(JSON.parse(params[:invoices_ids]))
+    @invoices.each do |invoice|
+      invoice.destroy!
+    end
+    redirect_to invoices_path
   end
 
   def payment_status

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     collection do
       get :checkout
       get :rejection
+      get :not_available
+      get :available
+      get :remove
     end
   end
 
