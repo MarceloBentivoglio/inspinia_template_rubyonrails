@@ -1,44 +1,44 @@
-<div class="wrapper wrapper-content">
-
-  <%= simple_form_for @invoice, url: invoices_load_xml_path do |f| %>
-  <%= f.error_notification %>
-  <h2>Upload de documento</h2>
-  <div class="form-inputs">
-    <div class="control-group">
-      <%= f.label :xml_file, class: 'control-label' %>
-      <div class="controls">
-        <%= f.file_field :xml_file %>
+<div class="container">
+  <div class="wrapper wrapper-content">
+    <div class="form-box">
+      <%= simple_form_for @invoice, url: invoices_load_xml_path do |f| %>
+      <%= f.error_notification %>
+      <h1>Upload de documento</h1>
+      <div class="form-inputs form-upload">
+        <div class="control-group">
+          <%= f.label :xml_file, class: 'control-label' %>
+          <div class="controls">
+            <%= f.file_field :xml_file, class: 'inputfile' %>
+          </div>
+        </div>
+        <div class="form-actions">
+          <%= f.submit 'carregar xml', class: 'btn btn-primary' %>
+        </div>
       </div>
-    </div>
-    <div class="form-actions">
-      <%= f.submit 'carregar xml', :class => 'btn btn-primary' %>
-    </div>
-  </div>
-  <% end %>
+      <% end %>
 
-  <div>
-    <h2>Dados do título</h2>
-    <%= simple_form_for(@invoice, url: invoices_path) do |f| %>
-      <h3>Cedente</h3>
+      <h1>Dados do título</h1>
+      <%= simple_form_for(@invoice, url: invoices_path) do |f| %>
+      <h4>Cedente</h4>
       <%= f.simple_fields_for :seller do |seller| %>
-        <%= seller.input :company_name %>
-        <%= seller.input :identification_number %>
-        <%= seller.hidden_field :company_nickname %>
+      <%= seller.input :company_name %>
+      <%= seller.input :identification_number %>
+      <%= seller.hidden_field :company_nickname %>
       <% end %>
-      <h3>Sacado</h3>
+      <h4>Sacado</h4>
       <%= f.simple_fields_for :payer do |payer| %>
-        <%= payer.input :company_name %>
-        <%= payer.input :identification_number %>
-        <%= payer.hidden_field :address %>
-        <%= payer.hidden_field :address_number %>
-        <%= payer.hidden_field :neighborhood %>
-        <%= payer.hidden_field :city %>
-        <%= payer.hidden_field :state %>
-        <%= payer.hidden_field :zip_code %>
-        <%= payer.hidden_field :registration_number %>
+      <%= payer.input :company_name %>
+      <%= payer.input :identification_number %>
+      <%= payer.hidden_field :address %>
+      <%= payer.hidden_field :address_number %>
+      <%= payer.hidden_field :neighborhood %>
+      <%= payer.hidden_field :city %>
+      <%= payer.hidden_field :state %>
+      <%= payer.hidden_field :zip_code %>
+      <%= payer.hidden_field :registration_number %>
       <% end %>
-      <%= f.input :invoice_type, label: "Tipo de documento:" %>
-      <%= f.input :sale_status, label: "Disponibiliade para venda:" %>
+      <%= f.input :invoice_type, label: "Tipo de documento" %>
+      <%= f.input :sale_status, label: "Disponibiliade para venda" %>
       <%= f.input :number %>
       <table class="table">
         <thead>
@@ -57,6 +57,7 @@
       <%= link_to_add_association 'Adicionar parcela', f, :installments, class: "btn btn-primary", data: { association_insertion_node: '.installments', association_insertion_method: :append }  %>
       <%= f.input :total_value %>
       <%= f.submit "Salvar invoice", class: "btn btn-primary" %>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

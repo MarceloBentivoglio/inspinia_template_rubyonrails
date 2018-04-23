@@ -9,3 +9,4 @@
 
 import "./invoices";
 import "./checkout";
+import "./invoices_new";
