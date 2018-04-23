@@ -10,7 +10,7 @@
   font-weight: normal;
   }
   h4 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
   }
   p, th {
@@ -30,17 +30,22 @@
   	position: absolute;
   	z-index: -1;
   }
-  .inputfile + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
 }
 
-  .inputfile:focus + label,
-  .inputfile + label:hover {
-      background-color: red;
+.label-upload {
+  border-style: dotted;
+  border-width: thin;
+  border-color: #C3C5C8;
+  height: 40px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #FFFFFF;
+  transition: background 0.5s ease;
+  &:hover {
+    background: #F7F8FB;
   }
 }
 

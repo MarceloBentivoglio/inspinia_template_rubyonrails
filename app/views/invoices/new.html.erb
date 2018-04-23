@@ -6,9 +6,9 @@
       <h1>Upload de documento</h1>
       <div class="form-inputs form-upload">
         <div class="control-group">
-          <%= f.label :xml_file, class: 'control-label' %>
           <div class="controls">
             <%= f.file_field :xml_file, class: 'inputfile' %>
+            <%= f.label :xml_file, 'Escolha um Arquivo', class: 'control-label label-upload' %>
           </div>
         </div>
         <div class="form-actions">
@@ -21,14 +21,14 @@
       <%= simple_form_for(@invoice, url: invoices_path) do |f| %>
       <h4>Cedente</h4>
       <%= f.simple_fields_for :seller do |seller| %>
-      <%= seller.input :company_name %>
-      <%= seller.input :identification_number %>
+      <%= seller.input :company_name, label: 'Razão Social' %>
+      <%= seller.input :identification_number, label: 'CNPJ' %>
       <%= seller.hidden_field :company_nickname %>
       <% end %>
       <h4>Sacado</h4>
       <%= f.simple_fields_for :payer do |payer| %>
-      <%= payer.input :company_name %>
-      <%= payer.input :identification_number %>
+      <%= payer.input :company_name, label: 'Razão Social' %>
+      <%= payer.input :identification_number, label: 'CNPJ' %>
       <%= payer.hidden_field :address %>
       <%= payer.hidden_field :address_number %>
       <%= payer.hidden_field :neighborhood %>
@@ -39,7 +39,7 @@
       <% end %>
       <%= f.input :invoice_type, label: "Tipo de documento" %>
       <%= f.input :sale_status, label: "Disponibiliade para venda" %>
-      <%= f.input :number %>
+      <%= f.input :number, label: 'Número' %>
       <table class="table">
         <thead>
           <th></th>
