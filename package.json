@@ -3,11 +3,15 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.2.0",
+    "babel-loader": "^7.1.4",
     "bootstrap": "3",
     "coffeescript": "1.12.7",
-    "currency-formatter": "^1.4.1"
+    "currency-formatter": "^1.4.1",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.14",
     "webpack-dev-server": "^2.11.1"
   }
 }
