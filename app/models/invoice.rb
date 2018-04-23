@@ -31,6 +31,7 @@ class Invoice < ApplicationRecord
   has_many :rebuys
   has_many :installments, dependent: :destroy
   belongs_to :buyer, class_name: "Client", optional: true
+  belongs_to :owner, class_name: "Client", optional: true
   # We need this line so that we can create invoice forms with installments (reference: https://www.youtube.com/watch?v=pulzZxPkgmE)
   accepts_nested_attributes_for :installments,
                                 allow_destroy: true
