@@ -2,16 +2,6 @@
   <td><%= link_to_remove_association "remover parcela", f, class: 'btn btn-primary btn-xs' %></td>
   <td><%= f.input :number, label: false %></td>
   <td><%= f.input :value, label: false %></td>
-  <td><%= f.input :due_date, label: false %></td>
-  <td><%= f.input :deposit_date, label: false %></td>
+  <td><%= f.input :due_date, label: false, as: :date_time_picker %></td>
+  <td><%= f.input :deposit_date, label: false, as: :date_time_picker %></td>
 </tr>
-
-<!-- add as: :date_time_picker to f.input of date_times -->
-<!-- <script type="text/javascript">
-    $('.form_datetime').datetimepicker({
-      autoclose: true,
-      todayBtn: true,
-      pickerPosition: "bottom-left",
-      format: 'mm-dd-yyyy hh:ii'
-    });
-</script> -->
