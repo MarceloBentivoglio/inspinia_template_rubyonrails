@@ -29,7 +29,9 @@ class Seller < ApplicationRecord
   end
 
   def total_costs
-    finantials[0].total_wages_cost_cents + finantials[0].rent_cost_cents + finantials[0].relevant_fixed_cost_cents + finantials[0].cost_of_goods_sold_cents
+    if finantials[0]
+      finantials[0].total_wages_cost_cents + finantials[0].rent_cost_cents + finantials[0].relevant_fixed_cost_cents + finantials[0].cost_of_goods_sold_cents
+    end
   end
 
   def average_revenue

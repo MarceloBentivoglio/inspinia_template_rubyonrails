@@ -22,18 +22,21 @@ class SellersController < ApplicationController
   def show
     @seller = Seller.find(params[:id])
     #TODO get the data from the year that the user wants. in fact the description should be on the seller not in the finantital
-    @finantial = @seller.finantials.first
 
     year_revenue = @seller.revenues.first
-    @year = year_revenue.information_year
-    revenue_hash = year_revenue.to_hash
-    @revenue_x_axis = revenue_hash.keys
-    @revenue_y_axis = revenue_hash.values
+    if year_revenue
+      @year = year_revenue.information_year
+      revenue_hash = year_revenue.to_hash
+      @revenue_x_axis = revenue_hash.keys
+      @revenue_y_axis = revenue_hash.values
+    end
 
     season_sales = @seller.season_sales.first
-    season_sales_hash = season_sales.to_hash
-    @season_sales_x_axis = season_sales_hash.keys
-    @season_sales_y_axis = season_sales_hash.values
+    if season_sales
+      season_sales_hash = season_sales.to_hash
+      @season_sales_x_axis = season_sales_hash.keys
+      @season_sales_y_axis = season_sales_hash.values
+    end
 
     alavancagem = {}
     endividamento = {}
@@ -52,9 +55,12 @@ class SellersController < ApplicationController
     @year_legal = @seller.legals.first
 
     #TODO: A view do seller_table não entende o @total_cost ?
+    @finantials = @seller.finantials.first
     @total_cost = Money.new(0)
-    @total_cost = @seller.finantials.first.total_wages_cost + @seller.finantials.first.rent_cost + @seller.finantials.first.cost_of_goods_sold + @seller.finantials.first.relevant_fixed_cost
-
+    if @finantials
+      @total_cost = @finantials.total_wages_cost + @finantials.rent_cost + @finantials.cost_of_goods_sold + @finantials.relevant_fixed_cost
+      @production_economics_cycle_description = @finantials.production_economics_cycle_description
+    end
     @installments_paid_amount = Money.new(@seller.invoices.joins(:installments).where(installments: {paid: true}).sum("value_cents"))
     @installments_paid_quantity = @seller.invoices.joins(:installments).where(installments: {paid: true}).count
     @installments_paid = @seller.invoices.joins(:installments).where(installments: {paid: true}).group_by_month(:due_date, format: "%b %y").sum("value_cents")

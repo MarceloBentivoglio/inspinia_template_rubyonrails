@@ -49,7 +49,7 @@
               <li>
                 <span class="fa fa-industry m-r-xs"></span>
                 <label>Descrição do negócio:</label>
-                <%= @finantial.production_economics_cycle_description %>
+                <%= @production_economics_cycle_description %>
               </li>
             </ul>
 
@@ -196,27 +196,37 @@
             <li>
               <span class="fa fa-handshake-o m-r-xs"></span>
               <label>Salários:</label>
-              <%= humanized_money_with_symbol @seller.finantials[0].total_wages_cost_cents %>
+              <% if @finantials %>
+                <%= humanized_money_with_symbol @finantials.total_wages_cost_cents %>
+              <% end %>
             </li>
             <li>
               <span class="fa fa-users m-r-xs"></span>
               <label>Número de funcionários:</label>
-              <%= @seller.finantials[0].employee_quantity %>
+              <% if @finantials %>
+                <%= @finantials.employee_quantity %>
+              <% end %>
             </li>
             <li>
               <span class="fa fa-university m-r-xs"></span>
               <label>Aluguel:</label>
-              <%= humanized_money_with_symbol @seller.finantials[0].rent_cost_cents %>
+              <% if @finantials %>
+                <%= humanized_money_with_symbol @finantials.rent_cost_cents %>
+              <% end %>
             </li>
             <li>
               <span class="fa fa-gift m-r-xs"></span>
               <label>Custo da mercadoria vendida:</label>
-              <%= humanized_money_with_symbol @seller.finantials[0].cost_of_goods_sold_cents %>
+              <% if @finantials %>
+                <%= humanized_money_with_symbol @finantials.cost_of_goods_sold_cents %>
+              <% end %>
             </li>
             <li>
               <span class="fa fa-money m-r-xs"></span>
               <label>Outros custos fixos relevantes:</label>
-              <%= humanized_money_with_symbol @seller.finantials[0].relevant_fixed_cost_cents %>
+              <% if @finantials %>
+                <%= humanized_money_with_symbol @finantials.relevant_fixed_cost_cents %>
+              <% end %>
             </li>
           </ul>
         </div>
@@ -240,35 +250,35 @@
         </div>
         <div class="ibox-content">
           <ul class="list-unstyled m-t-md">
-            <% if @year_legal.civil_suits_quantity.present? %>
+            <% if @year_legal %>
               <li>
                 <span class="fa fa-gavel m-r-xs"></span>
                 <label>Civil:</label>
                 <%= "#{@year_legal.civil_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.civil_suits_amount}" %>
               </li>
             <% end %>
-            <% if @year_legal.labor_suits_quantity.present? %>
+            <% if @year_legal %>
               <li>
                 <span class="fa fa-gavel m-r-xs"></span>
                 <label>Trabalhista:</label>
                 <%= "#{@year_legal.labor_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.labor_suits_amount}" %>
               </li>
             <% end %>
-            <% if @year_legal.penal_suits_quantity.present? %>
+            <% if @year_legal %>
               <li>
                 <span class="fa fa-gavel m-r-xs"></span>
                 <label>Penal:</label>
                 <%= "#{@year_legal.penal_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.penal_suits_amount}" %>
               </li>
             <% end %>
-            <% if @year_legal.fiscal_suits_quantity.present? %>
+            <% if @year_legal %>
               <li>
                 <span class="fa fa-gavel m-r-xs"></span>
                 <label>Tributário:</label>
                 <%= "#{@year_legal.fiscal_suits_quantity} totalizando #{humanized_money_with_symbol @year_legal.fiscal_suits_amount}" %>
               </li>
             <% end %>
-            <% if @year_legal.enforcement_monition_suits_quantity.present? %>
+            <% if @year_legal %>
               <li>
                 <span class="fa fa-gavel m-r-xs"></span>
                 <label>Execução/Monitória:</label>
